@@ -33,8 +33,7 @@ Tools
 25. Next gen test tools
 26. NoSQL
 27. Neo4j
-28. Message buses 
-without smarts
+28. Message buses without smarts
 29. Puppet
 30. mongoDB
 31. Mercurial

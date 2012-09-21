@@ -15,8 +15,7 @@ Techniques
 9. DevOps
 10. Simple performance trending
 11. Continuous delivery
-12. Concurrency abstractions
-and patterns
+12. Concurrency abstractions and patterns
 13. Acceptance test of journeys
 14. Categorization & prioritization 
 of technical debt
@@ -44,15 +43,13 @@ Tools
 34. Caching reverse proxies
 35. Splunk
 36. Mercurial
-37. Message buses without
-smarts
+37. Message buses without smarts
 38. NoSQL
 39. Next gen test tools
 40. New Relic beyond Rails
 41. TLB
 42. Powershell
-43. Selenium 2 testing of
-mobile websites
+43. Selenium 2 testing of mobile websites
 44. Deltacloud
 45. Vagrant
 46. API management services

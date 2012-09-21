@@ -13,8 +13,7 @@ Techniques
 7. Automate database deployment
 8. Concurrency abstractions and patterns
 9. Capability modelling
-10. Acceptance test 
-of journeys
+10. Acceptance test of journeys
 11. DevOps
 12. Service choreography
 13. Continuous deployment
