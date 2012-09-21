@@ -1,10 +1,22 @@
+require_relative "../lib/radar_dynamo"
 
-# test data load of sample data set
+describe RadarDynamo do
 
-subject.radars.size.should == 2
-subject.classifications.size.should == 4
-subject.classifications.should == {'Adopt', 'Trial', 'Assess', 'Hold'}
-subject.aggregate_state.technologies.should = {'Python', 'Ruby', 'Maven'} # test data
+  subject { RadarDynamo.new 'spec/radars' }
+
+  it "should see files in dir" do
+  	subject.filenames.should == ["2010-01.txt", "2012-03.txt"]
+  end
+
+  describe "#data" do
+    let(:data) { subject.data_output }
+
+    it "has all data in tech -> radar -> classification, type, number" do
+      test_hash = { "Python" => { [Date.new(2012, 3, 1)] => ['Adopt', 'Language', 1] }, "Ruby" => { [Date.new(2012, 3, 1), Date.new(2010, 1, 1)] => ['Adopt', 'Language', 1] } }
+      data.should == test_hash
+    end
+  end
+end
 
 
-subject.data.should .... ?
+

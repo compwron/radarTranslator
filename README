@@ -9,15 +9,10 @@ see "current" recommendations by aggregating old recommendations
 turn data into json which can be worked with by others
 enable future turning of data into json
 
-which data structure would be better? 
+anticipated data structure:
+- tech name
+- - radar mentioned
+- - - classification (adopt/hold/etc), type (platform, language, etc), number
 
-radar date
-- adopt
-- - type
-- - - number : technology name
-
-tech name
-- radar mentioned
-- - class (adopt/hold/etc)
-- - - type, number
+data = {'tech name 1' => {'radar 1' => ['classification1', 'type1', 1]}}
 
