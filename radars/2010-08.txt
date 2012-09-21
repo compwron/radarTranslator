@@ -1,0 +1,78 @@
+Techniques
+1. Database based integration
+2. Scrum certification
+3. Incremental data warehousing
+4. DevOps
+5. Polyglot programming
+6. Automation of technical tests
+7. Capability modeling
+8. Service choreography
+9. Continuous deployment
+10. Evolutionary architecture
+11. Coding architects
+12. Visualization and metrics
+13. Web as platform
+14. Emergent design
+15. Evolutionary database
+16. Platform roadmaps
+17. Build pipelines
+
+ Tools
+ 18. ESB
+19. Intentional
+20. Cross mobile platforms
+21. Github
+22. Restfulie
+23. RDF triple stores
+24. Apache camel
+25. Next gen test tools
+26. NoSQL
+27. Neo4j
+28. Message buses 
+without smarts
+29. Puppet
+30. mongoDB
+31. Mercurial
+32. Git
+33. Squid
+34. ASP.NET MVC
+35. Subversion
+
+Platforms
+47. Rich internet applications
+48. GWT
+49. IE8
+50. WS-* beyond basic profile
+51. Azure
+52. Mobile Web
+53. Google App Engine
+54. Application appliances
+55. Google as corporate platform
+56. GPGPU
+57. App containers
+58. OAuth
+59. RDFa
+60. Location based services
+61. iPad
+62. EC2 & S3
+63. Facebook as business platform
+64. JVM as platform
+65. iPhone
+66. Android
+67. KVM
+68. Atom
+69. ALT.NET
+70. IE6 End of Life
+
+Languages
+36. Java language end of life
+37. F#
+38. Scala
+39. Clojure
+40. HTML 5
+41. DSL’s
+42. Groovy
+43. C# 4.0
+44. JRuby
+45. JavaScript as a first class language
+46. Ruby

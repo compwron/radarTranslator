@@ -1,0 +1,95 @@
+Techniques
+1. Progressive enhancement
+2. Automate database deployment
+3. Platform roadmaps
+4. Evolutionary database
+5. Emergent design
+6. Visualization and metrics
+7. Coding architects
+8. Evolutionary architecture
+9. DevOps
+10. Simple performance trending
+11. Continuous delivery
+12. Concurrency abstractions
+and patterns
+13. Acceptance test of journeys
+14. Categorization & prioritization 
+of technical debt
+15. Continuous deployment
+16. Capability modeling
+17. Thoughtful caching
+18. Iterative data warehousing
+19. Build your own radar
+20. Event API’s
+21. Event driven business intelligence
+22. Smart systems
+23. Event sourcing
+24. Decision driven BI
+25. Scrum certification
+26. Database based integration
+27. Procedure oriented integration
+28. Feature branching
+29. Manual infrastructure management
+
+Tools
+30. Subversion
+31. Git
+32. Infrastructure as code
+33. Github
+34. Caching reverse proxies
+35. Splunk
+36. Mercurial
+37. Message buses without
+smarts
+38. NoSQL
+39. Next gen test tools
+40. New Relic beyond Rails
+41. TLB
+42. Powershell
+43. Selenium 2 testing of
+mobile websites
+44. Deltacloud
+45. Vagrant
+46. API management services
+47. jQuery Mobile
+48. Backbone.js
+49. Sonar
+50. Open source bI tools
+51. Gradle
+52. Cross platform mobile toolkits
+53. ESB
+54. VCS with “implicit workflow”
+55. Code in configuration
+
+Platforms
+56. JRuby
+57. ATOM
+58. KVM
+59. AWS
+60. Mobile web
+61. Heroku
+62. Tablet (formerly iPad)
+63. Offline mobile webapps (just html5)
+64. Ubiquitous computing
+65. vFabric
+66. OpenStack
+67. Node.js
+68. OAuth
+69. GPGPU
+70. Cloud Foundry
+71. WS-*
+72. GWT
+73. Java portal servers
+
+Languages
+74. Javascript as a first class language
+75. HTML 5
+76. SASS, SCSS, and LESS
+77. HAML
+78. Domain-specific languages
+79. Scala
+80. Coffeescript
+81. Clojure
+82. F#
+83. Future of Java
+84. Logic in stored procedures

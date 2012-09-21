@@ -1,0 +1,88 @@
+Techniques 
+1. Database based integration
+2. Scrum certification
+3. Real-time business intelligence
+4.    Smart Systems
+5.    Progressive Enhancement
+6. Automation of technical tests
+7. Automate database
+deployment
+8. Concurrency abstractions
+and patterns
+9. Capability modelling
+10. Acceptance test 
+of journeys
+11. DevOps
+12. Service choreography
+13. Continuous deployment
+14. Categorization 
+& prioritization 
+of technical debt
+15. Evolutionary architecture
+16. Coding architects
+17. Visualisation and metrics
+18. Web as platform
+19. Emergent design
+20. Evolutionary database
+21. Platform roadmaps
+22. Build pipelines
+
+Tools
+23. Subversion
+24. Squid
+25.  Infrastructure as code
+26. Apache camel
+27. Message buses 
+without smarts
+28. Next gen test tools
+29.    Splunk
+30. NoSQL
+31. Mercurial
+32. Git
+33. Cross mobile platforms
+34.   Deltacloud
+35. Github
+36.   Vagrant
+37. Restfulie
+38.   WCF HTTP
+39. RDF triple stores
+40.    API management 
+  services
+41. ESB
+
+Platforms
+42.    KVM
+43. Android
+44.    Atom
+45.    Heroku
+46. Facebook as business platform
+47.    iPad
+48. EC2 & S3
+49.    Mobile Web
+50.    GPGPU
+51.    Node.js
+52.    vFabric
+53.    OpenStack
+54. Application appliances
+55. RDFa
+56. OAuth
+57. App containers
+58. Azure
+59. WS-* beyond basic profile
+60. GWT
+61. RIA
+
+Languages
+62. Ruby
+63. C# 4.0
+64. JRuby
+65. JavaScript as a first class language
+66.    SASS, SCSS, and LESS
+67. DSL’s
+68.    HAML
+69.    Scala
+70. Groovy
+71.    HTML 5
+72. Java language end of life
+73. F#
+74. Clojure

@@ -1,0 +1,49 @@
+Techniques
+1. Continuous deployment
+2. Incremental data warehousing
+3. Evolutionary architecture
+4. Evolutionary database
+5. Web as platform
+6. Emergent design
+7. Lean software 
+development
+8. Build pipelines
+9. User centered design
+
+Tools
+10. Visualization & metrics
+11. IE6 end of life
+12. ASP.NET MVC
+13. Next-generation test 
+tools
+14. Subversion
+15. Distributed version 
+control
+16. Google Wave
+17. Language workbenches
+18. Polyglot development 
+environments
+
+Platforms
+25. Android
+26. JVM as platform
+27. Firefox
+28. Cloud
+29. iPhone
+30. HTML 5
+31. Non-relational databases
+32. Rich Internet applications
+33. RDF & SPARQL
+34. Google as corporate platform
+35. Location based services
+36. Chrome OS
+37. Chrome
+38. IE8
+
+Languages
+19. C# 4.0
+20. Java language end of life
+21. Functional languages
+22. Concurrent languages
+23. DSL’s
+24. Javascript as a firstclass language

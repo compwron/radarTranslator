@@ -1,0 +1,127 @@
+http://thoughtworks.fileburst.com/assets/thoughtworks-tech-radar-march-2012-us-color.pdf
+
+Techniques
+1. Automate database deployment
+2. Coding architects
+3. Continuous Delivery (CD)
+4. Data visualizations of 
+development and operations
+5. DevOps
+6. Emergent design
+7. Evolutionary architecture
+8. Evolutionary database 
+9. Health check pages
+10. Simple performance trending
+11. Test at the appropriate level
+12. Acceptance test of journeys
+13. Agile analytics
+14. Build your own radar
+15. Categorization & prioritization 
+of technical debt
+16. Embedding a servlet container
+17. Event APIs
+18. Infrastructure automation of   
+development workstations
+19. Out-of-container functional testing
+20. Performance testing as
+a first-class citizen
+21. Single command deploy
+22. Thoughtful caching
+23. Windows infrastructure   
+automation
+24. Event sourcing
+25. Experience Design (XD)
+26. Mechanical sympathy
+27. Micro-services
+28. Production immune system
+29. Database based integration
+30. Feature branching
+31. Manual infrastructure   
+management
+32. Scrum certification
+33. Server / application 
+container end-of-life
+34. Test recorders
+
+Tools
+35. Git
+36. Github
+37. Infrastructure as code
+38. Client-side MVC
+39. FPM
+40. Frank
+41. Jade
+42. JavaScript micro frameworks
+43. JavaScript tooling
+44. Log aggregation 
+& indexing
+45. Message buses without
+smarts
+46. NuGet
+47. Polyglot persistence
+48. PowerShell
+49. PSake
+50. Vagrant
+51. Gradle
+52. jQuery Mobile
+53. Logic-free markup
+54. Open source BI/ETL tools
+55. Riak
+56. Sonar
+57. Code in configuration
+58. Cross-platform mobile toolkits
+59. Enterprise service bus
+60. Maven
+61. VCS with implicit workflow
+
+Platforms
+62. ATOM
+63. AWS
+64. Care about hardware
+65. Communication between 
+those responsible for
+hardware and software
+66. KVM
+67. Mobile web
+68. Domain-specific PaaS
+69. Heroku
+70. Linux containers
+71. Offline mobile webapps (just HTML5)
+72. Private clouds
+73. Tablet
+74. Ubiquitous computing
+75. Windows Phone 7
+76. AppHarbor
+77. Cloud Foundry
+78. GPGPU
+79. Hybrid clouds
+80. Node.js
+81. OpenSocial
+82. Single threaded servers with
+asynchronous I/O
+83. vFabric
+84. Buying solutions you can 
+only afford one of
+85. GWT
+86. Java Portal Servers
+87. RIA
+88. Treating VMs like physical
+infrastructure
+89. WS-*
+90. Zero-code packages
+
+Languages
+91. Care about languages
+92. HTML5
+93. JavaScript as a first-class language
+94. Clojure
+95. CoffeeScript
+96. Domain-specific languages
+97. SASS, SCSS, and LESS
+98. Scala
+99. ClojureScript
+100. F#
+101. Functional Java
+102. Future of Java
+103. Google Dart
+104. Logic in stored procedures

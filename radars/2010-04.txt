@@ -1,0 +1,66 @@
+Techniques 
+1. Build pipelines
+2. Emergent design
+3. Evolutionary DB
+4. Web as platform
+5. Automation of technical tests
+6. Service choreography
+7. Lean software development
+8. Continuous deployment
+9. Visualization and metrics
+10. Polyglot programming
+11. Incremental data warehousing
+12. OAuth
+13. Scrum certification
+
+Tools
+14. ASP.NET MVC
+15. Subversion
+16. Squid
+17. Message buses without smarts
+18. Next-gen test tools
+19. Neo4j
+20. mongoDB
+21. Distributed version control
+22. NoSQL
+23. RDF triple stores
+24. Restfulie
+25. Visualizations for business data
+26. GitHub
+27. Cross mobile platforms
+28. ESB
+29. Language workbenches
+
+Platforms
+40. IE6 end of life
+41. Platform roadmaps
+42. ALT.NET
+43. iPhone
+44. Cloud
+45. JVM as platform
+46. android
+47. EC2 & S3
+48. Location based services
+49. Large format mobile devices
+50. Facebook as business platform
+51. Google as corporate platform
+52. Application appliances
+53. Google App Engine
+54. mobile web
+55. Rich Internet Applications
+56. Azure
+57. GWT
+58. IE8
+59. WS-* beyond basic profile
+
+Languages
+30. C# 4.0
+31. Ruby/Jruby
+32. Javascript as a first-class language
+33. DSLs
+34. Groovy
+35. Java language end of life
+36. F#
+37. Clojure
+38. Scala
+39. HTML 5
