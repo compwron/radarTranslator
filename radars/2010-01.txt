@@ -10,8 +10,7 @@ Techniques
 4. Evolutionary database
 5. Web as platform
 6. Emergent design
-7. Lean software 
-development
+7. Lean software development
 8. Build pipelines
 9. User centered design
 
@@ -19,15 +18,12 @@ Tools
 10. Visualization & metrics
 11. IE6 end of life
 12. ASP.NET MVC
-13. Next-generation test 
-tools
+13. Next-generation test tools
 14. Subversion
-15. Distributed version 
-control
+15. Distributed version control
 16. Google Wave
 17. Language workbenches
-18. Polyglot development 
-environments
+18. Polyglot development environments
 
 Platforms
 25. Android

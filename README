@@ -4,3 +4,20 @@ Data is scraped by hand and may have errors
 
 In the January 2012 data set, items between two zones are in the data set as in in the outer zone of the two they straddle.
 
+Goals: 
+see "current" recommendations by aggregating old recommendations
+turn data into json which can be worked with by others
+enable future turning of data into json
+
+which data structure would be better? 
+
+radar date
+- adopt
+- - type
+- - - number : technology name
+
+tech name
+- radar mentioned
+- - class (adopt/hold/etc)
+- - - type, number
+

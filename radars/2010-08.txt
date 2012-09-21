@@ -22,8 +22,8 @@ Techniques
 16. Platform roadmaps
 17. Build pipelines
 
- Tools
- 18. ESB
+Tools
+18. ESB
 19. Intentional
 20. Cross mobile platforms
 21. Github
