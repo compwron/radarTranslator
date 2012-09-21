@@ -1,5 +1,11 @@
 http://thoughtworks.fileburst.com/assets/thoughtworks-tech-radar-march-2012-us-color.pdf
 
+Adopt 1-11, 35-37, 62-67, 91-93
+Trial 12-23, 38-50, 68-76, 94-98
+Assess 24-28, 51-56, 77-83, 99-102
+Hold 29-34, 57-61, 84-90, 103-104
+
+
 Techniques
 1. Automate database deployment
 2. Coding architects
