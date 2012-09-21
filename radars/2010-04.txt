@@ -1,3 +1,8 @@
+Adopt 14-16, 30-32, 40-45, 1-4
+Trial 17-21, 33-34, 46-47, 5-10
+Assess 23-27, 35-39, 48-54, 11-12
+Hold 28-29, 55-59, 13 	
+
 Techniques 
 1. Build pipelines
 2. Emergent design

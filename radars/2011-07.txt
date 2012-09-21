@@ -1,3 +1,8 @@
+Adopt 1-11, 30-34, 56-60, 74-75  
+Trial 12-20, 35-42, 61-64, 76-80
+Assess 21-24, 43-51, 65-70, 81-83
+Hold 25-29, 52-55, 71-73, 84
+
 Techniques
 1. Progressive enhancement
 2. Automate database deployment

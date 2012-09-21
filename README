@@ -1,2 +1,6 @@
 Tracking changes in the tech radar over time. Data comes from http://www.thoughtworks.com/radar
 
+Data is scraped by hand and may have errors
+
+In the January 2012 data set, items between two zones are in the data set as in in the outer zone of the two they straddle.
+
