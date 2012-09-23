@@ -2,7 +2,7 @@ Tracking changes in the tech radar over time. Data comes from http://www.thought
 
 Data is scraped by hand and may have errors
 
-In the January 2012 data set, items between two zones are in the data set as in in the outer zone of the two they straddle.
+In the January 2010 data set, items between two zones are in the data set as in in the outer zone of the two they straddle.
 
 Goals: 
 see "current" recommendations by aggregating old recommendations
@@ -10,9 +10,17 @@ turn data into json which can be worked with by others
 enable future turning of data into json
 
 anticipated data structure:
-- tech name
-- - radar mentioned
-- - - classification (adopt/hold/etc), type (platform, language, etc), number
 
-data = {'tech name 1' => {'radar 1' => ['classification1', 'type1', 1]}}
+{
+	"Python": {
+		"2012-01": {
+			"category": "languages",
+			"recommendation": "trial"
+		},
+		"2012-04": {
+			"category": "languages",
+			"recommendation": "adopt"
+		}
+	}
+}
 

@@ -8,12 +8,28 @@ describe RadarDynamo do
   	subject.filenames.should == ["2010-01.txt", "2012-03.txt"]
   end
 
+  it "should get raw data from files" do
+  	subject.get_data_from_files.should == ["Languages\n1. Ruby  ", "Languages\n1. Ruby  Languages\n1. Python     "]
+  end
+
   describe "#data" do
     let(:data) { subject.data_output }
 
     it "has all data in tech -> radar -> classification, type, number" do
-      test_hash = { "Python" => { [Date.new(2012, 3, 1)] => ['Adopt', 'Language', 1] }, "Ruby" => { [Date.new(2012, 3, 1), Date.new(2010, 1, 1)] => ['Adopt', 'Language', 1] } }
-      data.should == test_hash
+          desired_data = {
+			"Python" => {
+				"2010-01" => {
+					"category" => "languages",
+					"recommendation" => "trial"
+				},
+				"2012-03" => {
+					"category" => "languages",
+					"recommendation" => "adopt"
+				}
+			}
+		}
+
+      data.should == desired_data
     end
   end
 end
