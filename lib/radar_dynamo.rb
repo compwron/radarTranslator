@@ -22,8 +22,8 @@ class RadarDynamo
 		}
 	end
 
-	def parse_line line
-		"foo"
+	def parse_files file_contents
+		
 	end
 
 	def data_output
