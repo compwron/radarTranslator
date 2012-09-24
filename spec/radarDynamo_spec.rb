@@ -64,14 +64,21 @@ describe RadarDynamo do
 
       subject.get_recommendations(whole_file_text).should include recommendation_map
     end
-  end
 
-    # it 'can get several types of recommendation' do
-    #   whole_file_text = "Adopt 1"
-    #   recommendation_map = { "Adopt" => ["1"]}
+    it 'can get a singleton and a range in a recommendation line' do
+      whole_file_text = "Adopt 1-5, 10"
+      recommendation_map = { "Adopt" => ["1", "2", "3", "4", "5", "10"]}
+
+      subject.get_recommendations(whole_file_text).should include recommendation_map
+    end
+
+    # it 'can get recommendations for different statuses' do
+    #   whole_file_text = "Adopt 1-5\nHold 6-7"
+    #   recommendation_map = { "Adopt" => ["1", "2", "3", "4", "5"], "Hold" => ["6", "7"]}
 
     #   subject.get_recommendations(whole_file_text).should include recommendation_map
     # end
+  end
 
 
   it 'can combine several items with recommendation list' do 

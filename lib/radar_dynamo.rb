@@ -39,28 +39,31 @@ class RadarDynamo
 		recommendations = ["Adopt", "Trial", "Assess", "Hold"]
 
 		current_recommendation = nil
-		file_text.split("\n").map { |item|
-			line_components = item.split(" ")
+		objects = file_text.split("\n").map { |item|
+			line_components = item.split(" ").map {|component|
+				component.split(",")
+			}.flatten
 			current_recommendation = line_components.first
 			{ current_recommendation => item_numbers(current_recommendation, line_components) }
 		}
+		objects
 	end
 
 	def item_numbers current_recommendation, line_components
 		line_components.delete(current_recommendation)
+		numbers = []
 		line_components.map { |range|
-			range = range.split("")
+			range = range.split("-")
 			range.delete("-")
 			
 			first = range.first.to_i
 			last = range.last.to_i
 
-			numbers = []
 			(first..last).each {|number|
 				numbers += [number.to_s]
 			}
-			numbers
 		}.flatten
+		numbers
 	end
 
 	def item_name item
