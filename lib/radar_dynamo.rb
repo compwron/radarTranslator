@@ -15,19 +15,12 @@ class RadarDynamo
 
 	def get_data_from_files filenames
 		filenames.map { |filename|
-			File.open(data_dir + "/" + filename)
+			all_text_in_file = ""
+			File.open(data_dir + "/" + filename).each_line { |line| 
+				all_text_in_file += line
+			}
+			all_text_in_file
 		}
-
-		# all_data = []
-		# filenames.map { |f|
-		# 	file_contents = "" 
-		# 	File.open(data_dir + "/" + f).each_line { |line|
-		# 		file_contents += line
-		# 	}
-		# 	# file_contents.join("")
-		# 	p file_contents
-		# 	all_data += file_contents
-		# }
 	end
 
 	def get_items file_text, radar_date
