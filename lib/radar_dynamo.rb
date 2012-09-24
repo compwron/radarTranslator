@@ -24,13 +24,28 @@ class RadarDynamo
 	end
 
 	def get_items file_text, radar_date
+		recommendation = "not set yet"
+
 		most_recent_header = ""
 		file_text.split("\n").select { |item| 
 			!item.nil? 
 		}.map { |item| 
 			most_recent_header = item if (types.include?(item)) 
-			most_recent_header == item ? nil : tech_object(item_name(item), radar_date, most_recent_header)
+			most_recent_header == item ? nil : tech_object(item_name(item), radar_date, most_recent_header, recommendation)
 		}.compact
+	end
+
+	def get_recommendations file_text
+		p file_text
+		recommendations = ["Adopt", "Trial", "Assess", "Hold"]
+
+		current_recommendation = nil
+		file_text.split("\n").map { |item|
+			line_components = item.split(" ")
+			current_recommendation = line_components.first
+			line_components.delete(current_recommendation)
+			{ current_recommendation => line_components }
+		}
 	end
 
 	def item_name item
@@ -38,10 +53,11 @@ class RadarDynamo
 		(matcher.nil? ? nil : (item.match /\d*\. (.*)/)[1] )
 	end
 
-	def tech_object item_name, radar_date, most_recent_header
+	def tech_object item_name, radar_date, most_recent_header, recommendation
 		{ item_name => { 
 				radar_date => {
 					"category" => most_recent_header
+					# "recommendation" => recommendation
 				}
 			}
 		}

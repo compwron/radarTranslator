@@ -50,6 +50,13 @@ describe RadarDynamo do
     # end
   end
 
+  it 'can get recommendations map' do
+    whole_file_text = "Adopt 1"
+    recommendation_map = { "Adopt" => ["1"]}
+
+    subject.get_recommendations(whole_file_text).should include recommendation_map
+  end
+
   it 'can combine several items with recommendation list' do 
   end
 
