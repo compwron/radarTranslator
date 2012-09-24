@@ -12,32 +12,64 @@ class RadarDynamo
 		@filenames -= [".", ".."]
 	end
 
-	def get_data_from_files
-		lines = []
-		filenames.map { |f| 
-			File.open(data_dir + "/" + f).each_line { |line|
-				lines += [line] 
-			}
-			lines.join("")
-		}
+	# def get_data_from_files
+	# 	lines = []
+	# 	filenames.map { |f| 
+	# 		File.open(data_dir + "/" + f).each_line { |line|
+	# 			lines += [line] 
+	# 		}
+	# 		lines.join("")
+	# 	}
+	# end
+
+	def get_items file_text, radar_date
+		 p file_text
+		 items = file_text.split("\n")
+		 list_of_types = ["Languages", "Tools", "Techniques", "Platforms"]
+		 # next: determine most recent header. 
+		 most_recent_header = ""
+		 items.map { |item| 
+		 	most_recent_header = item if (list_of_types.include?(item)) 
+		 	made_object = { 
+		 		item.split(" ").last => { 
+		 			radar_date => {
+		 				"category" => most_recent_header
+		 						}
+
+		 				}
+		 }
+		 	return made_object unless most_recent_header == item 
+		 		
+		 }
+
+		 # items.map { |string_item|
+		 # 		if list_of_types.include?(string_item) 
+		 # 			most_recent_header = string_item
+		 # 		puts "most recent header #{most_recent_header}"
+		 # 		1
+		 # }
 	end
 
-	def parse_files file_contents
+	# def parse_file file_contents
+	# 	items = file_contents.map { |file_content| file_content.split("\n") }
+	# 	puts "items #{items}"
+	# 	list_of_types = ["Languages", "Tools", "Techniques", "Platforms"]
 		
-	end
+	# 	{}
+	# end
 
-	def data_output
-		{
-			"Python" => {
-				"2010-01" => {
-					"category" => "languages",
-					"recommendation" => "trial"
-				},
-				"2012-03" => {
-					"category" => "languages",
-					"recommendation" => "adopt"
-				}
-			}
-		}
-	end
+	# def data_output
+	# 	{
+	# 		"Python" => {
+	# 			"2010-01" => {
+	# 				"category" => "languages",
+	# 				"recommendation" => "trial"
+	# 			},
+	# 			"2012-03" => {
+	# 				"category" => "languages",
+	# 				"recommendation" => "adopt"
+	# 			}
+	# 		}
+	# 	}
+	# end
 end
