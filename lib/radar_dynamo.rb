@@ -3,13 +3,14 @@
 require 'date'
 
 class RadarDynamo
-	attr_accessor :filenames, :data_dir
+	attr_accessor :filenames, :data_dir, :types
 
 	def initialize data_dir
 		@data_dir = data_dir
 		@filenames = []
 		Dir.foreach(data_dir) { |f| @filenames += [f] }
 		@filenames -= [".", ".."]
+		@types = ["Languages", "Tools", "Techniques", "Platforms"]
 	end
 
 	# def get_data_from_files
@@ -23,32 +24,27 @@ class RadarDynamo
 	# end
 
 	def get_items file_text, radar_date
-		items = file_text.split("\n")
-
-		items = items.select { |item| !item.nil? }
-
-
-		list_of_types = ["Languages", "Tools", "Techniques", "Platforms"]
-
 		most_recent_header = ""
-		json_objects = items.map { |item| 
-			most_recent_header = item if (list_of_types.include?(item)) 
-			matcher = item.match(/\d*\. (.*)/)
-			item_name = (matcher.nil? ? nil : (item.match /\d*\. (.*)/)[1] )
-			made_object = { 
-									 		item_name => { 
-									 			radar_date => {
-									 				"category" => most_recent_header
-									 						}
+		file_text.split("\n").select { |item| 
+			!item.nil? 
+		}.map { |item| 
+			most_recent_header = item if (types.include?(item)) 
+			most_recent_header == item ? nil : tech_object(item_name(item), radar_date, most_recent_header)
+		}.compact
+	end
 
-									 				}
-									 }
-									 # puts "should there be an obkect? #{most_recent_header == item} and item is #{item} and most recent type is #{most_recent_header}"
-			 most_recent_header == item ? nil : made_object
-		 }.compact
-		 # puts json_objects
-		 json_objects
+	def item_name item
+		matcher = item.match(/\d*\. (.*)/)
+		(matcher.nil? ? nil : (item.match /\d*\. (.*)/)[1] )
+	end
 
+	def tech_object item_name, radar_date, most_recent_header
+		{ item_name => { 
+				radar_date => {
+					"category" => most_recent_header
+				}
+			}
+		}
 	end
 
 	# def parse_file file_contents
