@@ -35,10 +35,20 @@ describe RadarDynamo do
         subject.get_items(whole_file_text, radar_date).should_not include nil
      end
 
-     # it 'can compose an item with spaces in the name' do
-     #    whole_file_text = "Tools\n10. Visualization & metrics"
-     #    tools_item = {"Visualization & metrics"=>{radar_date =>{"category"=>"Tools"}}}
-     # end
+     it 'can compose an item with spaces in the name' do
+        whole_file_text = "Tools\n10. Visualization & metrics"
+        tools_item = {"Visualization & metrics"=>{radar_date =>{"category"=>"Tools"}}}
+
+        subject.get_items(whole_file_text, radar_date).should include tools_item
+     end
+  end
+
+  it 'can combine item with recommendation' do
+    # whole_file_text = "Adopt 1\n\nLanguages\n1. Ruby"
+       # languages_item = {"Ruby"=>{radar_date =>{"category"=>"Languages", "recommendation"=>"Adopt"}}}
+  end
+
+   it 'can combine several items with recommendation list' do 
   end
 
   it "should see files in dir" do

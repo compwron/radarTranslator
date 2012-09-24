@@ -33,8 +33,10 @@ class RadarDynamo
 		most_recent_header = ""
 		json_objects = items.map { |item| 
 			most_recent_header = item if (list_of_types.include?(item)) 
+			matcher = item.match(/\d*\. (.*)/)
+			item_name = (matcher.nil? ? nil : (item.match /\d*\. (.*)/)[1] )
 			made_object = { 
-									 		item.split(" ").last => { 
+									 		item_name => { 
 									 			radar_date => {
 									 				"category" => most_recent_header
 									 						}
