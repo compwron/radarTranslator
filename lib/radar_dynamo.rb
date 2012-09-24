@@ -24,29 +24,29 @@ class RadarDynamo
 
 	def get_items file_text, radar_date
 		items = file_text.split("\n")
+
+		items = items.select { |item| !item.nil? }
+
+
 		list_of_types = ["Languages", "Tools", "Techniques", "Platforms"]
 
 		most_recent_header = ""
-		items.map { |item| 
-		most_recent_header = item if (list_of_types.include?(item)) 
-		made_object = { 
-								 		item.split(" ").last => { 
-								 			radar_date => {
-								 				"category" => most_recent_header
-								 						}
+		json_objects = items.map { |item| 
+			most_recent_header = item if (list_of_types.include?(item)) 
+			made_object = { 
+									 		item.split(" ").last => { 
+									 			radar_date => {
+									 				"category" => most_recent_header
+									 						}
 
-								 				}
-								 }
-		 most_recent_header != item ? made_object : nil
-		 		
-		 }
+									 				}
+									 }
+									 # puts "should there be an obkect? #{most_recent_header == item} and item is #{item} and most recent type is #{most_recent_header}"
+			 most_recent_header == item ? nil : made_object
+		 }.compact
+		 # puts json_objects
+		 json_objects
 
-		 # items.map { |string_item|
-		 # 		if list_of_types.include?(string_item) 
-		 # 			most_recent_header = string_item
-		 # 		puts "most recent header #{most_recent_header}"
-		 # 		1
-		 # }
 	end
 
 	# def parse_file file_contents

@@ -7,10 +7,11 @@ describe RadarDynamo do
   describe "#get_items" do
 
     # let(:items) { subject.get_items(whole_file_text, radar_date) }
-    whole_file_text = "Languages\n1. Ruby"
+    
     radar_date = Date.new(2010,1,1)
     
     it 'knows whether item is a language' do
+      whole_file_text = "Languages\n1. Ruby"
       language_item = {"Ruby"=>{radar_date =>{"category"=>"Languages"}}}
       subject.get_items(whole_file_text, radar_date).should include language_item
     end
@@ -20,9 +21,24 @@ describe RadarDynamo do
       ruby_item = {"Ruby"=>{radar_date =>{"category"=>"Languages"}}}
       python_item = {"Python"=>{radar_date =>{"category"=>"Languages"}}}
       
-      subject.get_items("Languages\n1. Ruby\n2. Python", radar_date).should include ruby_item
-      subject.get_items("Languages\n1. Ruby\n2. Python", radar_date).should include python_item
+      subject.get_items(whole_file_text, radar_date).should include ruby_item
+      subject.get_items(whole_file_text, radar_date).should include python_item
     end
+
+     it 'can see a language item and a tools item' do
+       whole_file_text = "Languages\n1. Ruby\n\nTools\n14. Subversion"
+       languages_item = {"Ruby"=>{radar_date =>{"category"=>"Languages"}}}
+       tools_item = {"Subversion"=>{radar_date =>{"category"=>"Tools"}}}
+      
+        subject.get_items(whole_file_text, radar_date).should include tools_item
+        subject.get_items(whole_file_text, radar_date).should include languages_item
+        subject.get_items(whole_file_text, radar_date).should_not include nil
+     end
+
+     # it 'can compose an item with spaces in the name' do
+     #    whole_file_text = "Tools\n10. Visualization & metrics"
+     #    tools_item = {"Visualization & metrics"=>{radar_date =>{"category"=>"Tools"}}}
+     # end
   end
 
   it "should see files in dir" do
