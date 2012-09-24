@@ -36,16 +36,31 @@ class RadarDynamo
 	end
 
 	def get_recommendations file_text
-		p file_text
 		recommendations = ["Adopt", "Trial", "Assess", "Hold"]
 
 		current_recommendation = nil
 		file_text.split("\n").map { |item|
 			line_components = item.split(" ")
 			current_recommendation = line_components.first
-			line_components.delete(current_recommendation)
-			{ current_recommendation => line_components }
+			{ current_recommendation => item_numbers(current_recommendation, line_components) }
 		}
+	end
+
+	def item_numbers current_recommendation, line_components
+		line_components.delete(current_recommendation)
+		line_components.map { |range|
+			range = range.split("")
+			range.delete("-")
+			
+			first = range.first.to_i
+			last = range.last.to_i
+
+			numbers = []
+			(first..last).each {|number|
+				numbers += [number.to_s]
+			}
+			numbers
+		}.flatten
 	end
 
 	def item_name item
