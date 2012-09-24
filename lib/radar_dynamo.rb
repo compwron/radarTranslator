@@ -23,22 +23,21 @@ class RadarDynamo
 	# end
 
 	def get_items file_text, radar_date
-		 p file_text
-		 items = file_text.split("\n")
-		 list_of_types = ["Languages", "Tools", "Techniques", "Platforms"]
-		 # next: determine most recent header. 
-		 most_recent_header = ""
-		 items.map { |item| 
-		 	most_recent_header = item if (list_of_types.include?(item)) 
-		 	made_object = { 
-		 		item.split(" ").last => { 
-		 			radar_date => {
-		 				"category" => most_recent_header
-		 						}
+		items = file_text.split("\n")
+		list_of_types = ["Languages", "Tools", "Techniques", "Platforms"]
 
-		 				}
-		 }
-		 	return made_object unless most_recent_header == item 
+		most_recent_header = ""
+		items.map { |item| 
+		most_recent_header = item if (list_of_types.include?(item)) 
+		made_object = { 
+								 		item.split(" ").last => { 
+								 			radar_date => {
+								 				"category" => most_recent_header
+								 						}
+
+								 				}
+								 }
+		 most_recent_header != item ? made_object : nil
 		 		
 		 }
 
