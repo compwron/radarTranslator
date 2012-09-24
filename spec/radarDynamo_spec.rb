@@ -41,56 +41,19 @@ describe RadarDynamo do
 
         subject.get_items(whole_file_text, radar_date).should include tools_item
      end
-  end
 
-  it 'can combine item with recommendation' do
-    # whole_file_text = "Adopt 1\n\nLanguages\n1. Ruby"
-       # languages_item = {"Ruby"=>{radar_date =>{"category"=>"Languages", "recommendation"=>"Adopt"}}}
-  end
+    #  it 'can combine item with recommendation' do
+    #   whole_file_text = "Adopt 1\n\nLanguages\n1. Ruby"
+    #   item_with_recommendation = {"Ruby"=>{radar_date =>{"category"=>"Languages", "recommendation"=>"Adopt"}}}
 
-   it 'can combine several items with recommendation list' do 
-  end
-
-  it "should see files in dir" do
-    subject.filenames.should == ["2010-01.txt", "2012-03.txt"]
-  end
-
-
-  # it "should parse file contents" do
-  #   one_file_one_language_no_recommendation = {
-  #     "Python" => { }
-  #   } 
-
-  #   subject.parse_file(["Languages\n1. Ruby  "]).should == one_file_one_language_no_recommendation
-  # end
-
-  
-
-  # it "should get raw data from files" do
-  # 	subject.get_data_from_files.should == ["Languages\n1. Ruby", "Languages\n1. Python"]
-  # end
-
-  # describe "#data" do
-  #   let(:data) { subject.data_output }
-
-  #   it "has all data in tech -> radar -> classification, type, number" do
-  #         desired_data = {
-		# 	"Python" => {
-		# 		"2010-01" => {
-		# 			"category" => "languages",
-		# 			"recommendation" => "trial"
-		# 		},
-		# 		"2012-03" => {
-		# 			"category" => "languages",
-		# 			"recommendation" => "adopt"
-		# 		}
-		# 	}
-		# }
-
-      # data.should == desired_data
+    #   subject.get_items(whole_file_text, radar_date).should include item_with_recommendation
     # end
-  # end
+  end
+
+  it 'can combine several items with recommendation list' do 
+  end
+
+  it "should get raw data from files" do
+  	subject.get_data_from_files(["2010-01.txt", "2012-03.txt"]).should == ["Languages\n1. Ruby", "Languages\n1. Python"]
+  end
 end
-
-
-

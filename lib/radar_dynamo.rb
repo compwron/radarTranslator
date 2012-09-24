@@ -3,25 +3,32 @@
 require 'date'
 
 class RadarDynamo
-	attr_accessor :filenames, :data_dir, :types
+	attr_accessor :data_dir, :types
 
 	def initialize data_dir
 		@data_dir = data_dir
-		@filenames = []
-		Dir.foreach(data_dir) { |f| @filenames += [f] }
-		@filenames -= [".", ".."]
+		# filenames = []
+		# Dir.foreach(data_dir) { |f| filenames += [f] }
+		# filenames -= [".", ".."]
 		@types = ["Languages", "Tools", "Techniques", "Platforms"]
 	end
 
-	# def get_data_from_files
-	# 	lines = []
-	# 	filenames.map { |f| 
-	# 		File.open(data_dir + "/" + f).each_line { |line|
-	# 			lines += [line] 
-	# 		}
-	# 		lines.join("")
-	# 	}
-	# end
+	def get_data_from_files filenames
+		filenames.map { |filename|
+			File.open(data_dir + "/" + filename)
+		}
+
+		# all_data = []
+		# filenames.map { |f|
+		# 	file_contents = "" 
+		# 	File.open(data_dir + "/" + f).each_line { |line|
+		# 		file_contents += line
+		# 	}
+		# 	# file_contents.join("")
+		# 	p file_contents
+		# 	all_data += file_contents
+		# }
+	end
 
 	def get_items file_text, radar_date
 		most_recent_header = ""
@@ -46,27 +53,4 @@ class RadarDynamo
 			}
 		}
 	end
-
-	# def parse_file file_contents
-	# 	items = file_contents.map { |file_content| file_content.split("\n") }
-	# 	puts "items #{items}"
-	# 	list_of_types = ["Languages", "Tools", "Techniques", "Platforms"]
-		
-	# 	{}
-	# end
-
-	# def data_output
-	# 	{
-	# 		"Python" => {
-	# 			"2010-01" => {
-	# 				"category" => "languages",
-	# 				"recommendation" => "trial"
-	# 			},
-	# 			"2012-03" => {
-	# 				"category" => "languages",
-	# 				"recommendation" => "adopt"
-	# 			}
-	# 		}
-	# 	}
-	# end
 end
