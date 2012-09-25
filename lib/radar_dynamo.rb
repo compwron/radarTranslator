@@ -65,13 +65,26 @@ class RadarDynamo
 		numbers
 	end
 
-	def get_items_with_recommendations whole_file_text, radar_date
-		# items = get_items(whole_file_text, radar_date)
-		# recommendations = get_recommendations(file_text, radar_date)
+	def get_items_with_recommendations file_text, radar_date
 
-		# items.map { |item|
-		# 	"oops"
-		# }
+
+# ruby-1.9.3 :065 > one_i.last[one_i.last.keys.first].merge!(h2)
+#  => {"category"=>"Languages", "a"=>"b"} 
+# ruby-1.9.3 :066 > 
+
+		# for each item, check if there are any recommendations
+		recs = get_recommendations(file_text, radar_date)
+
+		get_items(file_text, radar_date).each {|item|
+			item_date = item.last.keys.first
+
+			recs.select{ |rec| 
+				rec_date = rec.last.last
+				if (rec_date == item_date) then
+					item.
+				end
+			}
+		}
 		{}
 	end
 
