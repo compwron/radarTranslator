@@ -44,7 +44,7 @@ class RadarDynamo
 				component.split(",")
 			}.flatten
 			current_recommendation = line_components.first
-			{ current_recommendation => item_numbers(current_recommendation, line_components) }
+			{current_recommendation => item_numbers(current_recommendation, line_components) }
 		}
 		objects
 	end
