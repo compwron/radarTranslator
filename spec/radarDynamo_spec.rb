@@ -80,6 +80,15 @@ describe RadarDynamo do
       subject.get_recommendations(whole_file_text).should include adopt_recommendations
       subject.get_recommendations(whole_file_text).should include hold_recommendations
     end
+
+    it 'can get recommendations for different statuses for mixed range and singleton lists' do
+      whole_file_text = "Adopt 1-5, 9\nHold 6-7, 10"
+      adopt_recommendations = {"Adopt"=>["1", "2", "3", "4", "5", "9"]}
+      hold_recommendations = {"Hold"=>["6", "7", "10"]}
+
+      subject.get_recommendations(whole_file_text).should include adopt_recommendations
+      subject.get_recommendations(whole_file_text).should include hold_recommendations
+    end
   end
 
 
