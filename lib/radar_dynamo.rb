@@ -35,18 +35,17 @@ class RadarDynamo
 		}.compact
 	end
 
-	def get_recommendations file_text
+	def get_recommendations file_text, radar_date
 		recommendations = ["Adopt", "Trial", "Assess", "Hold"]
 
 		current_recommendation = nil
-		objects = file_text.split("\n").map { |item|
+		file_text.split("\n").map { |item|
 			line_components = item.split(" ").map {|component|
 				component.split(",")
 			}.flatten
 			current_recommendation = line_components.first
-			{current_recommendation => item_numbers(current_recommendation, line_components) }
+			{current_recommendation => [item_numbers(current_recommendation, line_components), radar_date] }
 		}
-		objects
 	end
 
 	def item_numbers current_recommendation, line_components
@@ -64,6 +63,16 @@ class RadarDynamo
 			}
 		}.flatten
 		numbers
+	end
+
+	def get_items_with_recommendations whole_file_text, radar_date
+		# items = get_items(whole_file_text, radar_date)
+		# recommendations = get_recommendations(file_text, radar_date)
+
+		# items.map { |item|
+		# 	"oops"
+		# }
+		{}
 	end
 
 	def item_name item
