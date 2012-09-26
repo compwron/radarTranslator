@@ -31,8 +31,20 @@ class RadarDynamo
 			!item.nil? 
 		}.map { |item| 
 			most_recent_header = item if (types.include?(item)) 
-			most_recent_header == item ? nil : tech_object(item_name(item), radar_date, most_recent_header, recommendation)
+			most_recent_header == item ? nil : tech_object(item_name(item), radar_date, most_recent_header, recommendation, item_number(item))
 		}.compact
+	end
+
+	def item_number item
+		regex = /(\d*)\..*/
+		matcher = item.match(regex)
+		(matcher.nil? ? nil : (item.match regex)[1] )
+	end
+
+	def item_name item
+		regex = /\d*\. (.*)/
+		matcher = item.match(regex)
+		(matcher.nil? ? nil : (item.match regex)[1] )
 	end
 
 	def get_recommendations file_text, radar_date
@@ -44,11 +56,11 @@ class RadarDynamo
 				component.split(",")
 			}.flatten
 			current_recommendation = line_components.first
-			{current_recommendation => [item_numbers(current_recommendation, line_components), radar_date] }
+			{current_recommendation => [rec_item_numbers(current_recommendation, line_components), radar_date] }
 		}
 	end
 
-	def item_numbers current_recommendation, line_components
+	def rec_item_numbers current_recommendation, line_components
 		line_components.delete(current_recommendation)
 		numbers = []
 		line_components.map { |range|
@@ -76,27 +88,27 @@ class RadarDynamo
 		recs = get_recommendations(file_text, radar_date)
 
 		get_items(file_text, radar_date).each {|item|
-			item_date = item.last.keys.first
+			item_attributes = item.last[item.last.keys.first] # {"category"=>"Languages"}
+
 
 			recs.select{ |rec| 
 				rec_date = rec.last.last
-				if (rec_date == item_date) then
-					item.
-				end
+				# if (rec_date == item_date) then
+				# 	recommendation_hash = { "Recommendation" => rec.}
+				# 	item.
+				# end
 			}
 		}
 		{}
 	end
 
-	def item_name item
-		matcher = item.match(/\d*\. (.*)/)
-		(matcher.nil? ? nil : (item.match /\d*\. (.*)/)[1] )
-	end
 
-	def tech_object item_name, radar_date, most_recent_header, recommendation
+
+	def tech_object item_name, radar_date, most_recent_header, recommendation, item_number
 		{ item_name => { 
 				radar_date => {
-					"category" => most_recent_header
+					"category" => most_recent_header,
+					"number" => item_number
 					# "recommendation" => recommendation
 				}
 			}
