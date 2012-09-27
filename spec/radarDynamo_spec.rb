@@ -51,6 +51,12 @@ describe RadarDynamo do
         subject.get_items(whole_file_text, radar_date).should include tools_item
      end
 
+      it "doesn't return items with nil key even when dealing with recommendation section of file" do
+        whole_file_text = "Adopt 1\n\nLanguages\n1. Ruby"
+        p subject.get_items(whole_file_text, radar_date)
+        subject.get_items(whole_file_text, radar_date).first.keys.should_not include nil
+    end
+
   end
 
   describe "#get_recommendations" do
@@ -94,13 +100,16 @@ describe RadarDynamo do
     end
   end
 
+  describe "#get_items_with_recommendations" do
+    # it 'can combine item with recommendation' do
+    #   whole_file_text = "Adopt 1\n\nLanguages\n1. Ruby"
+    #   item_with_recommendation = {"Ruby"=>{radar_date =>{"category"=>"Languages", "number" => "1", "recommendation"=>"Adopt"}}}
 
-  # it 'can combine item with recommendation' do
-  #   whole_file_text = "Adopt 1\n\nLanguages\n1. Ruby"
-  #   item_with_recommendation = {"Ruby"=>{radar_date =>{"category"=>"Languages", "recommendation"=>"Adopt"}}}
+    #   subject.get_items_with_recommendations(whole_file_text, radar_date).should include item_with_recommendation
+    # end
 
-  #   subject.get_items_with_recommendations(whole_file_text, radar_date).should include item_with_recommendation
-  # end
+
+  end
 
 
   it 'can combine several items with recommendation list' do 

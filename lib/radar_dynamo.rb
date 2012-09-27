@@ -32,7 +32,9 @@ class RadarDynamo
 		}.map { |item| 
 			most_recent_header = item if (types.include?(item)) 
 			most_recent_header == item ? nil : tech_object(item_name(item), radar_date, most_recent_header, recommendation, item_number(item))
-		}.compact
+		}.compact.reject { |item|
+			item.keys.include? nil
+		}
 	end
 
 	def item_number item
@@ -87,18 +89,11 @@ class RadarDynamo
 		# for each item, check if there are any recommendations
 		recs = get_recommendations(file_text, radar_date)
 
-		get_items(file_text, radar_date).each {|item|
-			item_attributes = item.last[item.last.keys.first] # {"category"=>"Languages"}
+		items = get_items(file_text, radar_date)
 
+		p recs
+		p items
 
-			recs.select{ |rec| 
-				rec_date = rec.last.last
-				# if (rec_date == item_date) then
-				# 	recommendation_hash = { "Recommendation" => rec.}
-				# 	item.
-				# end
-			}
-		}
 		{}
 	end
 
