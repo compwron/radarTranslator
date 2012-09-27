@@ -91,8 +91,19 @@ class RadarDynamo
 
 		items = get_items(file_text, radar_date)
 
-		p recs
-		p items
+		puts "recs #{recs}"
+		puts "items #{items}"
+
+		items.each {|item|
+			item_dates = item.first.last.keys
+			puts "item dates #{item_dates}"
+
+			recs.each {|rec|
+				rec_date = rec.first.last.last
+				p rec_date
+			}
+			
+		}
 
 		{}
 	end
