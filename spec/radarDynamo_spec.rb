@@ -140,6 +140,19 @@ describe RadarDynamo do
   end
 
   it "should get raw data from files" do
-  	subject.get_data_from_files(["2010-01.txt", "2012-03.txt"]).should == ["Languages\n1. Ruby", "Languages\n1. Python\n2. Groovy"]
+  	subject.get_data_from_file("2010-01.txt").should == "Languages\n1. Ruby"
   end
 end
+
+
+
+
+
+
+
+
+
+
+
+
+

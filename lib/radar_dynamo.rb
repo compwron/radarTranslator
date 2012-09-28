@@ -11,7 +11,7 @@ class RadarDynamo
 		# Dir.foreach(data_dir) { |f| filenames += [f] }
 		# filenames -= [".", ".."]
 		@types = ["Languages", "Tools", "Techniques", "Platforms"]
-		# @all_data_from_files = get_data_from_files
+		# @all_data_from_files = get_data_from_file
 	end
 
 	def get_filenames data_dir
@@ -23,7 +23,7 @@ class RadarDynamo
 
 	def get_items data_dir
 		filenames = get_filenames(data_dir)
-		file_contents = get_data_and_date_from_files(filenames)
+		file_contents = get_data_from_file(filenames)
 		file_contents.map { |file_content|
 			get_items_from_string(file_contents, date_of(filename))
 		}
@@ -35,15 +35,14 @@ class RadarDynamo
 		Date.new(matcher[1].to_i, matcher[2].to_i, 1)
 	end
 
-	def get_data_from_files filenames
-		filenames.map { |filename|
+	def get_data_from_file filename
 			all_text_in_file = ""
 			File.open(data_dir + "/" + filename).each_line { |line| 
 				all_text_in_file += line
 			}
 			all_text_in_file
-		}
 	end
+
 
 	def get_items_from_string file_text, radar_date
 		recommendation = "not set yet"
