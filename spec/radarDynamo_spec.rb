@@ -53,7 +53,6 @@ describe RadarDynamo do
 
       it "doesn't return items with nil key even when dealing with recommendation section of file" do
         whole_file_text = "Adopt 1\n\nLanguages\n1. Ruby"
-        p subject.get_items(whole_file_text, radar_date)
         subject.get_items(whole_file_text, radar_date).first.keys.should_not include nil
     end
 
@@ -98,16 +97,25 @@ describe RadarDynamo do
       subject.get_recommendations(whole_file_text, radar_date).should include adopt_recommendations
       subject.get_recommendations(whole_file_text, radar_date).should include hold_recommendations
     end
-  end
 
-  describe "#get_items_with_recommendations" do
-    it 'can combine item with recommendation' do
+    it 'should not make rec items with nil rec numbers' do
       whole_file_text = "Adopt 1\n\nLanguages\n1. Ruby"
-      item_with_recommendation = {"Ruby"=>{radar_date =>{"category"=>"Languages", "number" => "1", "recommendation"=>"Adopt"}}}
-
-      subject.get_items_with_recommendations(whole_file_text, radar_date).should include item_with_recommendation
+      recs = subject.get_recommendations(whole_file_text, radar_date)
+      recs.each {|rec|
+        rec.keys.should_not include nil
+        rec.keys.should_not include "1."
+      }
     end
   end
+
+  # describe "#get_items_with_recommendations" do
+  #   it 'can combine item with recommendation' do
+  #     whole_file_text = "Adopt 1\n\nLanguages\n1. Ruby"
+  #     item_with_recommendation = {"Ruby"=>{radar_date =>{"category"=>"Languages", "number" => "1", "recommendation"=>"Adopt"}}}
+
+  #     subject.get_items_with_recommendations(whole_file_text, radar_date).should include item_with_recommendation
+  #   end
+  # end
 
 
   it 'can combine several items with recommendation list' do 

@@ -59,6 +59,8 @@ class RadarDynamo
 			}.flatten
 			current_recommendation = line_components.first
 			{current_recommendation => [rec_item_numbers(current_recommendation, line_components), radar_date] }
+		}.reject {|rec|
+			!(recommendations.include? rec.keys.first)
 		}
 	end
 
@@ -100,7 +102,8 @@ class RadarDynamo
 
 			recs.each {|rec|
 				rec_date = rec.first.last.last
-				p rec_date
+				rec_numbers = rec.first.last.first
+				puts "rec date #{rec_date} ... rec_numbers #{rec_numbers}"
 			}
 			
 		}
