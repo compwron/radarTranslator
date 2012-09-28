@@ -22,8 +22,12 @@ class RadarDynamo
 	end
 
 	def get_items data_dir
-		data = get_data_from_files(get_filenames(data_dir))
-		get_items_from_string(data, date_of(filename))
+		filenames = get_filenames(data_dir)
+		file_contents = get_data_and_date_from_files(filenames)
+		file_contents.map { |file_content|
+			get_items_from_string(file_contents, date_of(filename))
+		}
+		get_items_from_string(file_contents, date_of(filename))
 	end
 
 	def date_of filename

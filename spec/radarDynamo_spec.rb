@@ -13,10 +13,10 @@ describe RadarDynamo do
     subject.get_filenames(data_dir).should_not include "."
   end
 
-  # it 'gets items from files in data dir' do
-  #   ruby_item = {"Ruby"=>{radar_date =>{"category"=>"Languages", "number" => "1"}}}
-  #   subject.get_items(data_dir).should include ruby_item
-  # end
+  it 'gets items from files in data dir' do
+    ruby_item = {"Ruby"=>{radar_date =>{"category"=>"Languages", "number" => "1"}}}
+    subject.get_items(data_dir).should include ruby_item
+  end
 
   describe "#item_number" do
     it 'sees item number in item' do
