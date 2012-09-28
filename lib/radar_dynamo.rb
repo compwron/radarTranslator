@@ -22,12 +22,11 @@ class RadarDynamo
 	end
 
 	def get_items data_dir
-		filenames = get_filenames(data_dir)
-		file_contents = get_data_from_file(filenames)
-		file_contents.map { |file_content|
-			get_items_from_string(file_contents, date_of(filename))
-		}
-		get_items_from_string(file_contents, date_of(filename))
+		get_filenames(data_dir).map { |filename|
+			[get_data_from_file(filename), date_of(filename)]
+		}.map { |file_content, date|
+			get_items_from_string(file_content, date)
+		}.inject(:+)
 	end
 
 	def date_of filename
