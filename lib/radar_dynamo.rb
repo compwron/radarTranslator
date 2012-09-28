@@ -11,6 +11,18 @@ class RadarDynamo
 		# Dir.foreach(data_dir) { |f| filenames += [f] }
 		# filenames -= [".", ".."]
 		@types = ["Languages", "Tools", "Techniques", "Platforms"]
+		# @all_data_from_files = get_data_from_files
+	end
+
+	def get_filenames data_dir
+		files = Dir.entries(data_dir)
+		files.reject { |filename|
+			filename == "." || filename == ".."
+		}
+	end
+
+	def get_items data_dir
+		get_items_from_file(get_data_from_files(get_filenames(data_dir)))
 	end
 
 	def get_data_from_files filenames

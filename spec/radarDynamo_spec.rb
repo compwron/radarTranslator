@@ -2,9 +2,22 @@ require_relative "../lib/radar_dynamo"
 
 describe RadarDynamo do
 
-  subject { RadarDynamo.new 'spec/radars' }
+  data_dir = 'spec/radars'
+  subject { RadarDynamo.new data_dir }
   radar_date = Date.new(2010,1,1)
   
+  it 'gets filenames from data dir' do
+    subject.get_filenames(data_dir).should include "2010-01.txt"
+    subject.get_filenames(data_dir).should include "2012-03.txt"
+    subject.get_filenames(data_dir).should_not include "2010-08.txt"
+    subject.get_filenames(data_dir).should_not include "."
+  end
+
+  # it 'gets items from files in data dir' do
+  #   ruby_item = {"Ruby"=>{radar_date =>{"category"=>"Languages", "number" => "1"}}}
+  #   subject.get_items(data_dir).should include ruby_item
+  # end
+
   describe "#item_number" do
     it 'sees item number in item' do
       whole_file_text = "Languages\n1. Ruby"
