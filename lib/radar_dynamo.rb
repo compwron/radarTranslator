@@ -23,7 +23,7 @@ class RadarDynamo
 		}
 	end
 
-	def get_items file_text, radar_date
+	def get_items_from_file file_text, radar_date
 		recommendation = "not set yet"
 
 		most_recent_header = ""
@@ -109,7 +109,8 @@ class RadarDynamo
 		{}
 	end
 
-	def get_items_for_date(date)
+	def get_items_for_date(full_file_text, date)
+		# get_items_from_file(full_file_text, date)
 
 	end
 

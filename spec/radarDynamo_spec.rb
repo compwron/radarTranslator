@@ -17,12 +17,12 @@ describe RadarDynamo do
     end
   end
 
-  describe "#get_items" do
+  describe "#get_items_from_file" do
 
     it 'knows whether item is a language' do
       whole_file_text = "Languages\n1. Ruby"
       language_item = {"Ruby"=>{radar_date =>{"category"=>"Languages", "number" => "1"}}}
-      subject.get_items(whole_file_text, radar_date).should include language_item
+      subject.get_items_from_file(whole_file_text, radar_date).should include language_item
     end
 
     it 'can see two language items in a file' do
@@ -30,8 +30,8 @@ describe RadarDynamo do
       ruby_item = {"Ruby"=>{radar_date =>{"category"=>"Languages", "number" => "1"}}}
       python_item = {"Python"=>{radar_date =>{"category"=>"Languages", "number" => "2"}}}
       
-      subject.get_items(whole_file_text, radar_date).should include ruby_item
-      subject.get_items(whole_file_text, radar_date).should include python_item
+      subject.get_items_from_file(whole_file_text, radar_date).should include ruby_item
+      subject.get_items_from_file(whole_file_text, radar_date).should include python_item
     end
 
      it 'can see a language item and a tools item' do
@@ -39,21 +39,21 @@ describe RadarDynamo do
        languages_item = {"Ruby"=>{radar_date =>{"category"=>"Languages", "number" => "1"}}}
        tools_item = {"Subversion"=>{radar_date =>{"category"=>"Tools", "number" => "14"}}}
       
-        subject.get_items(whole_file_text, radar_date).should include tools_item
-        subject.get_items(whole_file_text, radar_date).should include languages_item
-        subject.get_items(whole_file_text, radar_date).should_not include nil
+        subject.get_items_from_file(whole_file_text, radar_date).should include tools_item
+        subject.get_items_from_file(whole_file_text, radar_date).should include languages_item
+        subject.get_items_from_file(whole_file_text, radar_date).should_not include nil
      end
 
      it 'can compose an item with spaces in the name' do
         whole_file_text = "Tools\n10. Visualization & metrics"
         tools_item = {"Visualization & metrics"=>{radar_date =>{"category"=>"Tools", "number" => "10"}}}
 
-        subject.get_items(whole_file_text, radar_date).should include tools_item
+        subject.get_items_from_file(whole_file_text, radar_date).should include tools_item
      end
 
       it "doesn't return items with nil key even when dealing with recommendation section of file" do
         whole_file_text = "Adopt 1\n\nLanguages\n1. Ruby"
-        subject.get_items(whole_file_text, radar_date).first.keys.should_not include nil
+        subject.get_items_from_file(whole_file_text, radar_date).first.keys.should_not include nil
     end
 
   end
@@ -110,12 +110,12 @@ describe RadarDynamo do
   end
 
   describe "#get_items_with_recommendations" do
-    it 'can combine item with recommendation' do
-      whole_file_text = "Adopt 1-2\nHold 2\nLanguages\n1. Ruby\n2. Python"
-      item_with_recommendation = {"Ruby"=>{radar_date =>{"category"=>"Languages", "number" => "1", "recommendation"=>"Adopt"}}}
+    # it 'can combine item with recommendation' do
+    #   whole_file_text = "Adopt 1-2\nHold 2\nLanguages\n1. Ruby\n2. Python"
+    #   item_with_recommendation = {"Ruby"=>{radar_date =>{"category"=>"Languages", "number" => "1", "recommendation"=>"Adopt"}}}
 
-      subject.get_items_with_recommendations(whole_file_text, radar_date).should include item_with_recommendation
-    end
+    #   subject.get_items_with_recommendations(whole_file_text, radar_date).should include item_with_recommendation
+    # end
   end
 
 
@@ -123,6 +123,6 @@ describe RadarDynamo do
   end
 
   it "should get raw data from files" do
-  	subject.get_data_from_files(["2010-01.txt", "2012-03.txt"]).should == ["Languages\n1. Ruby", "Languages\n1. Python"]
+  	subject.get_data_from_files(["2010-01.txt", "2012-03.txt"]).should == ["Languages\n1. Ruby", "Languages\n1. Python\n2. Groovy"]
   end
 end
