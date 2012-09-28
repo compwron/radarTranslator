@@ -82,33 +82,35 @@ class RadarDynamo
 	end
 
 	def get_items_with_recommendations file_text, radar_date
+		all_recs = get_recommendations(file_text, radar_date)
+		all_recs.each { |foo|
+			puts "all_recs #{all_recs}"
+			all_recs.each { |rec_type_hash|
+				rec_type = rec_type_hash.first
+				rec_date_array = rec_type_hash.values.first
+				
+				rec_numbers = rec_date_array.first
+				rec_date = rec_date_array.last
 
+				puts "- - - rec_numbers #{rec_numbers} ... rec_date #{rec_date}"
 
-# ruby-1.9.3 :065 > one_i.last[one_i.last.keys.first].merge!(h2)
-#  => {"category"=>"Languages", "a"=>"b"} 
-# ruby-1.9.3 :066 > 
-
-		# for each item, check if there are any recommendations
-		recs = get_recommendations(file_text, radar_date)
-
-		items = get_items(file_text, radar_date)
-
-		puts "recs #{recs}"
-		puts "items #{items}"
-
-		items.each {|item|
-			item_dates = item.first.last.keys
-			puts "item dates #{item_dates}"
-
-			recs.each {|rec|
-				rec_date = rec.first.last.last
-				rec_numbers = rec.first.last.first
-				puts "rec date #{rec_date} ... rec_numbers #{rec_numbers}"
+				get_items_for_date(rec_date).each { |item|
+	# 		items_for_date(rec_date).each
+	# 			items.values.each |hash_with_item_date_as_key|
+	# 				if hash_with_item_date_as_key.keys.first == rec_date
+	# 					rec_numbers.each |rec_number|
+	# 					if hash_with_item_date_as_key.values.includes rec_numbers
+	# 						add recommendation value to item
+				}
 			}
-			
+
 		}
 
 		{}
+	end
+
+	def get_items_for_date(date)
+
 	end
 
 
