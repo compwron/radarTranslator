@@ -22,7 +22,13 @@ class RadarDynamo
 	end
 
 	def get_items data_dir
-		get_items_from_file(get_data_from_files(get_filenames(data_dir)))
+		data = get_data_from_files(get_filenames(data_dir))
+		get_items_from_string(data, date_of(filename))
+	end
+
+	def date_of filename
+		matcher = filename.match /(\d{4})-(\d{2})\.txt/
+		Date.new(matcher[1].to_i, matcher[2].to_i, 1)
 	end
 
 	def get_data_from_files filenames
@@ -35,7 +41,7 @@ class RadarDynamo
 		}
 	end
 
-	def get_items_from_file file_text, radar_date
+	def get_items_from_string file_text, radar_date
 		recommendation = "not set yet"
 
 		most_recent_header = ""
@@ -122,7 +128,7 @@ class RadarDynamo
 	end
 
 	def get_items_for_date(full_file_text, date)
-		# get_items_from_file(full_file_text, date)
+		# get_items_from_string(full_file_text, date)
 
 	end
 

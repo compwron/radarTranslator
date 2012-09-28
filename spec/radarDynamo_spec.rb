@@ -30,12 +30,16 @@ describe RadarDynamo do
     end
   end
 
-  describe "#get_items_from_file" do
+  it 'gets date from filename' do
+    subject.date_of("2010-01.txt").should == radar_date
+  end
+
+  describe "#get_items_from_string" do
 
     it 'knows whether item is a language' do
       whole_file_text = "Languages\n1. Ruby"
       language_item = {"Ruby"=>{radar_date =>{"category"=>"Languages", "number" => "1"}}}
-      subject.get_items_from_file(whole_file_text, radar_date).should include language_item
+      subject.get_items_from_string(whole_file_text, radar_date).should include language_item
     end
 
     it 'can see two language items in a file' do
@@ -43,8 +47,8 @@ describe RadarDynamo do
       ruby_item = {"Ruby"=>{radar_date =>{"category"=>"Languages", "number" => "1"}}}
       python_item = {"Python"=>{radar_date =>{"category"=>"Languages", "number" => "2"}}}
       
-      subject.get_items_from_file(whole_file_text, radar_date).should include ruby_item
-      subject.get_items_from_file(whole_file_text, radar_date).should include python_item
+      subject.get_items_from_string(whole_file_text, radar_date).should include ruby_item
+      subject.get_items_from_string(whole_file_text, radar_date).should include python_item
     end
 
      it 'can see a language item and a tools item' do
@@ -52,21 +56,21 @@ describe RadarDynamo do
        languages_item = {"Ruby"=>{radar_date =>{"category"=>"Languages", "number" => "1"}}}
        tools_item = {"Subversion"=>{radar_date =>{"category"=>"Tools", "number" => "14"}}}
       
-        subject.get_items_from_file(whole_file_text, radar_date).should include tools_item
-        subject.get_items_from_file(whole_file_text, radar_date).should include languages_item
-        subject.get_items_from_file(whole_file_text, radar_date).should_not include nil
+        subject.get_items_from_string(whole_file_text, radar_date).should include tools_item
+        subject.get_items_from_string(whole_file_text, radar_date).should include languages_item
+        subject.get_items_from_string(whole_file_text, radar_date).should_not include nil
      end
 
      it 'can compose an item with spaces in the name' do
         whole_file_text = "Tools\n10. Visualization & metrics"
         tools_item = {"Visualization & metrics"=>{radar_date =>{"category"=>"Tools", "number" => "10"}}}
 
-        subject.get_items_from_file(whole_file_text, radar_date).should include tools_item
+        subject.get_items_from_string(whole_file_text, radar_date).should include tools_item
      end
 
       it "doesn't return items with nil key even when dealing with recommendation section of file" do
         whole_file_text = "Adopt 1\n\nLanguages\n1. Ruby"
-        subject.get_items_from_file(whole_file_text, radar_date).first.keys.should_not include nil
+        subject.get_items_from_string(whole_file_text, radar_date).first.keys.should_not include nil
     end
 
   end
