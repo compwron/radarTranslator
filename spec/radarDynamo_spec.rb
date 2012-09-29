@@ -128,12 +128,12 @@ describe RadarDynamo do
   end
 
   describe "#get_items_with_recommendations" do
-    # it 'can combine item with recommendation' do
-    #   whole_file_text = "Adopt 1-2\nHold 2\nLanguages\n1. Ruby\n2. Python"
-    #   item_with_recommendation = {"Ruby"=>{radar_date =>{"category"=>"Languages", "number" => "1", "recommendation"=>"Adopt"}}}
+    it 'can combine item with recommendation' do
+      whole_file_text = "Adopt 1-2\nHold 2\nLanguages\n1. Ruby\n2. Python"
+      item_with_recommendation = {"Ruby"=>{radar_date =>{"category"=>"Languages", "number" => "1", "recommendation"=>"Adopt"}}}
 
-    #   subject.get_items_with_recommendations(whole_file_text, radar_date).should include item_with_recommendation
-    # end
+      subject.get_items_with_recommendations(whole_file_text, radar_date).should include item_with_recommendation
+    end
   end
 
   describe "#add_recommendation_value_to_item" do

@@ -118,16 +118,10 @@ class RadarDynamo
 						item_date = hash_with_item_date_as_key.first
 						item_number = hash_with_item_date_as_key.last["number"]
 
-						puts "- - item number #{item_number}"
-
 						if (item_date == rec_date) then
-							puts "yep, same date"
-
 							rec_numbers.each { |rec_numbers| 
-								puts "- - - rec numbers #{rec_numbers}"
 								if (rec_numbers.include? item_number) then
-									puts "yep, same rec number!!!!!!!!!!!!!!!!!!"
-									modified_items += add_recommendation_value_to_item(item, rec_type, radar_date)
+									modified_items += [add_recommendation_value_to_item(item, rec_type, radar_date)]
 								end
 							}
 						end
@@ -135,8 +129,8 @@ class RadarDynamo
 				}
 			}
 		}
-
-		modified_items # items without recommendations will not be displayed (there should not be any, though!)
+		# items without recommendations will not be displayed (there should not be any, though!)
+		modified_items.flatten
 	end
 
 	def add_recommendation_value_to_item item, rec_type, date
