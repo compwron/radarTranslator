@@ -111,20 +111,21 @@ class RadarDynamo
 				rec_numbers = rec_date_array.first
 				rec_date = rec_date_array.last
 
-				puts "- rec_numbers #{rec_numbers} ... rec_date #{rec_date}"
-
 				get_items_for_date(rec_date).each { |item|
-					# puts "- - item #{item}"
+					item_dates = item.values.first.each { |hash_with_item_date_as_key| 
+						item_date = hash_with_item_date_as_key.first 
+						if (item_date == rec_date) then
+							puts "yep, same date"
 
-	# 		items_for_date(rec_date).each
-				# items.values.each |hash_with_item_date_as_key|
-	# 				if hash_with_item_date_as_key.keys.first == rec_date
-	# 					rec_numbers.each |rec_number|
+						rec_numbers.each { |rec_number| 
+							puts "- - - - - rec numbers #{rec_numbers}"
+						}
 	# 					if hash_with_item_date_as_key.values.includes rec_numbers
 	# 						add recommendation value to item
+						end
+					}
 				}
 			}
-
 		}
 
 		{}
