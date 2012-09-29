@@ -104,7 +104,6 @@ class RadarDynamo
 	def get_items_with_recommendations file_text, radar_date
 		all_recs = get_recommendations(file_text, radar_date)
 		all_recs.each { |foo|
-			puts "all_recs #{all_recs}"
 			all_recs.each { |rec_type_hash|
 				rec_type = rec_type_hash.first
 				rec_date_array = rec_type_hash.values.first
@@ -112,11 +111,13 @@ class RadarDynamo
 				rec_numbers = rec_date_array.first
 				rec_date = rec_date_array.last
 
-				puts "- - - rec_numbers #{rec_numbers} ... rec_date #{rec_date}"
+				puts "- rec_numbers #{rec_numbers} ... rec_date #{rec_date}"
 
 				get_items_for_date(rec_date).each { |item|
+					# puts "- - item #{item}"
+
 	# 		items_for_date(rec_date).each
-	# 			items.values.each |hash_with_item_date_as_key|
+				# items.values.each |hash_with_item_date_as_key|
 	# 				if hash_with_item_date_as_key.keys.first == rec_date
 	# 					rec_numbers.each |rec_number|
 	# 					if hash_with_item_date_as_key.values.includes rec_numbers
@@ -129,9 +130,11 @@ class RadarDynamo
 		{}
 	end
 
-	def get_items_for_date(full_file_text, date)
-		# get_items_from_string(full_file_text, date)
-
+	def get_items_for_date(date)
+		get_items(data_dir).select { |item|
+			dates_from_item = item.values.first.keys
+			dates_from_item.include? date
+		}
 	end
 
 

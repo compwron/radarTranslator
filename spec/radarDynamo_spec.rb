@@ -5,6 +5,8 @@ describe RadarDynamo do
   data_dir = 'spec/radars'
   subject { RadarDynamo.new data_dir }
   radar_date = Date.new(2010,1,1)
+  ruby_item = {"Ruby"=>{radar_date =>{"category"=>"Languages", "number" => "1"}}}
+  python_item = {"Python"=>{radar_date =>{"category"=>"Languages", "number" => "2"}}}
   
   it 'gets filenames from data dir' do
     subject.get_filenames(data_dir).should include "2010-01.txt"
@@ -13,7 +15,7 @@ describe RadarDynamo do
     subject.get_filenames(data_dir).should_not include "."
   end
 
-  it 'gets items from files in data dir' do
+  it 'gets items from all files in data dir' do
     ruby_item = {"Ruby"=>{radar_date =>{"category"=>"Languages", "number" => "1"}}}
     subject.get_items(data_dir).should include ruby_item
   end
@@ -44,8 +46,7 @@ describe RadarDynamo do
 
     it 'can see two language items in a file' do
       whole_file_text = "Languages\n1. Ruby\n2. Python"
-      ruby_item = {"Ruby"=>{radar_date =>{"category"=>"Languages", "number" => "1"}}}
-      python_item = {"Python"=>{radar_date =>{"category"=>"Languages", "number" => "2"}}}
+      
       
       subject.get_items_from_string(whole_file_text, radar_date).should include ruby_item
       subject.get_items_from_string(whole_file_text, radar_date).should include python_item
@@ -127,12 +128,12 @@ describe RadarDynamo do
   end
 
   describe "#get_items_with_recommendations" do
-    # it 'can combine item with recommendation' do
-    #   whole_file_text = "Adopt 1-2\nHold 2\nLanguages\n1. Ruby\n2. Python"
-    #   item_with_recommendation = {"Ruby"=>{radar_date =>{"category"=>"Languages", "number" => "1", "recommendation"=>"Adopt"}}}
+    it 'can combine item with recommendation' do
+      whole_file_text = "Adopt 1-2\nHold 2\nLanguages\n1. Ruby\n2. Python"
+      item_with_recommendation = {"Ruby"=>{radar_date =>{"category"=>"Languages", "number" => "1", "recommendation"=>"Adopt"}}}
 
-    #   subject.get_items_with_recommendations(whole_file_text, radar_date).should include item_with_recommendation
-    # end
+      subject.get_items_with_recommendations(whole_file_text, radar_date).should include item_with_recommendation
+    end
   end
 
 
@@ -141,6 +142,12 @@ describe RadarDynamo do
 
   it "should get raw data from files" do
   	subject.get_data_from_file("2010-01.txt").should == "Languages\n1. Ruby"
+  end
+
+
+  it 'should get items for a particular date when given a data directory with files in' do
+    subject.get_items_for_date(radar_date).should include ruby_item
+    subject.get_items_for_date(radar_date).should_not include python_item
   end
 end
 
