@@ -140,7 +140,8 @@ describe RadarDynamo do
     it 'adds recommendation to item, given item and date' do
       rec_type = "Adopt"
       ruby_item_with_rec = {"Ruby"=>{radar_date =>{"category"=>"Languages", "number" => "1", "recommendation"=>"Adopt"}}}
-      subject.add_recommendation_value_to_item(ruby_item, rec_type, radar_date).should == ruby_item_with_rec
+      generated_item_with_rec = subject.add_recommendation_value_to_item(ruby_item, rec_type, radar_date)
+      generated_item_with_rec.should == ruby_item_with_rec
     end
   end
 

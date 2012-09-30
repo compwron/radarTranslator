@@ -107,7 +107,7 @@ class RadarDynamo
 		all_recs = get_recommendations(file_text, radar_date)
 		all_recs.each { |foo|
 			all_recs.each { |rec_type_hash|
-				rec_type = rec_type_hash.first
+				rec_type = rec_type_hash.first.first
 				rec_date_array = rec_type_hash.values.first
 				
 				rec_numbers = rec_date_array.first # poorly named
@@ -130,7 +130,7 @@ class RadarDynamo
 			}
 		}
 		# items without recommendations will not be displayed (there should not be any, though!)
-		modified_items.flatten
+		modified_items
 	end
 
 	def add_recommendation_value_to_item item, rec_type, date
