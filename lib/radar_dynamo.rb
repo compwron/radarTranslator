@@ -92,31 +92,34 @@ class RadarDynamo
 	def get_items_with_recommendations file_text, radar_date
 		modified_items = []
 
-		all_recs = get_recommendations(file_text, radar_date)
-		all_recs.each { |foo|
-			all_recs.each { |rec_type_hash|
-				rec_type = rec_type_hash.first.first
-				rec_date_array = rec_type_hash.values.first
-				
-				rec_numbers = rec_date_array.first # poorly named
-				rec_date = rec_date_array.last
+		get_recommendations(file_text, radar_date).map { |rec_type_hash|
+			rec_type = rec_type_hash.first.first
+			rec_date_array = rec_type_hash.values.first
+			
+			rec_numbers = rec_date_array.first # poorly named
+			rec_date = rec_date_array.last
 
-				get_items_for_date(rec_date).each { |item|
-					item_dates = item.values.first.each { |hash_with_item_date_as_key| 
-						item_date = hash_with_item_date_as_key.first
-						item_number = hash_with_item_date_as_key.last["number"]
+			get_items_for_date(rec_date).map { |item|
+				item_dates = item.values.first.each { |hash_with_item_date_as_key| 
+					item_date = hash_with_item_date_as_key.first
+					item_number = hash_with_item_date_as_key.last["number"]
 
-						if (item_date == rec_date) then
-							rec_numbers.each { |rec_numbers| 
-								if (rec_numbers.include? item_number) then
-									modified_items += [add_recommendation_value_to_item(item, rec_type, radar_date)]
-								end
-							}
-						end
-					}
+					modified_items += rec_items_with_matching_dates(item_date, rec_date, rec_numbers, item_number, item, rec_type)
 				}
 			}
 		}
+		modified_items
+	end
+
+	def rec_items_with_matching_dates item_date, rec_date, rec_numbers, item_number, item, rec_type
+		modified_items = []
+		if (item_date == rec_date) then
+			rec_numbers.each { |rec_numbers| 
+				if (rec_numbers.include? item_number) then
+					modified_items += [add_recommendation_value_to_item(item, rec_type, item_date)]
+				end
+			}
+		end
 		modified_items
 	end
 
