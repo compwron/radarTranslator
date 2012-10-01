@@ -1,5 +1,3 @@
-# assume that vanishing means staying still (i.e. if in trial and then hold, assume stays in hold)
-# desired output: all data in json format. and/or report of everything that has stayed still in adopt (or x section) for x years?
 require 'date'
 
 class RadarDynamo
@@ -21,7 +19,7 @@ class RadarDynamo
 
 	def get_filenames data_dir
 		Dir.entries(data_dir).reject { |filename|
-			filename == "." || filename == ".."
+			filename.match /^\..*/
 		}
 	end
 
