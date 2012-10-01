@@ -129,7 +129,6 @@ class RadarDynamo
 				}
 			}
 		}
-		# items without recommendations will not be displayed (there should not be any, though!)
 		modified_items
 	end
 

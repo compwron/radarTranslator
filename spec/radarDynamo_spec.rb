@@ -135,6 +135,9 @@ describe RadarDynamo do
 
   describe "#get_items_with_recommendations" do
     rec_and_item = "Adopt 1\n\nLanguages\n1. Ruby"
+    recs_and_items = "Adopt 1-2\nHold 3\n\nLanguages\n1. Ruby\n2. Python\n\nTools\n3. Subversion"
+    item_without_rec = "Languages\n1. Ruby"
+    rec_without_item = "Adopt 1"
 
     it 'can combine item with recommendation' do
       item_with_recommendation = {"Ruby"=>{radar_date =>{"category"=>"Languages", "number" => "1", "recommendation"=>"Adopt"}}}
@@ -142,9 +145,19 @@ describe RadarDynamo do
     end
 
     it 'can combine several items with recommendation list' do 
+      adopt_ruby = {"Ruby"=>{radar_date =>{"category"=>"Languages", "number" => "1", "recommendation"=>"Adopt"}}}
+      adopt_python = {"Ruby"=>{radar_date =>{"category"=>"Languages", "number" => "1", "recommendation"=>"Adopt"}}}
+      hold_subversion = {"Ruby"=>{radar_date =>{"category"=>"Languages", "number" => "1", "recommendation"=>"Adopt"}}}
+      
+      rec_items = subject.get_items_with_recommendations(recs_and_items, radar_date)
+      
+      rec_items.should include adopt_ruby
+      rec_items.should include adopt_python
+      rec_items.should include hold_subversion
     end
 
     it 'items without recommendations should not be returned' do
+      subject.get_items_with_recommendations(item_without_rec, radar_date).size.should == 0
     end
   end
 
