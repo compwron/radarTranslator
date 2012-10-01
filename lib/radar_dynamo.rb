@@ -3,20 +3,16 @@
 require 'date'
 
 class RadarDynamo
-	attr_accessor :data_dir, :types
+	attr_accessor :data_dir, :item_types, :recommendations
 
 	def initialize data_dir
 		@data_dir = data_dir
-		# filenames = []
-		# Dir.foreach(data_dir) { |f| filenames += [f] }
-		# filenames -= [".", ".."]
-		@types = ["Languages", "Tools", "Techniques", "Platforms"]
-		# @all_data_from_files = get_data_from_file
+		@item_types = ["Languages", "Tools", "Techniques", "Platforms"]
+		@recommendations = ["Adopt", "Trial", "Assess", "Hold"]
 	end
 
 	def get_filenames data_dir
-		files = Dir.entries(data_dir)
-		files.reject { |filename|
+		Dir.entries(data_dir).reject { |filename|
 			filename == "." || filename == ".."
 		}
 	end
@@ -45,12 +41,12 @@ class RadarDynamo
 
 	def get_items_from_string file_text, radar_date
 		recommendation = "not set yet"
-
 		most_recent_header = ""
+
 		file_text.split("\n").select { |item| 
 			!item.nil? 
 		}.map { |item| 
-			most_recent_header = item if (types.include?(item)) 
+			most_recent_header = item if (item_types.include?(item)) 
 			most_recent_header == item ? nil : tech_object(item_name(item), radar_date, most_recent_header, recommendation, item_number(item))
 		}.compact.reject { |item|
 			item.keys.include? nil
@@ -70,13 +66,10 @@ class RadarDynamo
 	end
 
 	def get_recommendations file_text, radar_date
-		recommendations = ["Adopt", "Trial", "Assess", "Hold"]
-
-		current_recommendation = nil
 		file_text.split("\n").map { |item|
-			line_components = item.split(" ").map {|component|
-				component.split(",")
-			}.flatten
+			line_components = item.split(" ").map { |component|
+																							component.split(",")
+																						}.flatten
 			current_recommendation = line_components.first
 			{current_recommendation => [rec_item_numbers(current_recommendation, line_components), radar_date] }
 		}.reject {|rec|
@@ -86,19 +79,15 @@ class RadarDynamo
 
 	def rec_item_numbers current_recommendation, line_components
 		line_components.delete(current_recommendation)
-		numbers = []
-		line_components.map { |range|
-			range = range.split("-")
-			range.delete("-")
-			
-			first = range.first.to_i
-			last = range.last.to_i
 
-			(first..last).each {|number|
-				numbers += [number.to_s]
+		line_components.reject { |component|
+			recommendations.include? component
+		}.map { |range_string|
+			range = range_string.split("-")
+			(range.first.to_i..range.last.to_i).map {|number|
+				number.to_s
 			}
 		}.flatten
-		numbers
 	end
 
 	def get_items_with_recommendations file_text, radar_date
