@@ -168,17 +168,12 @@ describe RadarDynamo do
       subject.add_recommendation_value_to_item(ruby_item, rec_type, radar_date).should == ruby_item_with_rec
     end
   end
+
+  describe "#tech_object" do
+    language_item = {"Ruby"=>{radar_date =>{"category"=>"Languages", "number" => "1"}}}
+
+    it 'makes a json object of an item without rec' do
+      subject.tech_object("Ruby", radar_date, "Languages", "1").should == language_item
+    end
+  end
 end
-
-
-
-
-
-
-
-
-
-
-
-
-

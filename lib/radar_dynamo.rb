@@ -40,14 +40,13 @@ class RadarDynamo
 
 
 	def get_items_from_string file_text, radar_date
-		recommendation = "not set yet"
 		most_recent_header = ""
 
 		file_text.split("\n").select { |item| 
 			!item.nil? 
 		}.map { |item| 
 			most_recent_header = item if (item_types.include?(item)) 
-			most_recent_header == item ? nil : tech_object(item_name(item), radar_date, most_recent_header, recommendation, item_number(item))
+			most_recent_header == item ? nil : tech_object(item_name(item), radar_date, most_recent_header, item_number(item))
 		}.compact.reject { |item|
 			item.keys.include? nil
 		}
@@ -134,7 +133,7 @@ class RadarDynamo
 		}
 	end
 
-	def tech_object item_name, radar_date, most_recent_header, recommendation, item_number
+	def tech_object item_name, radar_date, most_recent_header, item_number
 		{ item_name => { 
 				radar_date => {
 					"category" => most_recent_header,
