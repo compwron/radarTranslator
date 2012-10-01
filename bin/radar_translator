@@ -13,4 +13,4 @@ def run_command opts
   radar_translator.items_with_recs
 end
 
-puts run_command(opts).join("\n")
+puts run_command(opts).join("\n,")

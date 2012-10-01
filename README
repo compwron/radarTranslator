@@ -1,26 +1,36 @@
-Tracking changes in the tech radar over time. Data comes from http://www.thoughtworks.com/radar
+Translating plaintext tech radar data into json
 
+Data comes from http://www.thoughtworks.com/radar
 Data is scraped by hand and may have errors
-
 In the January 2010 data set, items between two zones are in the data set as in in the outer zone of the two they straddle.
 
 Goals: 
-see "current" recommendations by aggregating old recommendations
 turn data into json which can be worked with by others
 enable future turning of data into json
+see "current" recommendations by aggregating old recommendations
 
-anticipated data structure:
-
-{
-	"Python": {
-		"2012-01": {
-			"category": "languages",
-			"recommendation": "trial"
-		},
-		"2012-04": {
-			"category": "languages",
-			"recommendation": "adopt"
+example of current data structure:
+{"Google Dart"=>
+	{ #<Date: 2012-03-01 ((2455988j,0s,0n),+0s,2299161j)>=>
+		{ "category"=>"Languages", 
+		  "number"=>"103", 
+		  "recommendation"=>"Hold"
+		}
+	}
+},
+{"Logic in stored procedures"=>
+	{ #<Date: 2012-03-01 ((2455988j,0s,0n),+0s,2299161j)>=>
+		{ 	"category"=>"Languages", 
+			"number"=>"104", 
+			"recommendation"=>"Hold"
 		}
 	}
 }
+
+Usage:
+
+Options:
+  --root, -r <s>:   Folder containing radars (default: .)
+      --help, -h:   Show this message
+
 
