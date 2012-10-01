@@ -11,6 +11,14 @@ class RadarDynamo
 		@recommendations = ["Adopt", "Trial", "Assess", "Hold"]
 	end
 
+	def items_with_recs
+		get_filenames(data_dir).map { |filename| 
+			[get_data_from_file(filename), date_of(filename)]
+		}.map { |file_text, date|
+			get_items_with_recommendations(file_text, date)
+		}.flatten
+	end
+
 	def get_filenames data_dir
 		Dir.entries(data_dir).reject { |filename|
 			filename == "." || filename == ".."

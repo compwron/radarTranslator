@@ -1,0 +1,16 @@
+#!/usr/bin/env ruby
+
+require_relative "../lib/radar_dynamo"
+require 'trollop'
+
+opts = Trollop::options do
+  opt :root, "Folder containing radars",  :default => "."  
+end
+
+def run_command opts
+  radar_translator = RadarDynamo.new (opts[:root])
+
+  radar_translator.items_with_recs
+end
+
+puts run_command(opts).join("\n")
