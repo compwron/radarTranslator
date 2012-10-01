@@ -90,25 +90,23 @@ class RadarDynamo
 	end
 
 	def get_items_with_recommendations file_text, radar_date
-		modified_items = []
-
 		get_recommendations(file_text, radar_date).map { |rec_type_hash|
 			rec_type = rec_type_hash.first.first
-			rec_date_array = rec_type_hash.values.first
-			
-			rec_numbers = rec_date_array.first # poorly named
-			rec_date = rec_date_array.last
+			rec_number_and_date = rec_type_hash.values.first
+			rec_numbers = rec_number_and_date.first
+			rec_date = rec_number_and_date.last
 
 			get_items_for_date(rec_date).map { |item|
-				item_dates = item.values.first.each { |hash_with_item_date_as_key| 
+				item_dates = item.values.first
+
+				item_dates.map { |hash_with_item_date_as_key| 
 					item_date = hash_with_item_date_as_key.first
 					item_number = hash_with_item_date_as_key.last["number"]
 
-					modified_items += rec_items_with_matching_dates(item_date, rec_date, rec_numbers, item_number, item, rec_type)
+					rec_items_with_matching_dates(item_date, rec_date, rec_numbers, item_number, item, rec_type)
 				}
 			}
-		}
-		modified_items
+		}.flatten
 	end
 
 	def rec_items_with_matching_dates item_date, rec_date, rec_numbers, item_number, item, rec_type
