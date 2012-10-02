@@ -13,11 +13,15 @@ describe Items do
     subject.item_name("1. Ruby")
   end
 
+  it 'gets date from filename' do
+    subject.date_of("2010-01.txt").should == radar_date
+  end
+
   describe "#item_number" do
     it 'gets item number from datum' do
       subject.item_number("1. Ruby")
     end
-    
+
     it 'sees item number from datum' do
       whole_file_text = "Languages\n1. Ruby"
       subject.item_number(whole_file_text).should == "1"
@@ -61,45 +65,43 @@ describe Items do
 
   
 
-  # it 'gets date from filename' do
-  #   subject.date_of("2010-01.txt").should == radar_date
-  # end
 
-  # describe "#get_items_from_string" do
-  #   one_language = "Languages\n1. Ruby"
-  #   two_languages = "Languages\n1. Ruby\n2. Python"
-  #   two_item_types = "Languages\n1. Ruby\n\nTools\n14. Subversion"
-  #   two_item_types_one_rec = "Adopt 1\n\nLanguages\n1. Ruby\n\nTools\n2. Puppet"
 
-  #   it 'knows whether item is a language' do
-  #     language_item = {"Ruby"=>{radar_date =>{"category"=>"Languages", "number" => "1"}}}
-  #     subject.get_items_from_string(one_language, radar_date).should include language_item
-  #   end
+  describe "#get_items_from_string" do
+    one_language = "Languages\n1. Ruby"
+    two_languages = "Languages\n1. Ruby\n2. Python"
+    two_item_types = "Languages\n1. Ruby\n\nTools\n14. Subversion"
+    two_item_types_one_rec = "Adopt 1\n\nLanguages\n1. Ruby\n\nTools\n2. Puppet"
+    ruby_item = Item.new("Ruby", radar_date, "Languages", "1") 
 
-  #   it 'can see two items of the same type in a file' do
-  #     items = subject.get_items_from_string(two_languages, radar_date)
-  #     items.should include ruby_item
-  #     items.should include python_item
-  #   end
+    it 'knows whether item is a language' do
+      subject.get_items_from_string(one_language, radar_date).should include ruby_item
+    end
 
-  #   it 'can see two kinds of item' do
-  #     languages_item = {"Ruby"=>{radar_date =>{"category"=>"Languages", "number" => "1"}}}
-  #     tools_item = {"Subversion"=>{radar_date =>{"category"=>"Tools", "number" => "14"}}}
+    # it 'can see two items of the same type in a file' do
+    #   items = subject.get_items_from_string(two_languages, radar_date)
+    #   items.should include ruby_item
+    #   items.should include python_item
+    # end
 
-  #     items = subject.get_items_from_string(two_item_types, radar_date)
-  #     items.should include tools_item
-  #     items.should include languages_item
-  #   end
+    # it 'can see two kinds of item' do
+    #   languages_item = {"Ruby"=>{radar_date =>{"category"=>"Languages", "number" => "1"}}}
+    #   tools_item = {"Subversion"=>{radar_date =>{"category"=>"Tools", "number" => "14"}}}
 
-  #   it 'can compose an item with spaces in the name' do
-  #     tools_item = {"Visualization & metrics"=>{radar_date =>{"category"=>"Tools", "number" => "10"}}}
-  #     subject.get_items_from_string("Tools\n10. Visualization & metrics", radar_date).should include tools_item
-  #   end
+    #   items = subject.get_items_from_string(two_item_types, radar_date)
+    #   items.should include tools_item
+    #   items.should include languages_item
+    # end
 
-  #   it "doesn't return items with nil key even when dealing with multiple file sections" do
-  #     subject.get_items_from_string(two_item_types_one_rec, radar_date).first.keys.should_not include nil
-  #   end
-  # end
+    # it 'can compose an item with spaces in the name' do
+    #   tools_item = {"Visualization & metrics"=>{radar_date =>{"category"=>"Tools", "number" => "10"}}}
+    #   subject.get_items_from_string("Tools\n10. Visualization & metrics", radar_date).should include tools_item
+    # end
+
+    # it "doesn't return items with nil key even when dealing with multiple file sections" do
+    #   subject.get_items_from_string(two_item_types_one_rec, radar_date).first.keys.should_not include nil
+    # end
+  end
 
   # describe "#get_recommendations" do
   #   one_rec = "Adopt 1"

@@ -35,4 +35,12 @@ class Item
   def to_s
   	"#{name} #{date} #{category} #{number} #{recommendation}"
   end
+
+  def == item
+    name == item.name
+    date == item.date
+    category == item.category
+    number == item.number
+    recommendation == item.recommendation
+  end
 end
