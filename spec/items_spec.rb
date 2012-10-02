@@ -3,7 +3,8 @@ require 'date'
 
 describe Items do
 
-  subject { Items.new 'spec/radars' }
+  data_dir = 'spec/radars'
+  subject { Items.new data_dir }
   radar_date = Date.new(2010, 01, 01)
   ruby_item = {"Ruby"=>{radar_date =>{"category"=>"Languages", "number" => "1"}}}
   python_item = {"Python"=>{radar_date =>{"category"=>"Languages", "number" => "2"}}}
@@ -12,8 +13,19 @@ describe Items do
     subject.item_name("1. Ruby")
   end
 
-  it 'gets item number from datum' do
-    subject.item_number("1. Ruby")
+  describe "#item_number" do
+    it 'gets item number from datum' do
+      subject.item_number("1. Ruby")
+    end
+    
+    it 'sees item number from datum' do
+      whole_file_text = "Languages\n1. Ruby"
+      subject.item_number(whole_file_text).should == "1"
+    end
+
+    it 'understands multidigit items' do
+      subject.item_number("Languages\n100. Ruby").should == "100"
+    end
   end
 
   it 'should get items for a particular date when given a data directory with files in' do
@@ -22,48 +34,32 @@ describe Items do
     subject.for_date(radar_date).size.should == 1
   end
 
+  it 'gets filenames from data dir' do
+    subject.get_filenames(data_dir).should include "2010-01.txt"
+    subject.get_filenames(data_dir).should include "2012-03.txt"
+    subject.get_filenames(data_dir).should_not include "2010-08.txt"
+    subject.get_filenames(data_dir).should_not include "."
+  end
 
+  it "should get raw data from files" do
+    subject.get_data_from_file("2010-01.txt").should == "Adopt 1\n\nLanguages\n1. Ruby"
+  end
 
+  it 'gets items from all files in data dir' do
+    subject.get_items(data_dir).first.name.should include "Ruby"
+    subject.get_items(data_dir).size.should == 2
+  end
 
-  # describe "uses data_dir" do
-  #   it 'gets filenames from data dir' do
-  #     subject.get_filenames(data_dir).should include "2010-01.txt"
-  #     subject.get_filenames(data_dir).should include "2012-03.txt"
-  #     subject.get_filenames(data_dir).should_not include "2010-08.txt"
-  #     subject.get_filenames(data_dir).should_not include "."
-  #   end
-
-  #   it "should get raw data from files" do
-  #     subject.get_data_from_file("2010-01.txt").should == "Adopt 1\n\nLanguages\n1. Ruby"
-  #   end
-
-  #   it 'gets items from all files in data dir' do
-  #    
-  #     subject.get_items(data_dir).should include ruby_item
-  #     subject.get_items(data_dir).size.should == 2
-  #   end
-
-   
-
-  #   it 'sees all items with recs in a data dir (more than 1 file)' do
-  #     adopt_ruby = {"Ruby"=>{radar_date =>{"category"=>"Languages", "number" => "1", "recommendation"=>"Adopt"}}}
-  #     adopt_python = {"Ruby"=>{radar_date =>{"category"=>"Languages", "number" => "1", "recommendation"=>"Adopt"}}}
-    
-  #     subject.items_with_recs.should include adopt_ruby
-  #     subject.items_with_recs.should include adopt_python
-  #   end
+  # fix me!
+  # it 'sees all items with recs in a data dir (more than 1 file)' do
+  #   adopt_ruby = Item.new("Ruby", radar_date, "Languages", "1") 
+  #   adopt_python = Item.new("Python", radar_date, "Languages", "1")
+  
+  #   subject.with_recs.should include adopt_ruby
+  #   subject.with_recs.should include adopt_python
   # end
 
-  # describe "#item_number" do
-  #   it 'sees item number in item' do
-  #     whole_file_text = "Languages\n1. Ruby"
-  #     subject.item_number(whole_file_text).should == "1"
-  #   end
-
-  #   it 'understands multidigit items' do
-  #     subject.item_number("Languages\n100. Ruby").should == "100"
-  #   end
-  # end
+  
 
   # it 'gets date from filename' do
   #   subject.date_of("2010-01.txt").should == radar_date
