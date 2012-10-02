@@ -74,4 +74,14 @@ class Items
 		matcher = datum.match(regex)
 		(matcher.nil? ? nil : (datum.match regex)[1] )
 	end
+
+	def to_s
+		"I'm a list of items!"
+	end
+
+	def to_json
+		items.map { |item|
+			item.to_json
+		}
+	end
 end

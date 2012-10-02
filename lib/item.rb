@@ -6,14 +6,26 @@ class Item
   end
 
   def to_json
-  	{ name => { 
+  	json_item = 
+    { name => { 
   				date => {
   					"category" => category,
-  					"number" => number,
-  					"recommendation" => recommendation
+  					"number" => number
   				}
   			}
   		}
+
+    json_item_with_rec = 
+    { name => { 
+        date => {
+          "category" => category,
+          "number" => number,
+          "recommendation" => recommendation
+        }
+      }
+    }
+
+    !recommendation.nil? ? json_item_with_rec : json_item
   end
 
   def add_rec recommendation

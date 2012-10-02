@@ -55,14 +55,14 @@ class RadarDynamo
 		if (item_date == rec_date) then
 			rec_numbers.each { |rec_numbers| 
 				if (rec_numbers.include? item_number) then
-					modified_items += [add_recommendation_value_to_item(item, rec_type, item_date)]
+					modified_items += [add_recommendation_value_to_item(item, rec_type)]
 				end
 			}
 		end
 		modified_items
 	end
 
-	def add_recommendation_value_to_item item, rec_type, date
+	def add_recommendation_value_to_item item, rec_type
 		item.add_rec rec_type
 		item
 	end

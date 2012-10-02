@@ -1,9 +1,30 @@
 require_relative "../lib/items"
+require 'date'
 
 describe Items do
 
   subject { Items.new 'spec/radars' }
-  
+  radar_date = Date.new(2010, 01, 01)
+  ruby_item = {"Ruby"=>{radar_date =>{"category"=>"Languages", "number" => "1"}}}
+  python_item = {"Python"=>{radar_date =>{"category"=>"Languages", "number" => "2"}}}
+
+  it 'gets item name from datum' do
+    subject.item_name("1. Ruby")
+  end
+
+  it 'gets item number from datum' do
+    subject.item_number("1. Ruby")
+  end
+
+  it 'should get items for a particular date when given a data directory with files in' do
+    subject.for_date(radar_date).first.name.should == "Ruby"
+    subject.for_date(radar_date).first.date.should == radar_date
+    subject.for_date(radar_date).size.should == 1
+  end
+
+
+
+
   # describe "uses data_dir" do
   #   it 'gets filenames from data dir' do
   #     subject.get_filenames(data_dir).should include "2010-01.txt"
@@ -17,15 +38,12 @@ describe Items do
   #   end
 
   #   it 'gets items from all files in data dir' do
-  #     ruby_item = {"Ruby"=>{radar_date =>{"category"=>"Languages", "number" => "1"}}}
+  #    
   #     subject.get_items(data_dir).should include ruby_item
   #     subject.get_items(data_dir).size.should == 2
   #   end
 
-  #   it 'should get items for a particular date when given a data directory with files in' do
-  #     subject.get_items_for_date(radar_date).should include ruby_item
-  #     subject.get_items_for_date(radar_date).should_not include python_item
-  #   end
+   
 
   #   it 'sees all items with recs in a data dir (more than 1 file)' do
   #     adopt_ruby = {"Ruby"=>{radar_date =>{"category"=>"Languages", "number" => "1", "recommendation"=>"Adopt"}}}

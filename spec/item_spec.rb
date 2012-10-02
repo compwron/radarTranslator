@@ -7,7 +7,7 @@ describe Item do
   subject { Item.new "Ruby", radar_date, "Languages", "1"}
   
   it 'should have a to_json option' do
-    subject.to_json.should == {"Ruby"=>{radar_date =>{"category"=>"Languages", "number" => "1", "recommendation"=>nil}}}
+    subject.to_json.should == {"Ruby"=>{radar_date =>{"category"=>"Languages", "number" => "1"}}}
   end
 
   it 'can have a recommendation added to it' do
