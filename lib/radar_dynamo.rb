@@ -35,7 +35,7 @@ class RadarDynamo
 		}.flatten
 	end
 
-	def get_items_with_recommendations file_text, radar_date
+	def add_recs_to_items file_text, radar_date
 		get_recommendations(file_text, radar_date).map { |rec_type_hash|
 			rec_type = rec_type_hash.first.first
 			rec_number_and_date = rec_type_hash.values.first

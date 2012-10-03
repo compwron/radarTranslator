@@ -53,18 +53,14 @@ describe Items do
     subject.get_items(data_dir).size.should == 2
   end
 
-  # fix me!
+  # broken: get Items.new to bring in recs also
   # it 'sees all items with recs in a data dir (more than 1 file)' do
-  #   adopt_ruby = Item.new("Ruby", radar_date, "Languages", "1") 
-  #   adopt_python = Item.new("Python", radar_date, "Languages", "1")
-  
+  #   adopt_ruby = Item.new("Ruby", radar_date, "Languages", "1", "Adopt")
+  #   adopt_python = Item.new("Python", radar_date, "Languages", "2", "Adopt")
+
   #   subject.with_recs.should include adopt_ruby
   #   subject.with_recs.should include adopt_python
   # end
-
-  
-
-
 
   describe "#get_items_from_string" do
     one_language = "Languages\n1. Ruby"

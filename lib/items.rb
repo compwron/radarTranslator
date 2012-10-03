@@ -31,11 +31,7 @@ class Items
 	end
 
 	def with_recs
-		get_filenames(data_dir).map { |filename| 
-			[get_data_from_file(filename), date_of(filename)]
-		}.map { |file_text, date|
-			get_items_with_recommendations(file_text, date)
-		}.flatten
+		items.select {|item| !item.recommendation.nil? }
 	end
 
 	def date_of filename
@@ -83,5 +79,9 @@ class Items
 		items.map { |item|
 			item.to_json
 		}
+	end
+
+	def to_s
+		"#{data_dir}: #{items}"
 	end
 end
