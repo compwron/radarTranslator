@@ -95,4 +95,11 @@ describe Items do
       subject.get_items_from_string(two_item_types_one_rec, radar_date).first.name.should_not == nil
     end
   end
+
+  describe "#get_recommendations" do
+    adopt_1 = Recommendation.new("1", "Adopt", radar_date)
+    adopt_1_2012_03 = Recommendation.new("1", "Adopt", Date.new(2012, 3, 1))
+    subject.get_recommendations.should include adopt_1
+    subject.get_recommendations.should include adopt_1_2012_03
+  end
 end

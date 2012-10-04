@@ -1,5 +1,7 @@
 require 'date'
-require 'items'
+p `pwd`
+require_relative 'items'
+
 
 class RadarDynamo
 	attr_accessor :data_dir, :recommendations, :items

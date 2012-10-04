@@ -1,4 +1,4 @@
-require 'item'
+require_relative 'item'
 
 class Items
 	include Enumerable
@@ -71,10 +71,6 @@ class Items
 		(matcher.nil? ? nil : (datum.match regex)[1] )
 	end
 
-	def to_s
-		"I'm a list of items!"
-	end
-
 	def to_json
 		items.map { |item|
 			item.to_json
@@ -83,5 +79,27 @@ class Items
 
 	def to_s
 		"#{data_dir}: #{items}"
+	end
+
+	def get_recommendations data_dir
+		
+	end
+
+	class Recommendation
+		attr_reader :number, :rec, :date
+
+    def initialize number, rec, date
+      @number, @rec, @date = number, rec, date
+    end
+
+    def to_s
+    	"#{rec} #{date} #{number}"
+    end
+
+    def <=> other
+    	number == other.number
+    	rec == other.rec
+    	date == other.date
+    end
 	end
 end
