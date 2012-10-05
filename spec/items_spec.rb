@@ -140,8 +140,8 @@ describe Items do
 
   it "should get recs from range" do
     adopt_1 = Recommendation.new("1", "Adopt", radar_date)
-    subject.get_range_recs("Adopt 1-3", "Adopt", radar_date).size.should == 3
-    subject.get_range_recs("Adopt 1-3", "Adopt", radar_date).should include adopt_1 
+    subject.get_range_recs("1-3", "Adopt", radar_date).size.should == 3
+    subject.get_range_recs("1-3", "Adopt", radar_date).should include adopt_1 
   end
 
   # describe "test larger data sets" do
