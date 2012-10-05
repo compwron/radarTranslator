@@ -36,9 +36,9 @@ class Item
   	@recommendation = recommendation
   end
 
-  def to_s
-  	"#{name} #{date} #{category} #{number} #{recommendation}"
-  end
+  # def to_s
+  # 	"#{name} #{date} #{category} #{number} #{recommendation}"
+  # end
 
   def == item
     name == item.name
