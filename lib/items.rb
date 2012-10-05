@@ -37,6 +37,10 @@ class Items
 		items.select {|item| item.recommendation }
 	end
 
+  def with_recs_json
+    with_recs.map {|item| item.to_json}
+  end
+
 	def date_of filename
 		matcher = filename.match /(\d{4})-(\d{2})\.txt/
 		Date.new(matcher[1].to_i, matcher[2].to_i, 1)

@@ -53,10 +53,14 @@ describe Items do
     subject.get_items(data_dir).size.should == 2
   end
 
-  # broken: get Items.new to bring in recs also?
   it 'sees all items with recs in a data dir (more than 1 file)' do
     subject.with_recs.should include Item.new("Ruby", radar_date, "Languages", "1", "Adopt")
     subject.with_recs.should include Item.new("Python", radar_date, "Languages", "2", "Adopt")
+  end
+
+  it 'sees json of all items with recs in a data dir (more than 1 file)' do
+    json_ruby_adopt = {"Ruby"=>{radar_date =>{"category"=>"Languages", "number" => "1", "recommendation"=>"Adopt"}}}
+    subject.with_recs_json.should include json_ruby_adopt
   end
 
   describe "#get_items_from_string" do
