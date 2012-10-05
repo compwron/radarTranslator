@@ -33,7 +33,8 @@ class Items
 	end
 
 	def with_recs
-		items.select {|item| !item.recommendation.nil? }
+    add_recs_to_items(get_recommendations_in_dir)
+		items.select {|item| item.recommendation }
 	end
 
 	def date_of filename
@@ -80,7 +81,7 @@ class Items
 	end
 
 	def get_recommendations_in_dir
-		get_filenames(data_dir).map { |filename|
+		a = get_filenames(data_dir).map { |filename|
 			[get_data_from_file(filename), date_of(filename)]
 		}.map { |file_content, date| 
 			get_recommendations_from_string(file_content, date)
@@ -127,7 +128,7 @@ class Items
 	end
 
 	def add_recs_to_items *recommendations
-		recommendations.map { |rec| 
+    recommendations.flatten.map { |rec| 
 			items.each {|item|
 				if item.matches(rec) then
 					item.add_rec(rec.name)

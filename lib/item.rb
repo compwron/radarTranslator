@@ -2,7 +2,7 @@ class Item
   attr_reader :name, :date, :category, :number, :recommendation
 
   def initialize name, date, category, number, recommendation=nil
-  	@name, @date, @category, @number = name, date, category, number
+  	@name, @date, @category, @number, @recommendation = name, date, category, number, recommendation
   end
 
   def to_json
