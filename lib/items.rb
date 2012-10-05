@@ -85,7 +85,7 @@ class Items
 	end
 
 	def get_recommendations_in_dir
-		a = get_filenames(data_dir).map { |filename|
+		get_filenames(data_dir).map { |filename|
 			[get_data_from_file(filename), date_of(filename)]
 		}.map { |file_content, date| 
 			get_recommendations_from_string(file_content, date)
@@ -163,6 +163,4 @@ class Items
 			item.date == date
 		}
 	end
-
-
 end

@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-require_relative "../lib/radar_dynamo"
+require_relative "../lib/items"
 
 require 'trollop'
 
