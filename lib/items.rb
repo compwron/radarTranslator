@@ -85,21 +85,21 @@ class Items
 		}.map { |file_content, date| 
 			get_recommendations_from_string(file_content, date)
 		}
-
-		# .map { |file_content, date|
-		# 	get_recommendations_from_string(file_content, date)
-		# }.inject(:+).flatten
 	end
 
 	def get_recommendations_from_string file_text, date
 		file_text.split("\n").map { |datum|
 			line_components = datum.split(" ").map { |component| component.split(",") }.flatten
 			p line_components
-			# current_recommendation = line_components.first
-			# line_components.map{ |number|
-			# 	Recommendation.new(number, current_recommendation, date)
-		 #  }
-		}
+			current_recommendation = line_components.first
+			line_components.delete current_recommendation
+
+			line_components.map{ |number|
+				if (recommendation_types.include?(current_recommendation)) then 
+					Recommendation.new(number, current_recommendation, date)
+				end
+		  	}
+		}.flatten
 	end
 
 		def get_recommendations file_text, radar_date

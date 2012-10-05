@@ -9,7 +9,7 @@ class Recommendation
   	"#{name} #{date} #{number}"
   end
 
-  def <=> other
+  def == other
   	number == other.number
   	name == other.name
   	date == other.date

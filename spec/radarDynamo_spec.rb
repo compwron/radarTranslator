@@ -7,6 +7,4 @@ describe RadarDynamo do
   radar_date = Date.new(2010,1,1)
   ruby_item = {"Ruby"=>{radar_date =>{"category"=>"Languages", "number" => "1"}}}
   python_item = {"Python"=>{radar_date =>{"category"=>"Languages", "number" => "2"}}}
-  
-  
 end
