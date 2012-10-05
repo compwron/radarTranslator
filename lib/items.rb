@@ -4,13 +4,20 @@ require_relative 'recommendation'
 class Items
 	include Enumerable
 
-	attr_reader :items, :data_dir, :item_types, :recommendation_types
+	attr_reader :items
 
 	def initialize data_dir
 		@data_dir = data_dir
-		@items = get_items(data_dir)
+		@items = get_items
 		@recommendation_types = ["Adopt", "Trial", "Assess", "Hold"]
-		@item_types = ["Languages", "Tools", "Techniques", "Platforms"]
+	end
+
+	def get_items
+		get_filenames.map { |filename|
+			[get_data_from_file(filename), date_of(filename)]
+		}.map { |file_content, date|
+			get_items_from_string(file_content, date)
+		}.inject(:+)
 	end
 
 	def get_items_from_string file_text, radar_date
@@ -22,14 +29,6 @@ class Items
 		}.compact.reject { |item|
 			item.name.nil?
 		}
-	end
-
-	def get_items data_dir
-		get_filenames(data_dir).map { |filename|
-			[get_data_from_file(filename), date_of(filename)]
-		}.map { |file_content, date|
-			get_items_from_string(file_content, date)
-		}.inject(:+)
 	end
 
 	def with_recs
@@ -49,15 +48,15 @@ class Items
 		Date.new(matcher[1].to_i, matcher[2].to_i, 1)
 	end
 
-	def get_filenames data_dir
-		Dir.entries(data_dir).reject { |filename|
+	def get_filenames
+		Dir.entries(@data_dir).reject { |filename|
 			filename.match /^\..*/
 		}
 	end
 
 	def get_data_from_file filename
 		all_text_in_file = ""
-		File.open(data_dir + "/" + filename).each_line { |line| 
+		File.open(@data_dir + "/" + filename).each_line { |line| 
 			all_text_in_file += line
 		}
 		all_text_in_file
@@ -76,7 +75,7 @@ class Items
 	end
 
 	def get_recommendations_in_dir
-		get_filenames(data_dir).map { |filename|
+		get_filenames.map { |filename|
 			[get_data_from_file(filename), date_of(filename)]
 		}.map { |file_content, date| 
 			get_recommendations_from_string(file_content, date)
@@ -94,7 +93,7 @@ class Items
     file_text.split("\n").map {|line|
       line_components = line.split(" ")
       possible_rec_name = line_components.first
-      if recommendation_types.include?(possible_rec_name) then 
+      if @recommendation_types.include?(possible_rec_name) then 
         make_recs_from_datums possible_rec_name, line_components, date
       end
     }.flatten.compact
@@ -133,6 +132,6 @@ class Items
 				end
 			}
 		}
-    items
+		items
 	end
 end

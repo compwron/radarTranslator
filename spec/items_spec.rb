@@ -31,10 +31,10 @@ describe Items do
   end
 
   it 'gets filenames from data dir' do
-    subject.get_filenames(data_dir).should include "2010-01.txt"
-    subject.get_filenames(data_dir).should include "2012-03.txt"
-    subject.get_filenames(data_dir).should_not include "2010-08.txt"
-    subject.get_filenames(data_dir).should_not include "."
+    subject.get_filenames.should include "2010-01.txt"
+    subject.get_filenames.should include "2012-03.txt"
+    subject.get_filenames.should_not include "2010-08.txt"
+    subject.get_filenames.should_not include "."
   end
 
   it "should get raw data from files" do
@@ -42,8 +42,8 @@ describe Items do
   end
 
   it 'gets items from all files in data dir' do
-    subject.get_items(data_dir).first.name.should include "Ruby"
-    subject.get_items(data_dir).size.should == 2
+    subject.get_items.first.name.should include "Ruby"
+    subject.get_items.size.should == 2
   end
 
   # it 'sees all items with recs in a data dir (more than 1 file)' do
@@ -147,13 +147,13 @@ describe Items do
   describe "test larger data sets" do
     items_in_big_radar = 104
     big_radar_data_dir = 'spec/big_radar'
-    big_items = Items.new big_radar_data_dir
+    big_items = Items.new(big_radar_data_dir)
 
     it "should get correct number of recs in data file" do
-      big_items.get_filenames(big_radar_data_dir).size.should == 1
+      big_items.get_filenames.size.should == 1
 
       big_items.get_recommendations_in_dir.size.should == items_in_big_radar
-      big_items.get_items(big_radar_data_dir).size.should == items_in_big_radar
+      big_items.get_items.size.should == items_in_big_radar
       big_items.with_recs.size.should == items_in_big_radar
     end
   end
