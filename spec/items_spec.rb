@@ -46,15 +46,15 @@ describe Items do
     subject.get_items(data_dir).size.should == 2
   end
 
-  it 'sees all items with recs in a data dir (more than 1 file)' do
-    subject.with_recs.should include Item.new("Ruby", radar_date, "Languages", "1", "Adopt")
-    subject.with_recs.should include Item.new("Python", radar_date, "Languages", "2", "Adopt")
-  end
+  # it 'sees all items with recs in a data dir (more than 1 file)' do
+  #   subject.with_recs.should include Item.new("Ruby", radar_date, "Languages", "1", "Adopt")
+  #   subject.with_recs.should include Item.new("Python", radar_date, "Languages", "2", "Adopt")
+  # end
 
-  it 'sees json of all items with recs in a data dir (more than 1 file)' do
-    json_ruby_adopt = {"Ruby"=>{radar_date =>{"category"=>"Languages", "number" => "1", "recommendation"=>"Adopt"}}}
-    subject.with_recs_json.should include json_ruby_adopt
-  end
+  # it 'sees json of all items with recs in a data dir (more than 1 file)' do
+  #   json_ruby_adopt = {"Ruby"=>{radar_date =>{"category"=>"Languages", "number" => "1", "recommendation"=>"Adopt"}}}
+  #   subject.with_recs_json.should include json_ruby_adopt
+  # end
 
   describe "#get_items_from_string" do
     one_language = "Languages\n1. Ruby"
@@ -134,7 +134,7 @@ describe Items do
       subject.items.should include item_with_adopt_1
     end
 
-    it 'can add several recs to the items list (from data_dir)' do 
+    it 'can add several recs to theitems list (from data_dir)' do 
     end
   end
 
@@ -144,21 +144,21 @@ describe Items do
     subject.get_range_recs("1-3", "Adopt", radar_date).should include adopt_1 
   end
 
-  # describe "test larger data sets" do
-  #   items_in_big_radar = 104
-  #   big_radar_data_dir = 'spec/big_radar'
-  #   big_items = Items.new big_radar_data_dir
+  describe "test larger data sets" do
+    items_in_big_radar = 104
+    big_radar_data_dir = 'spec/big_radar'
+    big_items = Items.new big_radar_data_dir
 
-  #   it "should get correct number of objects larger data file" do
-  #     big_items.get_filenames(big_radar_data_dir).size.should == 1
-  #     puts big_items.get_recommendations_in_dir.join("\n")
-  #     big_items.get_recommendations_in_dir.size.should == 16
-  #     # big_items.get_items(big_radar_data_dir).size.should == items_in_big_radar
-  #     # big_items.with_recs.size.should == items_in_big_radar
-  #   end
+    it "should get correct number of recs in data file" do
+      big_items.get_filenames(big_radar_data_dir).size.should == 1
 
-  #   # it "should understand ranges of recs" do
-  #     # big_items.get_recommendations_in_dir.size.should == items_in_big_radar
-  #   # end
-  # end
+      big_items.get_recommendations_in_dir.size.should == items_in_big_radar
+      big_items.get_items(big_radar_data_dir).size.should == items_in_big_radar
+      big_items.with_recs.size.should == items_in_big_radar
+    end
+
+    # it "should understand ranges of recs" do
+      # big_items.get_recommendations_in_dir.size.should == items_in_big_radar
+    # end
+  end
 end

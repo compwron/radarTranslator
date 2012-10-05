@@ -34,7 +34,7 @@ class Items
 
 	def with_recs
     add_recs_to_items(get_recommendations_in_dir)
-		items.select {|item| item.recommendation }
+		# items.select {|item| item.recommendation }
 	end
 
   def with_recs_json
@@ -97,13 +97,14 @@ class Items
         line_components.delete current_recommendation
         line_components.map {|number_item_or_range|
           if number_item_or_range.include?("-")
+            number_item_or_range.gsub!(",", "")
             get_range_recs(number_item_or_range, current_recommendation, date)
           else
             Recommendation.new(item_number(number_item_or_range), current_recommendation, date)
           end
         }
       end
-    }.flatten.reject {|rec| rec.nil?}
+    }.flatten.compact
 	end
 
 	def rec_item_numbers current_recommendation, line_components
@@ -121,11 +122,12 @@ class Items
 
 	def add_recs_to_items *recommendations
     recommendations.flatten.map { |rec| 
-			items.each {|item|
+			items.map {|item|
 				if item.matches(rec) then
 					item.add_rec(rec.name)
 				end
 			}
 		}
+    items
 	end
 end
