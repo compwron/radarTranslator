@@ -30,9 +30,10 @@ example of current data structure:
 Usage:
 
 Options:
-  --root, -r <s>:   Folder containing radars (default: .)
+  --root, -r <s>:   Folder containing radars (default: radars)
+      --json, -j:   json
+       --csv, -c:   csv
       --help, -h:   Show this message
-
 
 There are about 475 total radar items in the current data set (2010-01 to 2012-03)
 
