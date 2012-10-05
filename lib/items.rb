@@ -90,7 +90,6 @@ class Items
 	def get_recommendations_from_string file_text, date
 		file_text.split("\n").map { |datum|
 			line_components = datum.split(" ").map { |component| component.split(",") }.flatten
-			p line_components
 			current_recommendation = line_components.first
 			line_components.delete current_recommendation
 
@@ -99,7 +98,7 @@ class Items
 					Recommendation.new(number, current_recommendation, date)
 				end
 		  	}
-		}.flatten
+		}.flatten.reject {|rec| rec.nil?}
 	end
 
 		def get_recommendations file_text, radar_date
