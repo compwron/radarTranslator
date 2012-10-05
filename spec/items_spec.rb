@@ -134,7 +134,7 @@ describe Items do
       subject.items.should include item_with_adopt_1
     end
 
-    it 'can add several recs to theitems list (from data_dir)' do 
+    it 'can add several recs to the items list (from data_dir)' do 
     end
   end
 
@@ -155,6 +155,13 @@ describe Items do
       big_items.get_recommendations_in_dir.size.should == items_in_big_radar
       big_items.get_items(big_radar_data_dir).size.should == items_in_big_radar
       big_items.with_recs.size.should == items_in_big_radar
+    end
+  end
+
+  describe "#with_recs_csv" do
+    it "should see data as csv" do
+      ruby_adopt_csv = "Ruby,2010-01-01,Languages,1"
+      subject.with_recs_csv.should include ruby_adopt_csv
     end
   end
 end

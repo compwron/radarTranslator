@@ -5,13 +5,18 @@ require_relative "../lib/items"
 require 'trollop'
 
 opts = Trollop::options do
-  opt :root, "Folder containing radars",  :default => "radars"  
+  opt :root, "Folder containing radars",  :default => "radars"
+  opt :json, "json", :default => false
+  opt :csv, "csv", :default => false
 end
 
 def run_command opts
   items = Items.new (opts[:root])
-
-  items.with_recs_json
+  if opts[:json] then 
+  	items.with_recs_json.join("\n,")
+  else
+  	items.with_recs_csv.join("\n")
+  end
 end
 
-puts run_command(opts).join("\n,")
+puts run_command(opts)

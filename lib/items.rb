@@ -33,12 +33,16 @@ class Items
 	end
 
 	def with_recs
-    add_recs_to_items(get_recommendations_in_dir)
+    	add_recs_to_items(get_recommendations_in_dir)
 		# items.select {|item| item.recommendation }
 	end
 
   def with_recs_json
     with_recs.map {|item| item.to_json}
+  end
+
+  def with_recs_csv
+  	with_recs.map {|item| item.to_csv}
   end
 
 	def date_of filename

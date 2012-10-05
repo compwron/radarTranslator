@@ -40,6 +40,10 @@ class Item
   	"#{name} #{date} #{category} #{number} #{recommendation}"
   end
 
+  def to_csv
+    "#{name},#{date},#{category},#{number},#{recommendation}"
+  end
+
   def == item
     name == item.name
     date == item.date
