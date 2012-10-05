@@ -80,18 +80,30 @@ class Items
 		}.flatten
 	end
 
-	def get_recommendations_from_string file_text, date
-		file_text.split("\n").map { |datum|
-			line_components = datum.split(" ").map { |component| component.split(",") }.flatten
-			current_recommendation = line_components.first
-			line_components.delete current_recommendation
+  def get_range_recs range_string, current_recommendation, date
+    range_endpoints = range_string.split("-")
+    (range_endpoints.first..range_endpoints.last).map {|number|
+      Recommendation.new(number, current_recommendation, date)
+    }
+  end
 
-			line_components.map{ |number|
-				if (recommendation_types.include?(current_recommendation)) then 
-					Recommendation.new(number, current_recommendation, date)
-				end
-		  	}
-		}.flatten.reject {|rec| rec.nil?}
+	def get_recommendations_from_string file_text, date
+    file_text.split("\n").map {|line|
+      line_components = line.split(" ")
+      possible_rec_name = line_components.first
+      current_recommendation = "no rec yet"
+      if recommendation_types.include?(possible_rec_name) then 
+        current_recommendation = possible_rec_name 
+        line_components.delete current_recommendation
+        line_components.map {|number_item_or_range|
+          if number_item_or_range.include?("-")
+            get_range_recs(number_item_or_range, current_recommendation, date)
+          else
+            Recommendation.new(item_number(number_item_or_range), current_recommendation, date)
+          end
+        }
+      end
+    }.flatten.reject {|rec| rec.nil?}
 	end
 
 	def rec_item_numbers current_recommendation, line_components

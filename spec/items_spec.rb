@@ -120,6 +120,10 @@ describe Items do
     it "sees no recommendation in item string" do
       subject.get_recommendations_from_string(item_string, radar_date).size.should == 0
     end
+
+    it "sees ranges of recs" do
+      subject.get_recommendations_from_string("Adopt 1-3", radar_date).size.should == 3
+    end
   end
 
   describe "#add_recs_to_items" do
@@ -133,4 +137,28 @@ describe Items do
     it 'can add several recs to the items list (from data_dir)' do 
     end
   end
+
+  it "should get recs from range" do
+    adopt_1 = Recommendation.new("1", "Adopt", radar_date)
+    subject.get_range_recs("Adopt 1-3", "Adopt", radar_date).size.should == 3
+    subject.get_range_recs("Adopt 1-3", "Adopt", radar_date).should include adopt_1 
+  end
+
+  # describe "test larger data sets" do
+  #   items_in_big_radar = 104
+  #   big_radar_data_dir = 'spec/big_radar'
+  #   big_items = Items.new big_radar_data_dir
+
+  #   it "should get correct number of objects larger data file" do
+  #     big_items.get_filenames(big_radar_data_dir).size.should == 1
+  #     puts big_items.get_recommendations_in_dir.join("\n")
+  #     big_items.get_recommendations_in_dir.size.should == 16
+  #     # big_items.get_items(big_radar_data_dir).size.should == items_in_big_radar
+  #     # big_items.with_recs.size.should == items_in_big_radar
+  #   end
+
+  #   # it "should understand ranges of recs" do
+  #     # big_items.get_recommendations_in_dir.size.should == items_in_big_radar
+  #   # end
+  # end
 end
