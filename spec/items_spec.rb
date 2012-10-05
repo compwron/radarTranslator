@@ -156,9 +156,5 @@ describe Items do
       big_items.get_items(big_radar_data_dir).size.should == items_in_big_radar
       big_items.with_recs.size.should == items_in_big_radar
     end
-
-    # it "should understand ranges of recs" do
-      # big_items.get_recommendations_in_dir.size.should == items_in_big_radar
-    # end
   end
 end
