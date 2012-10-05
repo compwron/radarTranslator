@@ -28,6 +28,10 @@ class Item
     !recommendation.nil? ? json_item_with_rec : json_item
   end
 
+  def matches recommendation
+    @date == recommendation.date && @number == recommendation.number
+  end
+
   def add_rec recommendation
   	@recommendation = recommendation
   end

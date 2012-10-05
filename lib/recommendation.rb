@@ -1,17 +1,17 @@
 class Recommendation
-	attr_reader :number, :rec, :date
+	attr_reader :number, :name, :date
 
-  def initialize number, rec, date
-    @number, @rec, @date = number, rec, date
+  def initialize number, name, date
+    @number, @name, @date = number, name, date
   end
 
   def to_s
-  	"#{rec} #{date} #{number}"
+  	"#{name} #{date} #{number}"
   end
 
   def <=> other
   	number == other.number
-  	rec == other.rec
+  	name == other.name
   	date == other.date
   end
 end

@@ -179,30 +179,15 @@ describe Items do
   end
 
   describe "#add_recs_to_items" do
-    rec_and_item = "Adopt 1\n\nLanguages\n1. Ruby"
-    recs_and_items = "Adopt 1-2\nHold 3\n\nLanguages\n1. Ruby\n2. Python\n\nTools\n3. Subversion"
-    item_without_rec = "Languages\n1. Ruby"
-    rec_without_item = "Adopt 1"
 
-    it 'can combine item with recommendation' do
-      item_with_recommendation = {"Ruby"=>{radar_date =>{"category"=>"Languages", "number" => "1", "recommendation"=>"Adopt"}}}
-      subject.add_recs_to_items(rec_and_item, radar_date).should include item_with_recommendation
+    item_with_adopt_1 = Item.new("Ruby", radar_date, "Languages", "1", "Adopt")
+
+    it 'can add a rec to the items list (from data_dir)' do
+      subject.add_recs_to_items(adopt_1)
+      subject.items.should include item_with_adopt_1
     end
 
-    it 'can combine several items with recommendation list' do 
-      adopt_ruby = {"Ruby"=>{radar_date =>{"category"=>"Languages", "number" => "1", "recommendation"=>"Adopt"}}}
-      adopt_python = {"Ruby"=>{radar_date =>{"category"=>"Languages", "number" => "1", "recommendation"=>"Adopt"}}}
-      hold_subversion = {"Ruby"=>{radar_date =>{"category"=>"Languages", "number" => "1", "recommendation"=>"Adopt"}}}
-      
-      rec_items = subject.add_recs_to_items(recs_and_items, radar_date)
-      
-      rec_items.should include adopt_ruby
-      rec_items.should include adopt_python
-      rec_items.should include hold_subversion
-    end
-
-    it 'items without recommendations should not be returned' do
-      subject.add_recs_to_items(item_without_rec, radar_date).size.should == 0
+    it 'can add several recs to the items list (from data_dir)' do 
     end
   end
 end

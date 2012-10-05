@@ -55,11 +55,7 @@ class Items
 		all_text_in_file
 	end
 
-	def for_date(date)
-		get_items(data_dir).select { |item|
-			item.date == date
-		}
-	end
+	
 
 	def item_number datum
 		regex = /(\d*)\..*/
@@ -118,10 +114,6 @@ class Items
 		}
 	end
 
-	# def get_recommendations
-	# 	Items.new(data_dir).get_recommendations
-	# end
-
 	def rec_item_numbers current_recommendation, line_components
 		line_components.delete(current_recommendation)
 
@@ -135,18 +127,13 @@ class Items
 		}.flatten
 	end
 
-	def add_recs_to_items file_text, radar_date
-		get_recommendations(file_text, radar_date).map { |rec_type_hash|
-			rec_type = rec_type_hash.first.first
-			rec_number_and_date = rec_type_hash.values.first
-			rec_numbers = rec_number_and_date.first
-			rec_date = rec_number_and_date.last
-
-			items.for_date(rec_date).map { |item|
-				rec_items_with_matching_dates(item.date, rec_date, rec_numbers, item.number, item, rec_type)
+	def add_recs_to_items *recommendations
+		recommendations.map { |rec| 
+			items.each {|item|
+				if item.matches(rec) then
+					item.add_rec(rec.name)
+				end
 			}
-		}.flatten.map { |item|
-			item.to_json
 		}
 	end
 
@@ -165,6 +152,12 @@ class Items
 	def add_recommendation_value_to_item item, rec_type
 		item.add_rec rec_type
 		item
+	end
+
+	def for_date(date)
+		get_items(data_dir).select { |item|
+			item.date == date
+		}
 	end
 
 
