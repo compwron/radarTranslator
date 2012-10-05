@@ -160,7 +160,7 @@ describe Items do
 
   describe "#with_recs_csv" do
     it "should see data as csv" do
-      ruby_adopt_csv = "Ruby,2010-01-01,Languages,1"
+      ruby_adopt_csv = "Ruby,2010-01-01,Languages,1,"
       subject.with_recs_csv.should include ruby_adopt_csv
     end
   end

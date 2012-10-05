@@ -33,8 +33,7 @@ class Items
 	end
 
 	def with_recs
-    	add_recs_to_items(get_recommendations_in_dir)
-		# items.select {|item| item.recommendation }
+    add_recs_to_items(get_recommendations_in_dir)
 	end
 
   def with_recs_json
@@ -95,20 +94,22 @@ class Items
     file_text.split("\n").map {|line|
       line_components = line.split(" ")
       possible_rec_name = line_components.first
-      current_recommendation = "no rec yet"
       if recommendation_types.include?(possible_rec_name) then 
-        current_recommendation = possible_rec_name 
-        line_components.delete current_recommendation
-        line_components.map {|number_item_or_range|
-          if number_item_or_range.include?("-")
-            number_item_or_range.gsub!(",", "")
-            get_range_recs(number_item_or_range, current_recommendation, date)
-          else
-            Recommendation.new(item_number(number_item_or_range), current_recommendation, date)
-          end
-        }
+        make_recs_from_datums possible_rec_name, line_components, date
       end
     }.flatten.compact
+	end
+
+	def make_recs_from_datums current_recommendation, line_components, date
+    line_components.delete current_recommendation
+    line_components.map {|number_item_or_range|
+      if number_item_or_range.include?("-")
+        number_item_or_range.gsub!(",", "")
+        get_range_recs(number_item_or_range, current_recommendation, date)
+      else
+        Recommendation.new(item_number(number_item_or_range), current_recommendation, date)
+      end
+    }
 	end
 
 	def rec_item_numbers current_recommendation, line_components
