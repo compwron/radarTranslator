@@ -98,15 +98,15 @@ describe Items do
 
   adopt_1 = Recommendation.new("1", "Adopt", radar_date)
   hold_2 = Recommendation.new("2", "Hold", radar_date)
-  # describe "#get_recommendations" do
-  #   
-  #   adopt_1_2012_03 = Recommendation.new("1", "Adopt", Date.new(2012, 3, 1))
+  describe "#get_recommendations_in_dir" do
+    
+    adopt_1_2012_03 = Recommendation.new("1", "Adopt", Date.new(2012, 3, 1))
 
-  #   it "should see recs in directory" do
-  #     subject.get_recommendations.should include adopt_1
-  #     subject.get_recommendations.should include adopt_1_2012_03
-  #   end
-  # end
+    it "should see recs in directory" do
+      subject.get_recommendations_in_dir.should include adopt_1
+      subject.get_recommendations_in_dir.should include adopt_1_2012_03
+    end
+  end
 
   describe "#get_recommendations_from_string" do
     rec_string = "Adopt 1"
@@ -179,7 +179,6 @@ describe Items do
   end
 
   describe "#add_recs_to_items" do
-
     item_with_adopt_1 = Item.new("Ruby", radar_date, "Languages", "1", "Adopt")
 
     it 'can add a rec to the items list (from data_dir)' do
