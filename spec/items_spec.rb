@@ -30,12 +30,6 @@ describe Items do
     end
   end
 
-  it 'should get items for a particular date when given a data directory with files in' do
-    subject.for_date(radar_date).first.name.should == "Ruby"
-    subject.for_date(radar_date).first.date.should == radar_date
-    subject.for_date(radar_date).size.should == 1
-  end
-
   it 'gets filenames from data dir' do
     subject.get_filenames(data_dir).should include "2010-01.txt"
     subject.get_filenames(data_dir).should include "2012-03.txt"
@@ -125,56 +119,6 @@ describe Items do
 
     it "sees no recommendation in item string" do
       subject.get_recommendations_from_string(item_string, radar_date).size.should == 0
-    end
-  end
-
-  describe "#get_recommendations" do
-    one_rec = "Adopt 1"
-    rec_range = "Adopt 1-3"
-    rec_range_and_single = "Adopt 1-3, 4"
-    two_rec_types = "Adopt 1-5\nHold 6-7"
-    two_rec_types_with_range_and_singleton ="Adopt 1-5, 9\nHold 6-7, 10"
-    rec_and_item = "Adopt 1\n\nLanguages\n1. Ruby"
-
-    it 'can get one recommendation' do
-      recommendation_map = { "Adopt" => [["1"], radar_date] }
-      subject.get_recommendations(one_rec, radar_date).should include recommendation_map
-    end
-
-    it 'can get a range of recommendations' do
-      recommendation_map = { "Adopt" => [["1", "2", "3"], radar_date] }
-      subject.get_recommendations(rec_range, radar_date).should include recommendation_map
-    end
-
-    it 'can get a singleton and a range in a recommendation line' do
-      recommendation_map = { "Adopt" => [["1", "2", "3", "4"], radar_date] }
-      subject.get_recommendations(rec_range_and_single, radar_date).should include recommendation_map
-    end
-
-    it 'can get recommendations for different statuses' do
-      adopt_recommendations = {"Adopt"=> [["1", "2", "3", "4", "5"], radar_date]}
-      hold_recommendations = {"Hold"=>[["6", "7"], radar_date]}
-
-      subject.get_recommendations(two_rec_types, radar_date).should include adopt_recommendations
-      subject.get_recommendations(two_rec_types, radar_date).should include hold_recommendations
-    end
-
-    it 'can get recommendations for different statuses for mixed range and singleton lists' do
-      adopt_recommendations = {"Adopt"=>[["1", "2", "3", "4", "5", "9"], radar_date]}
-      hold_recommendations = {"Hold"=>[["6", "7", "10"], radar_date]}
-
-      recs = subject.get_recommendations(two_rec_types_with_range_and_singleton, radar_date)
-      recs.should include adopt_recommendations
-      recs.should include hold_recommendations
-    end
-
-    it 'should not make rec items with nil or invalid rec numbers' do
-      recs = subject.get_recommendations(rec_and_item, radar_date)
-      recs.each {|rec|
-        rec.keys.should_not include nil
-        rec.keys.should_not include "1."
-        rec.keys.should_not include "Languages"
-      }
     end
   end
 

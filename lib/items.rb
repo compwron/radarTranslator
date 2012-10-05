@@ -60,8 +60,6 @@ class Items
 		all_text_in_file
 	end
 
-	
-
 	def item_number datum
 		regex = /(\d*)\..*/
 		matcher = datum.match(regex)
@@ -72,16 +70,6 @@ class Items
 		regex = /\d*\. (.*)/
 		matcher = datum.match(regex)
 		(matcher.nil? ? nil : (datum.match regex)[1] )
-	end
-
-	def to_json
-		items.map { |item|
-			item.to_json
-		}
-	end
-
-	def to_s
-		"#{data_dir}: #{items}"
 	end
 
 	def get_recommendations_in_dir
@@ -106,18 +94,6 @@ class Items
 		}.flatten.reject {|rec| rec.nil?}
 	end
 
-		def get_recommendations file_text, radar_date
-		file_text.split("\n").map { |datum|
-			line_components = datum.split(" ").map { |component|
-																							component.split(",")
-																						}.flatten
-			current_recommendation = line_components.first
-			{current_recommendation => [rec_item_numbers(current_recommendation, line_components), radar_date] }
-		}.reject {|rec|
-			!(recommendation_types.include? rec.keys.first)
-		}
-	end
-
 	def rec_item_numbers current_recommendation, line_components
 		line_components.delete(current_recommendation)
 
@@ -138,29 +114,6 @@ class Items
 					item.add_rec(rec.name)
 				end
 			}
-		}
-	end
-
-	def rec_items_with_matching_dates item_date, rec_date, rec_numbers, item_number, item, rec_type
-		modified_items = []
-		if (item_date == rec_date) then
-			rec_numbers.each { |rec_numbers| 
-				if (rec_numbers.include? item_number) then
-					modified_items += [add_recommendation_value_to_item(item, rec_type)]
-				end
-			}
-		end
-		modified_items
-	end
-
-	def add_recommendation_value_to_item item, rec_type
-		item.add_rec rec_type
-		item
-	end
-
-	def for_date(date)
-		get_items(data_dir).select { |item|
-			item.date == date
 		}
 	end
 end
