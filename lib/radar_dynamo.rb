@@ -24,6 +24,10 @@ class RadarDynamo
 		}
 	end
 
+	# def get_recommendations
+	# 	Items.new(data_dir).get_recommendations
+	# end
+
 	def rec_item_numbers current_recommendation, line_components
 		line_components.delete(current_recommendation)
 
