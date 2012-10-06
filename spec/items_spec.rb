@@ -11,9 +11,7 @@ describe Items do
     subject.item_name("1. Ruby")
   end
 
-  it 'gets date from filename' do
-    subject.date_of("2010-01.txt").should == radar_date
-  end
+  
 
   describe "#item_number" do
     it 'gets item number from datum' do
@@ -42,8 +40,8 @@ describe Items do
   end
 
   it 'gets items from all files in data dir' do
-    subject.get_items.first.name.should include "Ruby"
-    subject.get_items.size.should == 2
+    subject.items.first.name.should include "Ruby"
+    subject.items.size.should == 2
   end
 
   # it 'sees all items with recs in a data dir (more than 1 file)' do
@@ -153,7 +151,7 @@ describe Items do
       big_items.get_filenames.size.should == 1
 
       big_items.get_recommendations_in_dir.size.should == items_in_big_radar
-      big_items.get_items.size.should == items_in_big_radar
+      big_items.items.size.should == items_in_big_radar
       big_items.with_recs.size.should == items_in_big_radar
     end
   end

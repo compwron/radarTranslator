@@ -1,5 +1,6 @@
 require_relative 'item'
 require_relative 'recommendation'
+require_relative 'parser'
 
 class Items
 	include Enumerable
@@ -12,13 +13,7 @@ class Items
 		@recommendation_types = ["Adopt", "Trial", "Assess", "Hold"]
 	end
 
-	def get_items
-		get_filenames.map { |filename|
-			[get_data_from_file(filename), date_of(filename)]
-		}.map { |file_content, date|
-			get_items_from_string(file_content, date)
-		}.inject(:+)
-	end
+
 
 	def get_items_from_string file_text, radar_date
 		most_recent_header = ""
@@ -43,10 +38,7 @@ class Items
   	with_recs.map {|item| item.to_csv}
   end
 
-	def date_of filename
-		matcher = filename.match /(\d{4})-(\d{2})\.txt/
-		Date.new(matcher[1].to_i, matcher[2].to_i, 1)
-	end
+
 
 	def get_filenames
 		Dir.entries(@data_dir).reject { |filename|
@@ -76,7 +68,7 @@ class Items
 
 	def get_recommendations_in_dir
 		get_filenames.map { |filename|
-			[get_data_from_file(filename), date_of(filename)]
+			[get_data_from_file(filename), Parser.new.date_of(filename)]
 		}.map { |file_content, date| 
 			get_recommendations_from_string(file_content, date)
 		}.flatten
@@ -133,5 +125,15 @@ class Items
 			}
 		}
 		items
+	end
+
+	private
+
+	def get_items
+		get_filenames.map { |filename|
+			[get_data_from_file(filename), Parser.new.date_of(filename)]
+		}.map { |file_content, date|
+			get_items_from_string(file_content, date)
+		}.inject(:+)
 	end
 end
