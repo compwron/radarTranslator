@@ -13,9 +13,9 @@ end
 def run_command opts
   items = Items.new (opts[:root])
   if opts[:json] then 
-    items.with_recs_json.join("\n,")
+    items.to_json.join("\n,")
   else
-    items.with_recs_csv.join("\n")
+    items.to_csv.join("\n")
   end
 end
 

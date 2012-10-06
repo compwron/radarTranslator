@@ -13,30 +13,17 @@ class Items
     @recommendation_types = ["Adopt", "Trial", "Assess", "Hold"]
   end
 
-  def get_items_from_string file_text, radar_date
-    most_recent_header = ""
-
-    file_text.split("\n").map { |datum| 
-      most_recent_header = datum if (["Languages", "Tools", "Techniques", "Platforms"].include?(datum)) 
-      most_recent_header == datum ? nil : Item.new(Parser.new.item_name(datum), radar_date, most_recent_header, Parser.new.item_number(datum))
-    }.compact.reject { |item|
-      item.name.nil?
-    }
-  end
-
   def with_recs
     add_recs_to_items(get_recommendations_in_dir)
   end
 
-  def with_recs_json
+  def to_json
     with_recs.map {|item| item.to_json}
   end
 
-  def with_recs_csv
+  def to_csv
     with_recs.map {|item| item.to_csv}
   end
-
-
 
   def get_filenames
     Dir.entries(@data_dir).reject { |filename|
@@ -89,17 +76,15 @@ class Items
     }
   end
 
-  def rec_item_numbers current_recommendation, line_components
-    line_components.delete(current_recommendation)
+    def get_items_from_string file_text, radar_date
+    most_recent_header = ""
 
-    line_components.reject { |component|
-      recommendation_types.include? component
-    }.map { |range_string|
-      range = range_string.split("-")
-      (range.first.to_i..range.last.to_i).map {|number|
-        number.to_s
-      }
-    }.flatten
+    file_text.split("\n").map { |datum| 
+      most_recent_header = datum if (["Languages", "Tools", "Techniques", "Platforms"].include?(datum)) 
+      most_recent_header == datum ? nil : Item.new(Parser.new.item_name(datum), radar_date, most_recent_header, Parser.new.item_number(datum))
+    }.compact.reject { |item|
+      item.name.nil?
+    }
   end
 
   def add_recs_to_items *recommendations
@@ -111,6 +96,19 @@ class Items
       }
     }
     items
+  end
+
+  def rec_item_numbers current_recommendation, line_components
+    line_components.delete(current_recommendation)
+
+    line_components.reject { |component|
+      recommendation_types.include? component
+    }.map { |range_string|
+      range = range_string.split("-")
+      (range.first.to_i..range.last.to_i).map {|number|
+        number.to_s
+      }
+    }.flatten
   end
 
   private

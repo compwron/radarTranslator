@@ -30,10 +30,10 @@ describe Items do
   #   subject.with_recs.should include Item.new("Python", radar_date, "Languages", "2", "Adopt")
   # end
 
-  # it 'sees json of all items with recs in a data dir (more than 1 file)' do
-  #   json_ruby_adopt = {"Ruby"=>{radar_date =>{"category"=>"Languages", "number" => "1", "recommendation"=>"Adopt"}}}
-  #   subject.with_recs_json.should include json_ruby_adopt
-  # end
+  it 'sees json of all items with recs in a data dir (more than 1 file)' do
+    json_ruby_adopt = {"Ruby"=>{radar_date =>{"category"=>"Languages", "number" => "1"}}}
+    subject.to_json.should include json_ruby_adopt
+  end
 
   describe "#get_items_from_string" do
     one_language = "Languages\n1. Ruby"
@@ -140,7 +140,7 @@ describe Items do
   describe "#with_recs_csv" do
     it "should see data as csv" do
       ruby_adopt_csv = "Ruby,2010-01-01,Languages,1,"
-      subject.with_recs_csv.should include ruby_adopt_csv
+      subject.to_csv.should include ruby_adopt_csv
     end
   end
 end
