@@ -8,4 +8,8 @@ describe Parser do
   it 'gets date from filename' do
     subject.date_of("2010-01.txt").should == radar_date
   end
+
+  it 'gets item name from datum' do
+    subject.item_name("1. Ruby")
+  end
 end

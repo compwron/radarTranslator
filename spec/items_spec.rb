@@ -7,12 +7,6 @@ describe Items do
   subject { Items.new data_dir }
   radar_date = Date.new(2010, 01, 01)
   
-  it 'gets item name from datum' do
-    subject.item_name("1. Ruby")
-  end
-
-  
-
   describe "#item_number" do
     it 'gets item number from datum' do
       subject.item_number("1. Ruby")

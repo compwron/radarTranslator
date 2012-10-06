@@ -2,18 +2,18 @@ class Item
   attr_reader :name, :date, :category, :number, :recommendation
 
   def initialize name, date, category, number, recommendation=nil
-  	@name, @date, @category, @number, @recommendation = name, date, category, number, recommendation
+    @name, @date, @category, @number, @recommendation = name, date, category, number, recommendation
   end
 
   def to_json
-  	json_item = 
+    json_item = 
     { name => { 
-  				date => {
-  					"category" => category,
-  					"number" => number
-  				}
-  			}
-  		}
+          date => {
+            "category" => category,
+            "number" => number
+          }
+        }
+      }
 
     json_item_with_rec = 
     { name => { 
@@ -33,11 +33,11 @@ class Item
   end
 
   def add_rec recommendation
-  	@recommendation = recommendation
+    @recommendation = recommendation
   end
 
   def to_s
-  	"#{name} #{date} #{category} #{number} #{recommendation}"
+    "#{name} #{date} #{category} #{number} #{recommendation}"
   end
 
   def to_csv
