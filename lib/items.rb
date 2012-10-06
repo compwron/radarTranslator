@@ -13,14 +13,12 @@ class Items
     @recommendation_types = ["Adopt", "Trial", "Assess", "Hold"]
   end
 
-
-
   def get_items_from_string file_text, radar_date
     most_recent_header = ""
 
     file_text.split("\n").map { |datum| 
       most_recent_header = datum if (["Languages", "Tools", "Techniques", "Platforms"].include?(datum)) 
-      most_recent_header == datum ? nil : Item.new(item_name(datum), radar_date, most_recent_header, item_number(datum))
+      most_recent_header == datum ? nil : Item.new(Parser.new.item_name(datum), radar_date, most_recent_header, Parser.new.item_number(datum))
     }.compact.reject { |item|
       item.name.nil?
     }
@@ -52,18 +50,6 @@ class Items
       all_text_in_file += line
     }
     all_text_in_file
-  end
-
-  def item_number datum
-    regex = /(\d*)\..*/
-    matcher = datum.match(regex)
-    (matcher.nil? ? nil : (datum.match regex)[1] )
-  end
-
-  def item_name datum
-    regex = /\d*\. (.*)/
-    matcher = datum.match(regex)
-    (matcher.nil? ? nil : (datum.match regex)[1] )
   end
 
   def get_recommendations_in_dir
@@ -98,7 +84,7 @@ class Items
         number_item_or_range.gsub!(",", "")
         get_range_recs(number_item_or_range, current_recommendation, date)
       else
-        Recommendation.new(item_number(number_item_or_range), current_recommendation, date)
+        Recommendation.new(Parser.new.item_number(number_item_or_range), current_recommendation, date)
       end
     }
   end

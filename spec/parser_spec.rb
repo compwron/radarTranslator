@@ -12,4 +12,19 @@ describe Parser do
   it 'gets item name from datum' do
     subject.item_name("1. Ruby")
   end
+
+  describe "#item_number" do
+    it 'gets item number from datum' do
+      subject.item_number("1. Ruby")
+    end
+
+    it 'sees item number from datum' do
+      whole_file_text = "Languages\n1. Ruby"
+      subject.item_number(whole_file_text).should == "1"
+    end
+
+    it 'understands multidigit items' do
+      subject.item_number("Languages\n100. Ruby").should == "100"
+    end
+  end
 end
