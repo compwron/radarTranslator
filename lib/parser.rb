@@ -19,7 +19,7 @@ attr_reader
   def item_name datum
     regex = /\d*\. (.*)/
     matcher = datum.match(regex)
-    (matcher.nil? ? nil : (datum.match regex)[1] )
+    (matcher.nil? ? nil : (datum.match regex)[1].gsub(",","") )
   end
 
   def get_recommendations_from_string file_text, date

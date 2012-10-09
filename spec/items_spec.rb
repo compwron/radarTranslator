@@ -14,7 +14,6 @@ describe Items do
     subject.get_filenames.should_not include "."
   end
 
-
   it 'gets items from all files in data dir' do
     subject.items.first.name.should include "Ruby"
     subject.items.size.should == 2

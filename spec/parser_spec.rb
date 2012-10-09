@@ -10,7 +10,11 @@ describe Parser do
   end
 
   it 'gets item name from datum' do
-    subject.item_name("1. Ruby")
+    subject.item_name("1. Ruby").should == "Ruby"
+  end
+
+  it 'does not keep commas in item name' do
+    subject.item_name("1. Ruby, Python, and Clojure").should == "Ruby Python and Clojure"
   end
 
   describe "#item_number" do
@@ -60,7 +64,6 @@ describe Parser do
     subject.get_range_recs("1-3", "Adopt", radar_date).size.should == 3
     subject.get_range_recs("1-3", "Adopt", radar_date).should include adopt_1 
   end
-
 
   it "should get raw data from files" do
     subject.get_data_from_file("spec/radars", "2010-01.txt").should == "Adopt 1\n\nLanguages\n1. Ruby"
