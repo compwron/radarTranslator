@@ -12,10 +12,6 @@ class Items
     @items = get_items
   end
 
-  def with_recs
-    add_recs_to_items(get_recommendations_in_dir)
-  end
-
   def to_json
     with_recs.map {|item| item.to_json}
   end
@@ -24,31 +20,15 @@ class Items
     with_recs.map {|item| item.to_csv}
   end
 
-  def get_filenames
-    Dir.entries(@data_dir).reject { |filename|
-      filename.match /^\..*/
-    }
-  end
-
-  def get_data_from_file filename
-    all_text_in_file = ""
-    File.open(@data_dir + "/" + filename).each_line { |line| 
-      all_text_in_file += line
-    }
-    all_text_in_file
-  end
-
   def get_recommendations_in_dir
     get_filenames.map { |filename|
-      [get_data_from_file(filename), Parser.new.date_of(filename)]
+      [Parser.new.get_data_from_file(@data_dir, filename), Parser.new.date_of(filename)]
     }.map { |file_content, date| 
       Parser.new.get_recommendations_from_string(file_content, date)
     }.flatten
   end
 
-
-
-    def get_items_from_string file_text, radar_date
+  def get_items_from_string file_text, radar_date
     most_recent_header = ""
 
     file_text.split("\n").map { |datum| 
@@ -83,11 +63,21 @@ class Items
     }.flatten
   end
 
+  def get_filenames
+    Dir.entries(@data_dir).reject { |filename|
+      filename.match /^\..*/
+    }
+  end
+
+  def with_recs
+    add_recs_to_items(get_recommendations_in_dir)
+  end
+
   private
 
   def get_items
     get_filenames.map { |filename|
-      [get_data_from_file(filename), Parser.new.date_of(filename)]
+      [Parser.new.get_data_from_file(@data_dir, filename), Parser.new.date_of(filename)]
     }.map { |file_content, date|
       get_items_from_string(file_content, date)
     }.inject(:+)

@@ -14,9 +14,6 @@ describe Items do
     subject.get_filenames.should_not include "."
   end
 
-  it "should get raw data from files" do
-    subject.get_data_from_file("2010-01.txt").should == "Adopt 1\n\nLanguages\n1. Ruby"
-  end
 
   it 'gets items from all files in data dir' do
     subject.items.first.name.should include "Ruby"

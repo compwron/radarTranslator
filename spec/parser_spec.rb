@@ -60,4 +60,9 @@ describe Parser do
     subject.get_range_recs("1-3", "Adopt", radar_date).size.should == 3
     subject.get_range_recs("1-3", "Adopt", radar_date).should include adopt_1 
   end
+
+
+  it "should get raw data from files" do
+    subject.get_data_from_file("spec/radars", "2010-01.txt").should == "Adopt 1\n\nLanguages\n1. Ruby"
+  end
 end

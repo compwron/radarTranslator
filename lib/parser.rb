@@ -44,10 +44,18 @@ attr_reader
     }
   end
 
-    def get_range_recs range_string, current_recommendation, date
+  def get_range_recs range_string, current_recommendation, date
     range_endpoints = range_string.split("-")
     (range_endpoints.first..range_endpoints.last).map {|number|
       Recommendation.new(number, current_recommendation, date)
     }
+  end
+
+  def get_data_from_file data_dir, filename
+    all_text_in_file = ""
+    File.open(data_dir + "/" + filename).each_line { |line| 
+      all_text_in_file += line
+    }
+    all_text_in_file
   end
 end
