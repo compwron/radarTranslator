@@ -10,7 +10,6 @@ class Items
   def initialize data_dir
     @data_dir = data_dir
     @items = get_items
-    @recommendation_types = ["Adopt", "Trial", "Assess", "Hold"]
   end
 
   def with_recs
@@ -43,38 +42,11 @@ class Items
     get_filenames.map { |filename|
       [get_data_from_file(filename), Parser.new.date_of(filename)]
     }.map { |file_content, date| 
-      get_recommendations_from_string(file_content, date)
+      Parser.new.get_recommendations_from_string(file_content, date)
     }.flatten
   end
 
-  def get_range_recs range_string, current_recommendation, date
-    range_endpoints = range_string.split("-")
-    (range_endpoints.first..range_endpoints.last).map {|number|
-      Recommendation.new(number, current_recommendation, date)
-    }
-  end
 
-  def get_recommendations_from_string file_text, date
-    file_text.split("\n").map {|line|
-      line_components = line.split(" ")
-      possible_rec_name = line_components.first
-      if @recommendation_types.include?(possible_rec_name) then 
-        make_recs_from_datums possible_rec_name, line_components, date
-      end
-    }.flatten.compact
-  end
-
-  def make_recs_from_datums current_recommendation, line_components, date
-    line_components.delete current_recommendation
-    line_components.map {|number_item_or_range|
-      if number_item_or_range.include?("-")
-        number_item_or_range.gsub!(",", "")
-        get_range_recs(number_item_or_range, current_recommendation, date)
-      else
-        Recommendation.new(Parser.new.item_number(number_item_or_range), current_recommendation, date)
-      end
-    }
-  end
 
     def get_items_from_string file_text, radar_date
     most_recent_header = ""

@@ -2,7 +2,7 @@ Translating plaintext tech radar data into json
 
 Data comes from http://www.thoughtworks.com/radar
 Data is scraped by hand and may have errors
-In the January 2010 data set, items between two zones are in the data set as in in the outer zone of the two they straddle.
+In the January 2010 data set, items between two zones are marked in the data set as in the outer zone of the two they straddle.
 
 Goals: 
 turn data into json which can be worked with by others

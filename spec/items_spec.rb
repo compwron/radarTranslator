@@ -7,8 +7,6 @@ describe Items do
   subject { Items.new data_dir }
   radar_date = Date.new(2010, 01, 01)
   
-
-
   it 'gets filenames from data dir' do
     subject.get_filenames.should include "2010-01.txt"
     subject.get_filenames.should include "2012-03.txt"
@@ -71,37 +69,13 @@ describe Items do
 
   adopt_1 = Recommendation.new("1", "Adopt", radar_date)
   hold_2 = Recommendation.new("2", "Hold", radar_date)
+  
   describe "#get_recommendations_in_dir" do
-    
     adopt_1_2012_03 = Recommendation.new("1", "Adopt", Date.new(2012, 3, 1))
 
     it "should see recs in directory" do
       subject.get_recommendations_in_dir.should include adopt_1
       subject.get_recommendations_in_dir.should include adopt_1_2012_03
-    end
-  end
-
-  describe "#get_recommendations_from_string" do
-    rec_string = "Adopt 1"
-    two_rec_string = "Adopt 1\nHold 2"
-    item_string = "Tools\n10. Visualization & metrics"
-
-    it "sees recommendation in string" do
-      subject.get_recommendations_from_string(rec_string, radar_date).should include adopt_1
-    end
-
-    it "sees several recommendations in string" do
-      subject.get_recommendations_from_string(two_rec_string, radar_date).should include adopt_1
-      subject.get_recommendations_from_string(two_rec_string, radar_date).should include hold_2
-      subject.get_recommendations_from_string(two_rec_string, radar_date).size.should == 2
-    end
-
-    it "sees no recommendation in item string" do
-      subject.get_recommendations_from_string(item_string, radar_date).size.should == 0
-    end
-
-    it "sees ranges of recs" do
-      subject.get_recommendations_from_string("Adopt 1-3", radar_date).size.should == 3
     end
   end
 
@@ -115,12 +89,6 @@ describe Items do
 
     it 'can add several recs to the items list (from data_dir)' do 
     end
-  end
-
-  it "should get recs from range" do
-    adopt_1 = Recommendation.new("1", "Adopt", radar_date)
-    subject.get_range_recs("1-3", "Adopt", radar_date).size.should == 3
-    subject.get_range_recs("1-3", "Adopt", radar_date).should include adopt_1 
   end
 
   describe "test larger data sets" do

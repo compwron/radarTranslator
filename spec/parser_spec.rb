@@ -27,4 +27,37 @@ describe Parser do
       subject.item_number("Languages\n100. Ruby").should == "100"
     end
   end
+
+  adopt_1 = Recommendation.new("1", "Adopt", radar_date)
+  hold_2 = Recommendation.new("2", "Hold", radar_date)
+  
+  describe "#get_recommendations_from_string" do
+    rec_string = "Adopt 1"
+    two_rec_string = "Adopt 1\nHold 2"
+    item_string = "Tools\n10. Visualization & metrics"
+
+    it "sees recommendation in string" do
+      subject.get_recommendations_from_string(rec_string, radar_date).should include adopt_1
+    end
+
+    it "sees several recommendations in string" do
+      subject.get_recommendations_from_string(two_rec_string, radar_date).should include adopt_1
+      subject.get_recommendations_from_string(two_rec_string, radar_date).should include hold_2
+      subject.get_recommendations_from_string(two_rec_string, radar_date).size.should == 2
+    end
+
+    it "sees no recommendation in item string" do
+      subject.get_recommendations_from_string(item_string, radar_date).size.should == 0
+    end
+
+    it "sees ranges of recs" do
+      subject.get_recommendations_from_string("Adopt 1-3", radar_date).size.should == 3
+    end
+  end
+
+  it "should get recs from range" do
+    adopt_1 = Recommendation.new("1", "Adopt", radar_date)
+    subject.get_range_recs("1-3", "Adopt", radar_date).size.should == 3
+    subject.get_range_recs("1-3", "Adopt", radar_date).should include adopt_1 
+  end
 end
