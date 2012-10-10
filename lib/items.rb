@@ -5,11 +5,12 @@ require_relative 'parser'
 class Items
   include Enumerable
 
-  attr_reader :items
+  attr_reader :items, :parser
 
   def initialize data_dir
     @data_dir = data_dir
     @items = get_items
+    @parser = Parser.new
   end
 
   def to_json
@@ -20,23 +21,15 @@ class Items
     with_recs.map {|item| item.to_csv}
   end
 
-  
-
   def with_recs
     add_recs_to_items(get_recommendations_in_dir)
   end
 
-
-  # def get_items_from_string file_content, date
-  # end
-
-  # private
-  
   def get_recommendations_in_dir
     get_filenames.map { |filename|
-      [Parser.new.get_data_from_file(@data_dir, filename), Parser.new.date_of(filename)]
+      [parser.get_data_from_file(@data_dir, filename), parser.date_of(filename)]
     }.map { |file_content, date| 
-      Parser.new.get_recommendations_from_string(file_content, date)
+      parser.get_recommendations_from_string(file_content, date)
     }.flatten
   end
 
