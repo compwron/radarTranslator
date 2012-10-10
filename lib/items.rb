@@ -45,13 +45,14 @@ class Items
   end
 
   def get_items
+    parser = Parser.new
     get_filenames.map { |filename|
-      file_content = Parser.new.get_data_from_file(@data_dir, filename)
-      date = Parser.new.date_of(filename)
+      file_content = parser.get_data_from_file(@data_dir, filename)
+      date = parser.date_of(filename)
         most_recent_header = ""
         file_content.split("\n").map { |datum| 
         most_recent_header = datum if (["Languages", "Tools", "Techniques", "Platforms"].include?(datum)) 
-        most_recent_header == datum ? nil : Item.new(Parser.new.item_name(datum), date, most_recent_header, Parser.new.item_number(datum))
+        most_recent_header == datum ? nil : Item.new(parser.item_name(datum), date, most_recent_header, parser.item_number(datum))
       }.compact.reject { |item|
         item.name.nil?
       } 
