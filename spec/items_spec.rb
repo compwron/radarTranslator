@@ -107,4 +107,7 @@ describe Items do
       subject.to_csv.should include ruby_adopt_csv
     end
   end
+
+  it "should never create an item without an item type" do
+  end
 end

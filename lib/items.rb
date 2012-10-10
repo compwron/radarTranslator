@@ -46,17 +46,20 @@ class Items
     items
   end
 
+  def make_valid_item name, date, category, number
+    if !(name.nil? || date.nil? || category.nil? || number.nil?) then
+      Item.new(name, date, category, number)
+    end
+  end
+
   def get_items
     get_filenames.map { |filename|
-      file_content = @@parser.get_data_from_file(@data_dir, filename)
       date = @@parser.date_of(filename)
-        most_recent_header = ""
-        file_content.split("\n").map { |datum| 
-        most_recent_header = datum if (["Languages", "Tools", "Techniques", "Platforms"].include?(datum)) 
-        most_recent_header == datum ? nil : Item.new(@@parser.item_name(datum), date, most_recent_header, @@parser.item_number(datum))
-      }.compact.reject { |item|
-        item.name.nil?
-      } 
+      category = nil
+      @@parser.get_data_from_file(@data_dir, filename).split("\n").map { |datum| 
+        category = (["Languages", "Tools", "Techniques", "Platforms"].include?(datum)) ? datum : category
+        make_valid_item(@@parser.item_name(datum), date, category, @@parser.item_number(datum))
+      }.compact 
     }.inject(:+)
   end
 

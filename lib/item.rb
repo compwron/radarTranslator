@@ -2,6 +2,10 @@ class Item
   attr_reader :name, :date, :category, :number, :recommendation
 
   def initialize name, date, category, number, recommendation=nil
+    if (name.nil? || date.nil? || category.nil? || number.nil?)
+      puts "tried to create an item with nil values. name #{name} | date #{date} | category #{category} | number #{number}"
+      raise
+    end
     @name, @date, @category, @number, @recommendation = name, date, category, number, recommendation
   end
 
