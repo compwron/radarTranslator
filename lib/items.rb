@@ -5,12 +5,14 @@ require_relative 'parser'
 class Items
   include Enumerable
 
-  attr_reader :items, :parser
+  attr_reader :items
+
+  @@parser = Parser.new
 
   def initialize data_dir
     @data_dir = data_dir
     @items = get_items
-    @parser = Parser.new
+    
   end
 
   def to_json
@@ -27,9 +29,9 @@ class Items
 
   def get_recommendations_in_dir
     get_filenames.map { |filename|
-      [parser.get_data_from_file(@data_dir, filename), parser.date_of(filename)]
+      [@@parser.get_data_from_file(@data_dir, filename), @@parser.date_of(filename)]
     }.map { |file_content, date| 
-      parser.get_recommendations_from_string(file_content, date)
+      @@parser.get_recommendations_from_string(file_content, date)
     }.flatten
   end
 
@@ -45,14 +47,13 @@ class Items
   end
 
   def get_items
-    parser = Parser.new
     get_filenames.map { |filename|
-      file_content = parser.get_data_from_file(@data_dir, filename)
-      date = parser.date_of(filename)
+      file_content = @@parser.get_data_from_file(@data_dir, filename)
+      date = @@parser.date_of(filename)
         most_recent_header = ""
         file_content.split("\n").map { |datum| 
         most_recent_header = datum if (["Languages", "Tools", "Techniques", "Platforms"].include?(datum)) 
-        most_recent_header == datum ? nil : Item.new(parser.item_name(datum), date, most_recent_header, parser.item_number(datum))
+        most_recent_header == datum ? nil : Item.new(@@parser.item_name(datum), date, most_recent_header, @@parser.item_number(datum))
       }.compact.reject { |item|
         item.name.nil?
       } 
