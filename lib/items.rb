@@ -12,7 +12,6 @@ class Items
   def initialize data_dir
     @data_dir = data_dir
     @items = get_items
-    
   end
 
   def to_json
@@ -30,7 +29,7 @@ class Items
   def get_recommendations_in_dir
     get_filenames.map { |filename|
       [@@parser.get_data_from_file(@data_dir, filename), @@parser.date_of(filename)]
-    }.map { |file_content, date| 
+    }.map { |file_content, date|
       @@parser.get_recommendations_from_string(file_content, date)
     }.flatten
   end

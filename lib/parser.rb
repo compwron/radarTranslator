@@ -27,7 +27,7 @@ attr_reader
       line_components = line.split(" ")
       possible_rec_name = line_components.first
       if ["Adopt", "Trial", "Assess", "Hold"].include?(possible_rec_name) then 
-        make_recs_from_datums possible_rec_name, line_components, date
+        make_recs_from_datums(possible_rec_name, line_components, date)
       end
     }.flatten.compact
   end
@@ -39,7 +39,11 @@ attr_reader
         number_item_or_range.gsub!(",", "")
         get_range_recs(number_item_or_range, current_recommendation, date)
       else
-        Recommendation.new(Parser.new.item_number(number_item_or_range), current_recommendation, date)
+        number = Parser.new.item_number(number_item_or_range)
+        puts "- - - -trying to build a rec: num #{number} current_recommendation #{current_recommendation} date #{date}"
+        if !(number.nil? || current_recommendation.nil? || date.nil?) then
+          Recommendation.new(number, current_recommendation, date)
+        end
       end
     }
   end
@@ -47,7 +51,9 @@ attr_reader
   def get_range_recs range_string, current_recommendation, date
     range_endpoints = range_string.split("-")
     (range_endpoints.first..range_endpoints.last).map {|number|
-      Recommendation.new(number, current_recommendation, date)
+      if !(number.nil? || current_recommendation.nil? || date.nil?) then
+        Recommendation.new(number, current_recommendation, date)
+      end
     }
   end
 

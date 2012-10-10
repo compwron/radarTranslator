@@ -57,6 +57,15 @@ describe Parser do
     it "sees ranges of recs" do
       subject.get_recommendations_from_string("Adopt 1-3", radar_date).size.should == 3
     end
+
+    it "picks up rec from bug case 2012-01 #25" do
+      filename = "2010-01.txt"
+      date = Date.new(2010,1,1)
+      string = subject.get_data_from_file("spec/end_to_end", filename)
+      puts string
+      trial_android_platform = Recommendation.new("25", "Trial", date)
+      subject.get_recommendations_from_string(string, filename).should include trial_android_platform
+    end
   end
 
   it "should get recs from range" do

@@ -6,6 +6,7 @@ class Item
       puts "tried to create an item with nil values. name #{name} | date #{date} | category #{category} | number #{number}"
       raise
     end
+
     @name, @date, @category, @number, @recommendation = name, date, category, number, recommendation
   end
 
@@ -45,6 +46,7 @@ class Item
   end
 
   def to_csv
+    puts "- - - csv rec #{recommendation}"
     "#{name},#{date},#{category},#{number},#{recommendation}"
   end
 

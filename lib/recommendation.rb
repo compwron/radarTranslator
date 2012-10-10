@@ -2,6 +2,7 @@ class Recommendation
   attr_reader :number, :name, :date
 
   def initialize number, name, date
+    puts "- - - -iama rec. num #{number} name #{name} date #{date}"
     @number, @name, @date = number, name, date
   end
 
