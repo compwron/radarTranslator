@@ -69,6 +69,11 @@ describe Items do
     end
   end
 
-  it "should never create an item without an item type" do
+  it "should pick up all recommednations in file" do
+    # should give no results
+    # bin/radar_translator | grep -i ',.*,.*,.*,$'
+    end_to_end_debugging = "spec/end_to_end"
+    Items.new(end_to_end_debugging).to_csv.should_not include "Android,2010-01-01,Platforms,25,"
+    Items.new(end_to_end_debugging).to_csv.should include "Android,2010-01-01,Platforms,25,Trial"
   end
 end
