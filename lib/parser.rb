@@ -67,4 +67,10 @@ attr_reader
     }
     all_text_in_file
   end
+
+  def get_filenames data_dir
+    Dir.entries(data_dir).reject { |filename|
+      filename.match /^\..*/
+    }
+  end
 end

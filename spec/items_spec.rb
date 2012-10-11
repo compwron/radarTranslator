@@ -7,13 +7,6 @@ describe Items do
   subject { Items.new data_dir }
   radar_date = Date.new(2010, 01, 01)
   
-  it 'gets filenames from data dir' do
-    subject.get_filenames.should include "2010-01.txt"
-    subject.get_filenames.should include "2012-03.txt"
-    subject.get_filenames.should_not include "2010-08.txt"
-    subject.get_filenames.should_not include "."
-  end
-
   it 'gets items from all files in data dir' do
     subject.items.first.name.should include "Ruby"
     subject.items.size.should == 2
@@ -54,8 +47,6 @@ describe Items do
     big_items = Items.new(big_radar_data_dir)
 
     it "should get correct number of recs in data file" do
-      big_items.get_filenames.size.should == 1
-
       big_items.get_recommendations_in_dir.size.should == items_in_big_radar
       big_items.items.size.should == items_in_big_radar
       big_items.with_recs.size.should == items_in_big_radar

@@ -76,4 +76,12 @@ describe Parser do
   it "should get raw data from files" do
     subject.get_data_from_file("spec/radars", "2010-01.txt").should == "Adopt 1\n\nLanguages\n1. Ruby"
   end
+
+  it 'gets filenames from data dir' do
+    data_dir = 'spec/radars'
+    subject.get_filenames(data_dir).should include "2010-01.txt"
+    subject.get_filenames(data_dir).should include "2012-03.txt"
+    subject.get_filenames(data_dir).should_not include "2010-08.txt"
+    subject.get_filenames(data_dir).should_not include "."
+  end
 end

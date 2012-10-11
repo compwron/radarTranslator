@@ -5,13 +5,14 @@ require_relative 'parser'
 class Items
   include Enumerable
 
-  attr_reader :items
+  attr_reader :items, :file_contents
 
   @@parser = Parser.new
 
   def initialize data_dir
     @data_dir = data_dir
     @items = get_items
+    @file_contents = get_file_contents_and_date
   end
 
   def to_json
@@ -26,10 +27,14 @@ class Items
     add_recs_to_items(get_recommendations_in_dir)
   end
 
-  def get_recommendations_in_dir
-    get_filenames.map { |filename|
+  def get_file_contents_and_date
+    @@parser.get_filenames(@data_dir).map { |filename|
       [@@parser.get_data_from_file(@data_dir, filename), @@parser.date_of(filename)]
-    }.map { |file_content, date|
+    }
+  end
+
+  def get_recommendations_in_dir
+    file_contents.map { |file_content, date|
       @@parser.get_recommendations_from_string(file_content, date)
     }.flatten
   end
@@ -52,7 +57,7 @@ class Items
   end
 
   def get_items
-    get_filenames.map { |filename|
+    @@parser.get_filenames(@data_dir).map { |filename|
       date = @@parser.date_of(filename)
       category = nil
       @@parser.get_data_from_file(@data_dir, filename).split("\n").map { |datum| 
@@ -60,11 +65,5 @@ class Items
         make_valid_item(@@parser.item_name(datum), date, category, @@parser.item_number(datum))
       }.compact 
     }.inject(:+)
-  end
-
-  def get_filenames
-    Dir.entries(@data_dir).reject { |filename|
-      filename.match /^\..*/
-    }
   end
 end
