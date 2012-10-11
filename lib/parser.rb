@@ -19,46 +19,44 @@ attr_reader
   def item_name datum
     regex = /\d*\. (.*)/
     matcher = datum.match(regex)
-    (matcher.nil? ? nil : (datum.match regex)[1].gsub(",","") )
+    if matcher.nil? then
+      nil 
+    else
+      (datum.match regex)[1].gsub(",","")
+    end
   end
 
   def get_recommendations_from_string file_text, date
     file_text.split("\n").map {|line|
       line_components = line.split(" ")
       possible_rec_name = line_components.first
+      rec_name = ""
       if ["Adopt", "Trial", "Assess", "Hold"].include?(possible_rec_name) then 
-        make_recs_from_datums(possible_rec_name, line_components, date)
+        rec_name = possible_rec_name
+        line_components.delete possible_rec_name
+
+        line_components.map { |number_item_or_range|
+          number_item_or_range.gsub!(",", "")
+          if number_item_or_range.include?("-")
+            get_range_recs(number_item_or_range, possible_rec_name, date)
+          else
+            make_rec(number_item_or_range, possible_rec_name, date)
+          end
+        }
       end
     }.flatten.compact
   end
 
-  def make_recs_from_datums current_recommendation, line_components, date
-    line_components.delete current_recommendation
-    line_components.map {|number_item_or_range|
-      if number_item_or_range.include?("-")
-        number_item_or_range.gsub!(",", "")
-        get_range_recs(number_item_or_range, current_recommendation, date)
-      else
-        number = Parser.new.item_number(number_item_or_range)
-        puts "- - - -trying to build a rec: num #{number} current_recommendation #{current_recommendation} date #{date}"
-
-        if (number.nil? || current_recommendation.nil? || date.nil?) then
-          puts "argh, nil!"
-        end
-
-        if !(number.nil? || current_recommendation.nil? || date.nil?) then
-          Recommendation.new(number, current_recommendation, date)
-        end
-      end
-    }
+  def make_rec number, rec_name, date
+    if !(number.nil? || rec_name.nil? || date.nil?) then
+      Recommendation.new(number, rec_name, date)
+    end
   end
 
   def get_range_recs range_string, current_recommendation, date
     range_endpoints = range_string.split("-")
     (range_endpoints.first..range_endpoints.last).map {|number|
-      if !(number.nil? || current_recommendation.nil? || date.nil?) then
-        Recommendation.new(number, current_recommendation, date)
-      end
+      make_rec(number, current_recommendation, date)
     }
   end
 

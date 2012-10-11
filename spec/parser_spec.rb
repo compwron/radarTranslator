@@ -62,9 +62,8 @@ describe Parser do
       filename = "2010-01.txt"
       date = Date.new(2010,1,1)
       string = subject.get_data_from_file("spec/end_to_end", filename)
-      puts string
       trial_android_platform = Recommendation.new("25", "Trial", date)
-      subject.get_recommendations_from_string(string, filename).should include trial_android_platform
+      subject.get_recommendations_from_string(string, date).should include trial_android_platform
     end
   end
 

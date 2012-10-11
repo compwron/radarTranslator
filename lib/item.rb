@@ -46,7 +46,6 @@ class Item
   end
 
   def to_csv
-    puts "- - - csv rec #{recommendation}"
     "#{name},#{date},#{category},#{number},#{recommendation}"
   end
 

@@ -20,7 +20,7 @@ describe Items do
   end
 
   it 'sees json of all items with recs in a data dir (more than 1 file)' do
-    json_ruby_adopt = {"Ruby"=>{radar_date =>{"category"=>"Languages", "number" => "1"}}}
+    json_ruby_adopt = {"Ruby"=>{radar_date =>{"category"=>"Languages", "number" => "1", "recommendation" => "Adopt"}}}
     subject.to_json.should include json_ruby_adopt
   end
 
@@ -64,16 +64,26 @@ describe Items do
 
   describe "#with_recs_csv" do
     it "should see data as csv" do
-      ruby_adopt_csv = "Ruby,2010-01-01,Languages,1,"
+      ruby_adopt_csv = "Ruby,2010-01-01,Languages,1,Adopt"
       subject.to_csv.should include ruby_adopt_csv
     end
   end
 
-  # it "should pick up all recommednations in file" do
-  #   # should give no results
-  #   # bin/radar_translator | grep -i ',.*,.*,.*,$'
-  #   end_to_end_debugging = "spec/end_to_end"
-  #   Items.new(end_to_end_debugging).to_csv.should_not include "Android,2010-01-01,Platforms,25,"
-  #   Items.new(end_to_end_debugging).to_csv.should include "Android,2010-01-01,Platforms,25,Trial"
-  # end
+  describe "debugging full load using query: bin/radar_translator | grep -i ',.*,.*,.*,$'" do
+    it "should pick up all recommednations in file" do
+      end_to_end_debugging = "spec/end_to_end"
+      Items.new(end_to_end_debugging).to_csv.should_not include "Android,2010-01-01,Platforms,25,"
+      Items.new(end_to_end_debugging).to_csv.should include "Android,2010-01-01,Platforms,25,Trial"
+    end
+
+    it "should pick up stray rec" do
+          #        bin/radar_translator | grep -i ',.*,.*,.*,$' # this should return 0 results - this is either bad code or invalid data
+          # Build pipelines,2010-01-01,Techniques,8,
+          # User centered design,2010-01-01,Techniques,9,
+          # NoSQL,2010-04-01,Tools,22,
+          # Intentional,2010-08-01,Tools,19,
+          # iPad,2010-08-01,Platforms,61,
+          # Ruby,2010-08-01,Languages,46,
+    end
+  end
 end
