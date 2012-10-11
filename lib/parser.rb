@@ -41,6 +41,11 @@ attr_reader
       else
         number = Parser.new.item_number(number_item_or_range)
         puts "- - - -trying to build a rec: num #{number} current_recommendation #{current_recommendation} date #{date}"
+
+        if (number.nil? || current_recommendation.nil? || date.nil?) then
+          puts "argh, nil!"
+        end
+
         if !(number.nil? || current_recommendation.nil? || date.nil?) then
           Recommendation.new(number, current_recommendation, date)
         end
