@@ -11,16 +11,6 @@ class Item
   end
 
   def to_json
-    json_item = 
-    { name => { 
-          date => {
-            "category" => category,
-            "number" => number
-          }
-        }
-      }
-
-    json_item_with_rec = 
     { name => { 
         date => {
           "category" => category,
@@ -29,8 +19,6 @@ class Item
         }
       }
     }
-
-    !recommendation.nil? ? json_item_with_rec : json_item
   end
 
   def matches recommendation
