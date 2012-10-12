@@ -5,21 +5,22 @@ describe Parser do
   subject { Parser.new }
   radar_date = Date.new(2010, 01, 01)
 
-  define "#is_number_or_range" do
+  describe "#is_range? and #is_number?" do
     it "should see valid rec number" do
-      subject.is_number_or_range("1").should == "1"
+      subject.is_number?("1").should == "1"
     end
 
     it "should see valid multidigit rec number" do
-      subject.is_number_or_range("100").should == "100"
+      subject.is_number?("100").should == "100"
     end
 
     it "should see valid rec range" do
-      subject.is_number_or_range("1-3").should == "1-3"
+      subject.is_range?("1-3").should == "1-3"
     end
 
     it "should not match item string" do
-      subject.is_number_or_range("Tools\n10. Visualization & metrics").should == nil
+      subject.is_range?("Tools\n10. Visualization & metrics").should == nil
+      subject.is_number?("Tools\n10. Visualization & metrics").should == "10" # have to prevent this at a higher level
     end
   end
   

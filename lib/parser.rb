@@ -29,26 +29,32 @@ class Parser
     current_rec_name.nil? ? (@@valid_rec_names.include? possible_rec_name ? possible_rec_name : current_rec_name) : current_rec_name
   end
 
-  def is_number_or_range datum
-    regex = /(\d*)|(\d*\-\d*)/
+  def is_range? datum
+    regex = /(\d+\-\d+)/
     matcher = datum.match(regex)
-    if matcher.nil? then 
-      nil
-    else
-      (datum.match regex)[1]
-    end
+    (matcher.nil? ? nil : (datum.match regex)[1] )
+  end
+
+  def is_number? datum
+    regex = /(\d+)/
+    matcher = datum.match(regex)
+    (matcher.nil? ? nil : (datum.match regex)[1] )
   end
 
   def make_recs possible_number_item_or_range, recommendation, date
+    puts "- - - what we have to work with #{possible_number_item_or_range}"
     possible_number_item_or_range.gsub!(",", "")
-    number_or_range_of_datum = is_number_or_range(possible_number_item_or_range)
-    if !number_or_range_of_datum.empty? then
-      puts "- - - - -we think this thing is an number or range? eek #{number_or_range_of_datum}"
-      if number_or_range_of_datum.include?("-")
-        get_range_recs(number_or_range_of_datum, recommendation, date)
-      else
-        make_single_rec(number_or_range_of_datum, recommendation, date)
-      end
+    # number_or_range_of_datum = is_number_or_range(possible_number_item_or_range)
+    is_range = is_range?(possible_number_item_or_range)
+    is_number = is_number?(possible_number_item_or_range)
+
+    puts "is range? #{is_range} . . . is number? #{is_number}"
+    if is_range then
+      return get_range_recs(possible_number_item_or_range, recommendation, date)
+    end
+
+    if is_number then
+      return make_single_rec(possible_number_item_or_range, recommendation, date)
     end
   end
 
@@ -58,12 +64,19 @@ class Parser
       possible_rec_name = line_components.first
       current_rec_name = get_rec_name(possible_rec_name, current_rec_name)
 
-      line_components.reject! { |line_component| 
-        @@valid_rec_names.include? line_component 
-      }
+      
 
-      line_components.map {|number_item_or_range|
-        make_recs(number_item_or_range, current_rec_name, date)
+      @@valid_rec_names.map {|valid_rec_name|
+        if (line_components.include? valid_rec_name) then
+
+          line_components.reject! { |line_component| 
+            @@valid_rec_names.include? line_component 
+          }
+          
+          line_components.map {|number_item_or_range|
+            make_recs(number_item_or_range, current_rec_name, date)
+          }
+        end
       }
     }.flatten.compact
   end
