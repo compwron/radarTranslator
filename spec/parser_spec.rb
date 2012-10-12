@@ -5,6 +5,11 @@ describe Parser do
   subject { Parser.new }
   radar_date = Date.new(2010, 01, 01)
 
+  it "should get current rec name from current and possible rec names" do
+    subject.get_rec_name("Trial", nil).should == "Trial"
+    subject.get_rec_name("foo", nil).should == nil
+    subject.get_rec_name("Trial", "Adopt").should == "Trial"
+  end
   describe "#is_range? and #is_number?" do
     it "should see valid rec number" do
       subject.is_number?("1").should == "1"

@@ -26,7 +26,7 @@ class Parser
   end
 
   def get_rec_name possible_rec_name, current_rec_name
-    current_rec_name.nil? ? (@@valid_rec_names.include? possible_rec_name ? possible_rec_name : current_rec_name) : current_rec_name
+    @@valid_rec_names.include?(possible_rec_name) ? possible_rec_name : current_rec_name
   end
 
   def is_range? datum
@@ -42,13 +42,11 @@ class Parser
   end
 
   def make_recs possible_number_item_or_range, recommendation, date
-    puts "- - - what we have to work with #{possible_number_item_or_range}"
     possible_number_item_or_range.gsub!(",", "")
-    # number_or_range_of_datum = is_number_or_range(possible_number_item_or_range)
+
     is_range = is_range?(possible_number_item_or_range)
     is_number = is_number?(possible_number_item_or_range)
 
-    puts "is range? #{is_range} . . . is number? #{is_number}"
     if is_range then
       return get_range_recs(possible_number_item_or_range, recommendation, date)
     end
@@ -63,8 +61,6 @@ class Parser
       line_components = line.split(" ")
       possible_rec_name = line_components.first
       current_rec_name = get_rec_name(possible_rec_name, current_rec_name)
-
-      
 
       @@valid_rec_names.map {|valid_rec_name|
         if (line_components.include? valid_rec_name) then
