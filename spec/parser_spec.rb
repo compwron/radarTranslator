@@ -9,12 +9,14 @@ describe Parser do
     subject.date_of("2010-01.txt").should == radar_date
   end
 
-  it 'gets item name from datum' do
-    subject.item_name("1. Ruby").should == "Ruby"
-  end
+  describe "#item_name" do
+    it 'gets item name from datum' do
+      subject.item_name("1. Ruby").should == "Ruby"
+    end
 
-  it 'does not keep commas in item name' do
-    subject.item_name("1. Ruby, Python, and Clojure").should == "Ruby Python and Clojure"
+    it 'does not keep commas in item name' do
+      subject.item_name("1. Ruby, Python, and Clojure").should == "Ruby Python and Clojure"
+    end
   end
 
   describe "#item_number" do
@@ -27,31 +29,28 @@ describe Parser do
       subject.item_number(whole_file_text).should == "1"
     end
 
-    it 'understands multidigit items' do
+    it 'understands multidigit item number' do
       subject.item_number("Languages\n100. Ruby").should == "100"
     end
   end
-
-  adopt_1 = Recommendation.new("1", "Adopt", radar_date)
-  hold_2 = Recommendation.new("2", "Hold", radar_date)
   
   describe "#get_recommendations_from_string" do
-    rec_string = "Adopt 1"
-    two_rec_string = "Adopt 1\nHold 2"
-    item_string = "Tools\n10. Visualization & metrics"
-
+    adopt_1 = Recommendation.new("1", "Adopt", radar_date)
+    
     it "sees recommendation in string" do
-      subject.get_recommendations_from_string(rec_string, radar_date).should include adopt_1
+      subject.get_recommendations_from_string("Adopt 1", radar_date).should include adopt_1
     end
 
-    it "sees several recommendations in string" do
-      subject.get_recommendations_from_string(two_rec_string, radar_date).should include adopt_1
-      subject.get_recommendations_from_string(two_rec_string, radar_date).should include hold_2
-      subject.get_recommendations_from_string(two_rec_string, radar_date).size.should == 2
+    it "sees more than one recommendation in file contents" do
+      recs_from_two_rec_string = subject.get_recommendations_from_string("Adopt 1\nHold 2", radar_date)
+
+      recs_from_two_rec_string.should include adopt_1
+      recs_from_two_rec_string.should include Recommendation.new("2", "Hold", radar_date)
+      recs_from_two_rec_string.size.should == 2
     end
 
     it "sees no recommendation in item string" do
-      subject.get_recommendations_from_string(item_string, radar_date).size.should == 0
+      subject.get_recommendations_from_string("Tools\n10. Visualization & metrics", radar_date).size.should == 0
     end
 
     it "sees ranges of recs" do
