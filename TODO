@@ -1,0 +1,12 @@
+There is missing recommendation data for these items: check the radar and fix it
+To see results missing recommendation data: bin/radar_translator | grep -i ',.*,.*,.*,$'
+
+Build pipelines,2010-01-01,Techniques,8,
+User centered design,2010-01-01,Techniques,9,
+NoSQL,2010-04-01,Tools,22,
+Intentional,2010-08-01,Tools,19,
+iPad,2010-08-01,Platforms,61,
+Ruby,2010-08-01,Languages,46,
+
+The data point in 2010-08 #19 appears to be truncated; check for more data in the radar and fix it
+

@@ -68,15 +68,5 @@ describe Items do
       Items.new(end_to_end_debugging).to_csv.should_not include "Android,2010-01-01,Platforms,25,"
       Items.new(end_to_end_debugging).to_csv.should include "Android,2010-01-01,Platforms,25,Trial"
     end
-
-    it "should pick up stray rec" do
-          #        bin/radar_translator | grep -i ',.*,.*,.*,$' # this should return 0 results - this is either bad code or invalid data
-          # Build pipelines,2010-01-01,Techniques,8,
-          # User centered design,2010-01-01,Techniques,9,
-          # NoSQL,2010-04-01,Tools,22,
-          # Intentional,2010-08-01,Tools,19,
-          # iPad,2010-08-01,Platforms,61,
-          # Ruby,2010-08-01,Languages,46,
-    end
   end
 end
