@@ -2,4 +2,4 @@ source 'http://rubygems.org'
 
 gem 'rspec'
 gem 'trollop'
-gem 'rcov'
+gem 'simplecov'
