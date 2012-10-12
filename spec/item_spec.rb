@@ -19,4 +19,18 @@ describe Item do
     subject.add_rec("Adopt")
     subject.to_s.should == "Ruby 2010-01-01 Languages 1 Adopt"
   end
+
+  describe "#matches" do
+    it "should match a rec with same date and number" do 
+      subject.matches(Recommendation.new("1", "Anything", radar_date)).should == true
+    end
+
+    it "should not match a rec with different date but same number" do
+      subject.matches(Recommendation.new("1", "Anything", Date.new(2010,2,1))).should == false
+    end
+
+    it "should not match a rec with same data but different number" do
+      subject.matches(Recommendation.new("2", "Anything", radar_date)).should == false
+    end
+  end
 end
