@@ -11,6 +11,7 @@ describe Item do
   end
 
   it 'can have a recommendation added to it' do
+    subject.to_json.should == {"Ruby"=>{radar_date =>{"category"=>"Languages", "number" => "1"}}}
     subject.add_rec("Adopt")
     subject.to_json.should == {"Ruby"=>{radar_date =>{"category"=>"Languages", "number" => "1", "recommendation"=>"Adopt"}}}
   end
