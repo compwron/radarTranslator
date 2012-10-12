@@ -1,9 +1,6 @@
+require_relative "recommendation"
+
 class Parser
-
-attr_reader
-
-	def initialize
-	end
 
   def date_of filename
     matcher = filename.match /(\d{4})-(\d{2})\.txt/
