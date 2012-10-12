@@ -43,17 +43,17 @@ describe Items do
     end
   end
 
-  describe "test larger data sets" do
-    items_in_big_radar = 104
-    big_radar_data_dir = 'spec/big_radar'
-    big_items = Items.new(big_radar_data_dir)
+  # describe "test larger data sets" do
+  #   items_in_big_radar = 104
+  #   big_radar_data_dir = 'spec/big_radar'
+  #   big_items = Items.new(big_radar_data_dir)
 
-    it "should get correct number of recs in data file" do
-      big_items.get_recommendations_in_dir.size.should == items_in_big_radar
-      big_items.items.size.should == items_in_big_radar
-      big_items.with_recs.size.should == items_in_big_radar
-    end
-  end
+  #   it "should get correct number of recs in data file" do
+  #     big_items.get_recommendations_in_dir.size.should == items_in_big_radar
+  #     big_items.items.size.should == items_in_big_radar
+  #     big_items.with_recs.size.should == items_in_big_radar
+  #   end
+  # end
 
   describe "#with_recs_csv" do
     it "should see data as csv" do

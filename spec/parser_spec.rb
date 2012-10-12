@@ -4,6 +4,24 @@ describe Parser do
 
   subject { Parser.new }
   radar_date = Date.new(2010, 01, 01)
+
+  define "#is_number_or_range" do
+    it "should see valid rec number" do
+      subject.is_number_or_range("1").should == "1"
+    end
+
+    it "should see valid multidigit rec number" do
+      subject.is_number_or_range("100").should == "100"
+    end
+
+    it "should see valid rec range" do
+      subject.is_number_or_range("1-3").should == "1-3"
+    end
+
+    it "should not match item string" do
+      subject.is_number_or_range("1. Ruby, Python, and Clojure").should == nil
+    end
+  end
   
   it 'gets date from filename' do
     subject.date_of("2010-01.txt").should == radar_date
@@ -50,11 +68,13 @@ describe Parser do
     end
 
     it "sees no recommendation in item string" do
+      puts "hopefully-invalid recs #{subject.get_recommendations_from_string("Tools\n10. Visualization & metrics", radar_date)}"
       subject.get_recommendations_from_string("Tools\n10. Visualization & metrics", radar_date).size.should == 0
     end
 
     it "sees ranges of recs" do
       subject.get_recommendations_from_string("Adopt 1-3", radar_date).size.should == 3
+      subject.get_recommendations_from_string("Adopt 1-3", radar_date).should include Recommendation.new("2", "Adopt", radar_date)
     end
 
     it "picks up rec from bug case 2012-01 #25" do
@@ -83,4 +103,6 @@ describe Parser do
     subject.get_filenames(data_dir).should_not include "2010-08.txt"
     subject.get_filenames(data_dir).should_not include "."
   end
+
+  
 end
