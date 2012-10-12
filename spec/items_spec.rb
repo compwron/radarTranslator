@@ -1,4 +1,6 @@
 require_relative "../lib/items"
+require_relative "../lib/recommendation"
+
 require 'date'
 
 describe Items do

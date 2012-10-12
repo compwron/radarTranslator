@@ -1,5 +1,4 @@
 require_relative 'item'
-require_relative 'recommendation'
 require_relative 'parser'
 
 class Items
