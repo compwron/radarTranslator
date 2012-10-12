@@ -19,7 +19,7 @@ describe Parser do
     end
 
     it "should not match item string" do
-      subject.is_number_or_range("1. Ruby, Python, and Clojure").should == nil
+      subject.is_number_or_range("Tools\n10. Visualization & metrics").should == nil
     end
   end
   

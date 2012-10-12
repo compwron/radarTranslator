@@ -39,14 +39,15 @@ class Parser
     end
   end
 
-  def make_recs number_item_or_range, recommendation, date
-    puts "inside making recs using range #{number_item_or_range} and rec #{recommendation} and date #{date}"
-    number_item_or_range.gsub!(",", "")
-    if is_number_or_range(number_item_or_range) then
-      if number_item_or_range.include?("-")
-        get_range_recs(number_item_or_range, recommendation, date)
+  def make_recs possible_number_item_or_range, recommendation, date
+    possible_number_item_or_range.gsub!(",", "")
+    number_or_range_of_datum = is_number_or_range(possible_number_item_or_range)
+    if !number_or_range_of_datum.empty? then
+      puts "- - - - -we think this thing is an number or range? eek #{number_or_range_of_datum}"
+      if number_or_range_of_datum.include?("-")
+        get_range_recs(number_or_range_of_datum, recommendation, date)
       else
-        make_single_rec(number_item_or_range, recommendation, date)
+        make_single_rec(number_or_range_of_datum, recommendation, date)
       end
     end
   end
