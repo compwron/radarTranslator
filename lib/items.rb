@@ -57,13 +57,31 @@ class Items
   end
 
   def get_items
-    @@parser.get_filenames(@data_dir).map { |filename|
-      date = @@parser.date_of(filename)
-      category = nil
-      @@parser.get_data_from_file(@data_dir, filename).split("\n").map { |datum| 
+    category = nil
+    get_file_contents_and_date.map { |file_contents, date|
+      file_contents.split("\n").map { |datum|
         category = (["Languages", "Tools", "Techniques", "Platforms"].include?(datum)) ? datum : category
         make_valid_item(@@parser.item_name(datum), date, category, @@parser.item_number(datum))
-      }.compact 
+        }.compact
     }.inject(:+)
   end
 end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
