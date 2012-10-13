@@ -7,6 +7,7 @@ class Items
   attr_reader :items, :file_contents
 
   @@parser = Parser.new
+  @@valid_category_names = ["Languages", "Tools", "Techniques", "Platforms"]
 
   def initialize data_dir
     @data_dir = data_dir
@@ -59,7 +60,7 @@ class Items
     category = nil
     get_file_contents_and_date.map { |file_contents, date|
       file_contents.split("\n").map { |datum|
-        category = (["Languages", "Tools", "Techniques", "Platforms"].include?(datum)) ? datum : category
+        category = @@valid_category_names.include?(datum) ? datum : category
         make_valid_item(@@parser.item_name(datum), date, category, @@parser.item_number(datum))
         }.compact
     }.inject(:+)

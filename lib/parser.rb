@@ -18,11 +18,7 @@ class Parser
   def item_name datum
     regex = /\d*\. (.*)/
     matcher = datum.match(regex)
-    if matcher.nil? then
-      nil 
-    else
-      (datum.match regex)[1].gsub(",","")
-    end
+    matcher.nil? ? nil : (datum.match regex)[1].gsub(",","")
   end
 
   def get_rec_name possible_rec_name, current_rec_name
@@ -32,7 +28,7 @@ class Parser
   def is_range? datum
     regex = /(\d+\-\d+)/
     matcher = datum.match(regex)
-    (matcher.nil? ? nil : (datum.match regex)[1] )
+    matcher.nil? ? nil : (datum.match regex)[1]
   end
 
   def is_number? datum
@@ -64,14 +60,8 @@ class Parser
 
       @@valid_rec_names.map {|valid_rec_name|
         if (line_components.include? valid_rec_name) then
-
-          line_components.reject! { |line_component| 
-            @@valid_rec_names.include? line_component 
-          }
-          
-          line_components.map {|number_item_or_range|
-            make_recs(number_item_or_range, current_rec_name, date)
-          }
+          line_components.reject! { |line_component| @@valid_rec_names.include? line_component }
+          line_components.map {|number_item_or_range| make_recs(number_item_or_range, current_rec_name, date) }
         end
       }
     }.flatten.compact

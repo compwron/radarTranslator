@@ -1,5 +1,5 @@
-require_relative "../lib/item"
 require 'date'
+require_relative "../lib/item"
 
 describe Item do
 
