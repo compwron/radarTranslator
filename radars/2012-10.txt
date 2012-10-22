@@ -1,0 +1,120 @@
+Adopt 1-8, 28-34, 59-62, 85-88
+Trial 9-22, 35-48, 63-72, 89-97
+Assess 23, 49-55, 73-79, 98-103
+Hold 24-27, 56-58, 80-84, 104-107
+
+
+Techniques
+1. Health check pages
+2. Windows infrastructure automation
+3. Guerrilla user testing
+4. Work-in-Progress limits
+5. Automated deployment pipeline
+6. In process acceptance testing
+7. Advanced analytics
+8. Aggregates as documents
+9. Polyglot Persistence
+10.Performance testing as a first-class citizen
+11. Out-of-container functional testing
+12. Micro-services
+13. Infrastructure automation of development workstations
+14. Agile analytics
+15. Logs as data
+16. Responsive web design
+17. Mobile first
+18. Declarative provisioning
+19. Remote usability testing
+20. Semantic monitoring
+21. Edge Side Includes for page composition
+22. Configuration in DNS
+23. Deployment and scripting test tools
+24. Database based integration
+25. Feature branching
+26. Test recorders
+27. Exhaustive browser-based testing
+
+Tools
+28. Infrastructure as code
+29. Embedded servlet containers
+30. Silverback
+31. AppCode
+32. Jasmine paired with Node.js
+33. Immutable servers
+34. Graphite
+35. Vagrant
+36. Gradle
+37. PSake
+38. Frank
+39. JavaScript micro frameworks
+40. Jade
+41. NuGet
+42. Highcharts
+43. D3
+44. Apache Pig
+45. SaaS performance testing tools
+46. Dependency Structure Matrices
+47. Locust
+48. Rake for Java & .Net
+49. Logic-free markup
+50. Crazy Egg
+51. Zipkin
+52. Zucchini
+53. GemJars
+54. Light Table
+55. Riemann
+56. Enterprise service bus
+57. VCS with implicit workflow
+58. Maven
+
+Platforms
+59. ATOM
+60. Care about hardware
+61. Mobile payment systems
+62. Neo4J
+63. Node.js
+64. Riak
+65. Domain-specific PaaS
+66. Linux containers
+67. Private clouds
+68. Hybrid clouds
+69. MongoDB
+70. Continuous integration in the cloud
+71. Couchbase
+72. Single threaded servers with asynchronous I/O
+73. Calatrava
+74. Datomic
+75. Vert.x
+76. Azure
+77. Open source IaaS
+78. BigQuery
+79. Windows Phone
+80. WS-*
+81. Java portal servers
+82. Zero-code packages
+83. Singleton infrastructure
+84. Meteor.js
+
+Languages & Frameworks
+85. Clojure
+86. Scala
+87. Care about languages
+88. SASS, SCSS, LESS, and Stylus
+89. Domain-Specific Languages
+90. Scratch, Alice, and Kodu
+91. Twitter Bootstrap
+92. Sinatra
+93. AngularJS and Knockout
+94. Require.js
+95. Dropwizard
+96. Jekyll
+97. HTML5 for offline applications
+98. F#
+99. ClojureScript
+100. Lua
+101. RubyMotion
+102. Gremlin
+103. JavaScript as a platform
+104. Backbone.js
+105. Logic in stored procedures
+106. Google Dart
+107. Component-based frameworks
